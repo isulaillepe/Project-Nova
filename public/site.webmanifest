@@ -1,0 +1,16 @@
+{
+  "name": "Nova Hackathon",
+  "short_name": "Nova",
+  "description": "Nova Hackathon Registration Platform",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#8b5cf6",
+  "icons": [
+    {
+      "src": "/next.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

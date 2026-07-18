@@ -1,0 +1,362 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-poppins);
+  --font-space-grotesk: var(--font-space-grotesk);
+  --font-cormorant-garamond: var(--font-cormorant-garamond);
+  --font-orbitron: var(--font-orbitron);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-card: var(--card);
+  --color-card-foreground: var(--color-nova-bg);
+  --color-nova-bg: var(--nova-bg);
+  --color-nova-card: var(--nova-card);
+  --color-nova-border: var(--nova-border);
+  --color-nova-primary: var(--nova-primary);
+  --color-nova-secondary: var(--nova-secondary);
+}
+
+:root {
+  --background: #020617;
+  --foreground: #f8fafc;
+  --primary: #003599;
+  --primary-foreground: #ffffff;
+  --secondary: #ffb81c;
+  --secondary-foreground: #020617;
+  --muted: #0f172a;
+  --muted-foreground: #94a3b8;
+  --accent: #0f172a;
+  --accent-foreground: #f8fafc;
+  --destructive: #ef4444;
+  --destructive-foreground: #ffffff;
+  --border: #334155;
+  --input: #334155;
+  --ring: #003599;
+  --card: #0f172a;
+  --card-foreground: #f8fafc;
+  --nova-bg: #020617;
+  --nova-card: #0f172a;
+  --nova-border: #334155;
+  --nova-primary: #003599;
+  --nova-secondary: #ffb81c;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #020617;
+    --foreground: #f8fafc;
+  }
+}
+
+* {
+  border-color: var(--border);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+@layer utilities {
+  .font-space {
+    font-family: var(--font-space-grotesk), sans-serif;
+  }
+
+  .font-cormorant {
+    font-family: var(--font-cormorant-garamond), serif;
+  }
+
+  .font-orbitron {
+    font-family: var(--font-orbitron), sans-serif;
+  }
+
+  .skewed-btn {
+    transform: skewX(-12deg);
+  }
+
+  .skewed-btn-inner {
+    transform: skewX(12deg);
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .apple-bento-card {
+    @apply bg-[var(--nova-card)] border border-[var(--nova-border)] rounded-[28px] p-8 md:p-12
+           backdrop-blur-md transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]
+           will-change-transform;
+  }
+
+  .apple-btn-gradient {
+    @apply px-8 py-4 bg-gradient-to-r from-[var(--nova-primary)] to-indigo-600 text-white font-semibold
+           rounded-full hover:opacity-95 active:scale-95 transition-all duration-300
+           tracking-tight text-center block w-full sm:w-auto shadow-lg shadow-[var(--nova-primary)]/20;
+  }
+
+  .apple-btn-accent {
+    @apply px-8 py-4 bg-[var(--nova-secondary)] text-slate-950 font-bold rounded-full
+           hover:bg-[#e09e12] active:scale-95 transition-all duration-300
+           tracking-tight text-center block w-full sm:w-auto shadow-lg shadow-[var(--nova-secondary)]/10;
+  }
+
+  .apple-btn-outline {
+    @apply px-8 py-4 bg-transparent text-white font-medium rounded-full
+           border border-white/10 hover:bg-white/5 active:scale-95
+           transition-all duration-300 tracking-tight text-center block w-full sm:w-auto;
+  }
+
+  .apple-text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-b from-white via-slate-200 to-slate-400;
+  }
+
+  .animate-apple-fade-in {
+    animation: appleFadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .animate-pulse-glow {
+    animation: pulseGlow 3s ease-in-out infinite;
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  /* tailwindcss-animate emulation */
+  @keyframes enter {
+    from {
+      opacity: var(--tw-enter-opacity, 1);
+      transform: translate3d(var(--tw-enter-translate-x, 0), var(--tw-enter-translate-y, 0), 0) scale3d(var(--tw-enter-scale, 1), var(--tw-enter-scale, 1), 1) rotate(var(--tw-enter-rotate, 0));
+    }
+  }
+
+  .animate-in {
+    animation-name: enter;
+    animation-duration: 150ms;
+    animation-fill-mode: both;
+  }
+
+  .fade-in {
+    --tw-enter-opacity: 0;
+  }
+
+  .slide-in-from-bottom-4 {
+    --tw-enter-translate-y: 1rem;
+  }
+
+  .slide-in-from-right-4 {
+    --tw-enter-translate-x: 1rem;
+  }
+
+  .duration-500 {
+    animation-duration: 500ms;
+  }
+
+  .duration-700 {
+    animation-duration: 700ms;
+  }
+
+  .duration-1000 {
+    animation-duration: 1000ms;
+  }
+
+  .delay-100 {
+    animation-delay: 100ms;
+  }
+
+  .delay-200 {
+    animation-delay: 200ms;
+  }
+}
+
+@keyframes appleFadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scan {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.03);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient-shift 8s ease infinite;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-dark {
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-scroll {
+  animation: scroll 30s linear infinite;
+}
+
+@keyframes marquee-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee-left {
+  animation: marquee-left 40s linear infinite;
+}
+
+@keyframes marquee-right {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+.animate-marquee-right {
+  animation: marquee-right 40s linear infinite;
+}
+
+.animate-marquee {
+  animation: marquee-left 40s linear infinite;
+}
+
+/* Hover-pause animation play state */
+.marquee-row:hover .animate-marquee,
+.marquee-row:hover .animate-marquee-left,
+.marquee-row:hover .animate-marquee-right {
+  animation-play-state: paused !important;
+}
+
+@keyframes scroll-wheel {
+  0% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(8px); }
+}
+
+.animate-scroll-wheel {
+  animation: scroll-wheel 1.5s ease-in-out infinite;
+}
+
+@keyframes marquee-track {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.hero-ticker-track {
+  animation: marquee-track 40s linear infinite;
+}
+
+/* Minimalist Hardware Navigation Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #020617;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #1e293b;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #334155;
+}
+
+/* Focus visible styles */
+*:focus-visible {
+  outline: 2px solid var(--nova-primary);
+  outline-offset: 2px;
+}
+
+/* Selection styles */
+::selection {
+  background-color: var(--nova-primary);
+  color: white;
+}

@@ -1,2 +1,5 @@
 node_modules
 .env
+
+# Next.js build output (includes large Turbopack dev cache — must never be committed)
+.next/

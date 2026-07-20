@@ -8,7 +8,7 @@ const Card = React.forwardRef<
   <div
     ref={ref}
     className={cn(
-      "rounded-xl border bg-[var(--nova-card)] text-[var(--nova-card-foreground)] shadow-sm",
+      "rounded-2xl border border-[#003599]/30 bg-[#002066]/40 text-[var(--nova-linen)] backdrop-blur-md shadow-[0_10px_40px_rgba(0,8,30,0.45)]",
       className
     )}
     {...props}
@@ -35,7 +35,7 @@ const CardTitle = React.forwardRef<
   <h3
     ref={ref}
     className={cn(
-      "text-2xl font-semibold leading-none tracking-tight",
+      "font-cinzel text-2xl font-semibold leading-none tracking-wide text-[var(--nova-linen)]",
       className
     )}
     {...props}
@@ -49,7 +49,7 @@ const CardDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <p
     ref={ref}
-    className={cn("text-sm text-slate-400", className)}
+    className={cn("text-sm text-[var(--nova-slate)]", className)}
     {...props}
   />
 ));

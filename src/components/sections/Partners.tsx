@@ -7,7 +7,7 @@ import React from "react";
 const OmniAI = () => (
   <div className="flex items-center gap-1.5 font-space text-2xl sm:text-3xl select-none shrink-0 px-6">
     <span className="font-light text-slate-400">Omni</span>
-    <span className="font-extrabold text-[#FF5533]">AI</span>
+    <span className="font-extrabold text-[#FFB81B]">AI</span>
   </div>
 );
 
@@ -70,7 +70,7 @@ const Dilexus = () => (
 const ProductTavern = () => (
   <div className="flex items-center select-none shrink-0 bg-white/95 border-2 border-slate-300 rounded-md px-4 py-1 font-sans text-xs sm:text-sm h-8 sm:h-9">
     <span className="font-light text-slate-800 pr-1.5">product</span>
-    <span className="font-extrabold text-slate-900 bg-[#EAB308]/90 px-1.5 py-0.5 rounded-sm">tavern</span>
+    <span className="font-extrabold text-[#001233] bg-[#EAB308]/90 px-1.5 py-0.5 rounded-sm">tavern</span>
   </div>
 );
 
@@ -104,7 +104,7 @@ const Zone247 = () => (
 );
 
 const Kotmale = () => (
-  <div className="flex items-center gap-2.5 select-none shrink-0 bg-[#0F2D6B] border-2 border-blue-500/25 px-5 py-2 rounded-full shadow-[0_0_15px_rgba(15,45,107,0.4)]">
+  <div className="flex items-center gap-2.5 select-none shrink-0 bg-[#0F2D6B] border-2 border-bg-[#FFB81B]/10 px-5 py-2 rounded-full shadow-[0_0_15px_rgba(15,45,107,0.4)]">
     <div className="w-4 h-4 rounded-full bg-emerald-500/25 border border-emerald-400 flex items-center justify-center">
       <div className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
     </div>
@@ -115,7 +115,7 @@ const Kotmale = () => (
 const BuildClub = () => (
   <div className="flex items-center gap-2.5 select-none shrink-0 px-6">
     <div className="flex gap-1">
-      <span className="w-5 h-5 rounded-full bg-blue-500/30 border-2 border-blue-500 flex items-center justify-center text-[10px] font-bold text-blue-300">+</span>
+      <span className="w-5 h-5 rounded-full bg-bg-[#FFB81B]/15 border-2 border-text-[#FFB81B] flex items-center justify-center text-[10px] font-bold text-text-[#FFB81B]">+</span>
       <span className="w-5 h-5 rounded-full bg-purple-500/30 border-2 border-purple-500 flex items-center justify-center text-[10px] font-bold text-purple-300">x</span>
       <span className="w-5 h-5 rounded-full bg-orange-500/30 border-2 border-orange-500 flex items-center justify-center text-[10px] font-bold text-orange-300">o</span>
     </div>
@@ -165,7 +165,7 @@ const UniversityCap = () => (
 const AIESECUSJ = () => (
   <div className="flex items-center gap-2 select-none shrink-0 px-6">
     <div className="w-5 h-5 rounded-full bg-[#007FC6] flex items-center justify-center text-[10px] font-black text-white">A</div>
-    <span className="font-space font-extrabold text-blue-300 text-xs tracking-[0.25em]">AIESEC IN USJ</span>
+    <span className="font-space font-extrabold text-text-[#FFB81B] text-xs tracking-[0.25em]">AIESEC IN USJ</span>
   </div>
 );
 
@@ -185,7 +185,7 @@ const LOLC = () => (
 const ELearningLk = () => (
   <div className="flex items-center select-none shrink-0 bg-white border-2 border-slate-300 px-4 py-1 rounded-md font-sans text-xs sm:text-sm">
     <span className="font-light text-rose-600 font-black text-sm">e</span>
-    <span className="font-extrabold text-slate-900 pl-0.5">Learning.lk</span>
+    <span className="font-extrabold text-[#001233] pl-0.5">Learning.lk</span>
   </div>
 );
 
@@ -295,15 +295,15 @@ export default function Partners() {
     >
       {/* Background radial highlight */}
       <div className="absolute inset-0 -z-10 overflow-hidden select-none pointer-events-none" aria-hidden="true">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[600px] rounded-full bg-[#FF5533]/5 blur-[140px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[600px] rounded-full bg-[#FFB81B]/5 blur-[140px]" />
       </div>
 
       {/* Header (Centered) */}
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-16 sm:mb-24">
         {/* Section Heading */}
         <div className="text-center space-y-3 select-none">
-          <span className="text-[#FF5533] text-[11px] font-bold uppercase tracking-[0.25em] flex items-center justify-center gap-1.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#FF5533] shadow-[0_0_8px_#FF5533]" />
+          <span className="text-[#FFB81B] text-[11px] font-bold uppercase tracking-[0.25em] flex items-center justify-center gap-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#FFB81B] shadow-[0_0_8px_#FFB81B]" />
             BACKED BY THE BEST
           </span>
           <h2 className="text-4xl sm:text-6xl font-light tracking-tight leading-none text-white font-space uppercase">

@@ -75,9 +75,9 @@ function FaqItem({ item, index, openIndex, setOpenIndex, scrollYProgress }: FaqI
   return (
     <motion.div
       style={{ x, opacity }}
-      className={`group rounded-2xl bg-slate-950/75 backdrop-blur-md border transition-all duration-300 ${
+      className={`group rounded-2xl bg-[#001233]/75 backdrop-blur-md border transition-all duration-300 ${
         isOpen
-          ? "border-[#FF5533] shadow-[0_0_20px_rgba(255,85,51,0.25)]"
+          ? "border-[#FFB81B] shadow-[0_0_20px_rgba(255,184,27,0.25)]"
           : "border-white/10 hover:border-white/20"
       }`}
     >
@@ -88,7 +88,7 @@ function FaqItem({ item, index, openIndex, setOpenIndex, scrollYProgress }: FaqI
         >
           <span
             className={`font-space font-semibold text-sm sm:text-base md:text-lg transition-colors duration-300 ${
-              isOpen ? "text-[#FF5533]" : "text-white group-hover:text-slate-200"
+              isOpen ? "text-[#FFB81B]" : "text-white group-hover:text-slate-200"
             }`}
           >
             {item.question}
@@ -97,7 +97,7 @@ function FaqItem({ item, index, openIndex, setOpenIndex, scrollYProgress }: FaqI
             animate={{ rotate: isOpen ? 45 : 0 }}
             transition={{ duration: 0.2 }}
             className={`text-xl font-bold flex h-8 w-8 items-center justify-center rounded-lg bg-white/5 transition-all group-hover:bg-white/10 ${
-              isOpen ? "text-[#FF5533]" : "text-slate-400"
+              isOpen ? "text-[#FFB81B]" : "text-slate-400"
             }`}
           >
             +
@@ -243,7 +243,7 @@ export default function Faq() {
               className="w-full text-center px-4 mb-8"
             >
               <h2 className="text-2xl sm:text-4xl md:text-5xl font-orbitron font-bold tracking-wider text-white">
-                FREQUENTLY ASKED <span className="text-[#FF5533]">QUESTIONS</span>
+                FREQUENTLY ASKED <span className="text-[#FFB81B]">QUESTIONS</span>
               </h2>
             </motion.div>
 
@@ -289,8 +289,8 @@ export default function Faq() {
                 {/* Left Column: System Status & Coordinates */}
                 <div className="flex flex-col items-center md:items-start gap-1 select-none text-center md:text-left font-space">
                   <div className="flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#FF5533] shadow-[0_0_8px_#FF5533] animate-pulse" />
-                    <span className="text-[#FF5533] font-bold text-[10px] sm:text-xs tracking-widest uppercase">SYS.ONLINE</span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#FFB81B] shadow-[0_0_8px_#FFB81B] animate-pulse" />
+                    <span className="text-[#FFB81B] font-bold text-[10px] sm:text-xs tracking-widest uppercase">SYS.ONLINE</span>
                   </div>
                   <span className="text-[9px] sm:text-[10px] text-slate-500 font-mono tracking-wider">6.9271° N   79.8612° E</span>
                 </div>
@@ -305,7 +305,7 @@ export default function Faq() {
                         href={social.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex h-9.5 w-9.5 items-center justify-center rounded-md bg-slate-950/40 border border-white/5 text-slate-400 hover:text-white hover:border-[#FF5533]/40 hover:bg-[#FF5533]/10 transition-all duration-300"
+                        className="flex h-9.5 w-9.5 items-center justify-center rounded-md bg-[#001233]/40 border border-white/5 text-slate-400 hover:text-white hover:border-[#FFB81B]/40 hover:bg-[#FFB81B]/10 transition-all duration-300"
                         aria-label={social.label}
                       >
                         <social.icon className="h-4 w-4" />
@@ -318,7 +318,7 @@ export default function Faq() {
                 <div className="flex flex-col items-center md:items-end gap-1 text-center md:text-right select-none font-space">
                   <div className="font-extrabold text-sm sm:text-base tracking-wider uppercase">
                     <span className="text-white">PROJECT</span>
-                    <span className="text-[#FF5533] ml-1">NOVA</span>
+                    <span className="text-[#FFB81B] ml-1">NOVA</span>
                   </div>
                   <div className="text-[8px] sm:text-[9px] text-slate-500 font-medium tracking-widest uppercase leading-tight">
                     COPYRIGHT © 2026 <br />

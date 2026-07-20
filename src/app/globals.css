@@ -6,6 +6,7 @@
   --font-sans: var(--font-poppins);
   --font-space-grotesk: var(--font-space-grotesk);
   --font-cormorant-garamond: var(--font-cormorant-garamond);
+  --font-cinzel: var(--font-cinzel);
   --font-orbitron: var(--font-orbitron);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
@@ -21,48 +22,62 @@
   --color-input: var(--input);
   --color-ring: var(--ring);
   --color-card: var(--card);
-  --color-card-foreground: var(--color-nova-bg);
+  --color-card-foreground: var(--card-foreground);
   --color-nova-bg: var(--nova-bg);
+  --color-nova-deep: var(--nova-deep);
+  --color-nova-blue: var(--nova-blue);
   --color-nova-card: var(--nova-card);
   --color-nova-border: var(--nova-border);
   --color-nova-primary: var(--nova-primary);
   --color-nova-secondary: var(--nova-secondary);
+  --color-nova-gold: var(--nova-secondary);
+  --color-nova-gold-soft: var(--nova-gold-soft);
+  --color-nova-linen: var(--nova-linen);
+  --color-nova-slate: var(--nova-slate);
 }
 
 :root {
-  --background: #020617;
-  --foreground: #f8fafc;
+  /* ── Greek-mythology Olympus palette ── */
+  --nova-deep: #001233;      /* deepest midnight — base canvas */
+  --nova-bg: #001a4d;        /* midnight blue backdrop */
+  --nova-blue: #003599;      /* royal aegean blue */
+  --nova-primary: #003599;   /* royal blue (structural) */
+  --nova-secondary: #ffb81b; /* vibrant sun gold (focus accent) */
+  --nova-gold-soft: #ffcb47; /* softened gold highlight */
+  --nova-card: #002066;      /* glass panel base */
+  --nova-border: #003599;    /* aegean border */
+  --nova-linen: #f7fafc;     /* off-white linen for serif titles */
+  --nova-slate: #cbd5e0;     /* muted slate gray for body/ui */
+
+  /* shadcn-style token mapping */
+  --background: #001233;
+  --foreground: #f7fafc;
   --primary: #003599;
-  --primary-foreground: #ffffff;
-  --secondary: #ffb81c;
-  --secondary-foreground: #020617;
-  --muted: #0f172a;
-  --muted-foreground: #94a3b8;
-  --accent: #0f172a;
-  --accent-foreground: #f8fafc;
+  --primary-foreground: #f7fafc;
+  --secondary: #ffb81b;
+  --secondary-foreground: #001233;
+  --muted: #001a4d;
+  --muted-foreground: #cbd5e0;
+  --accent: #002066;
+  --accent-foreground: #f7fafc;
   --destructive: #ef4444;
   --destructive-foreground: #ffffff;
-  --border: #334155;
-  --input: #334155;
-  --ring: #003599;
-  --card: #0f172a;
-  --card-foreground: #f8fafc;
-  --nova-bg: #020617;
-  --nova-card: #0f172a;
-  --nova-border: #334155;
-  --nova-primary: #003599;
-  --nova-secondary: #ffb81c;
+  --border: #003599;
+  --input: #003599;
+  --ring: #ffb81b;
+  --card: #002066;
+  --card-foreground: #f7fafc;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #020617;
-    --foreground: #f8fafc;
+    --background: #001233;
+    --foreground: #f7fafc;
   }
 }
 
 * {
-  border-color: var(--border);
+  border-color: color-mix(in srgb, var(--nova-border) 30%, transparent);
 }
 
 html {
@@ -70,7 +85,15 @@ html {
 }
 
 body {
-  background-color: var(--background);
+  /* Cinematic Olympus backdrop: midnight core rising to aegean blue */
+  background-color: var(--nova-deep);
+  background-image: radial-gradient(
+    ellipse 120% 80% at 50% -10%,
+    #003599 0%,
+    #001a4d 42%,
+    #001233 100%
+  );
+  background-attachment: fixed;
   color: var(--foreground);
   font-family: var(--font-sans), system-ui, sans-serif;
 }
@@ -84,8 +107,19 @@ body {
     font-family: var(--font-cormorant-garamond), serif;
   }
 
+  .font-cinzel {
+    font-family: var(--font-cinzel), "Cormorant Garamond", serif;
+  }
+
   .font-orbitron {
     font-family: var(--font-orbitron), sans-serif;
+  }
+
+  /* Luxury Serif display scale — tracked-wide inscriptions */
+  .display-serif {
+    font-family: var(--font-cinzel), serif;
+    letter-spacing: 0.06em;
+    line-height: 1.04;
   }
 
   .skewed-btn {
@@ -100,28 +134,38 @@ body {
     text-wrap: balance;
   }
 
+  .text-gold-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(180deg, #ffe9a8 0%, #ffb81b 55%, #e0a015 100%);
+  }
+
+  .text-linen-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(180deg, #ffffff 0%, #f7fafc 40%, #cbd5e0 100%);
+  }
+
   .apple-bento-card {
-    @apply bg-[var(--nova-card)] border border-[var(--nova-border)] rounded-[28px] p-8 md:p-12
+    @apply bg-[var(--nova-card)]/40 border border-[var(--nova-border)]/30 rounded-[28px] p-8 md:p-12
            backdrop-blur-md transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]
            will-change-transform;
   }
 
   .apple-btn-gradient {
-    @apply px-8 py-4 bg-gradient-to-r from-[var(--nova-primary)] to-indigo-600 text-white font-semibold
-           rounded-full hover:opacity-95 active:scale-95 transition-all duration-300
-           tracking-tight text-center block w-full sm:w-auto shadow-lg shadow-[var(--nova-primary)]/20;
+    @apply px-8 py-4 bg-[var(--nova-secondary)] text-[#001233] font-bold
+           rounded-full hover:brightness-105 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200
+           tracking-tight text-center block w-full sm:w-auto;
   }
 
   .apple-btn-accent {
-    @apply px-8 py-4 bg-[var(--nova-secondary)] text-slate-950 font-bold rounded-full
-           hover:bg-[#e09e12] active:scale-95 transition-all duration-300
-           tracking-tight text-center block w-full sm:w-auto shadow-lg shadow-[var(--nova-secondary)]/10;
+    @apply px-8 py-4 bg-[var(--nova-secondary)] text-[#001233] font-bold rounded-full
+           hover:brightness-105 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200
+           tracking-tight text-center block w-full sm:w-auto;
   }
 
   .apple-btn-outline {
-    @apply px-8 py-4 bg-transparent text-white font-medium rounded-full
-           border border-white/10 hover:bg-white/5 active:scale-95
-           transition-all duration-300 tracking-tight text-center block w-full sm:w-auto;
+    @apply px-8 py-4 bg-transparent text-[var(--nova-linen)] font-medium rounded-full
+           border border-[var(--nova-secondary)]/25 hover:border-[var(--nova-secondary)]/60 hover:bg-[var(--nova-secondary)]/5 active:scale-[0.98]
+           transition-all duration-200 tracking-tight text-center block w-full sm:w-auto;
   }
 
   .apple-text-gradient {
@@ -262,16 +306,71 @@ body {
   display: none;
 }
 
+/* ─────────────────────────────────────────────
+   Gold aura — pulsing divine glow (max 0.25 opacity)
+   ───────────────────────────────────────────── */
+@keyframes goldGlow {
+  0%, 100% {
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 184, 27, 0.06),
+      0 10px 40px rgba(0, 8, 30, 0.45),
+      0 0 18px rgba(255, 184, 27, 0.05);
+  }
+  50% {
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 184, 27, 0.14),
+      0 10px 40px rgba(0, 8, 30, 0.45),
+      0 0 44px rgba(255, 184, 27, 0.25);
+  }
+}
+
+.shadow-gold-glow {
+  animation: goldGlow 4.5s ease-in-out infinite;
+}
+
+/* Static gold rim (no pulse) for focus rings and small elements */
+.ring-gold-static {
+  box-shadow: 0 0 0 1px rgba(255, 184, 27, 0.35), 0 0 18px rgba(255, 184, 27, 0.2);
+}
+
+/* ─────────────────────────────────────────────
+   .glass — premium Olympus panel
+   bg-[#002066]/40 backdrop-blur-md border border-[#003599]/30 + gold glow
+   ───────────────────────────────────────────── */
 .glass {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 32, 102, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 53, 153, 0.3);
+  animation: goldGlow 4.5s ease-in-out infinite;
 }
 
 .glass-dark {
-  background: rgba(15, 23, 42, 0.8);
+  background: rgba(0, 18, 51, 0.72);
   backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 53, 153, 0.3);
+}
+
+/* Fine golden hairline divider */
+.divider-gold {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 184, 27, 0.4) 50%,
+    transparent 100%
+  );
+}
+
+.divider-gold-vertical {
+  width: 1px;
+  background: linear-gradient(
+    180deg,
+    transparent 0%,
+    rgba(255, 184, 27, 0.4) 50%,
+    transparent 100%
+  );
 }
 
 @keyframes scroll {
@@ -337,26 +436,49 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #020617;
+  background: #001233;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1e293b;
+  background: #003599;
   border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #334155;
+  background: #ffb81b;
 }
 
 /* Focus visible styles */
 *:focus-visible {
-  outline: 2px solid var(--nova-primary);
+  outline: 2px solid var(--nova-secondary);
   outline-offset: 2px;
 }
 
 /* Selection styles */
 ::selection {
-  background-color: var(--nova-primary);
-  color: white;
+  background-color: var(--nova-secondary);
+  color: #001233;
+}
+
+/* ─────────────────────────────────────────────
+   Reduced motion — respect the quality floor
+   ───────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .glass,
+  .shadow-gold-glow {
+    animation: none !important;
+    box-shadow:
+      inset 0 1px 0 0 rgba(255, 184, 27, 0.1),
+      0 10px 40px rgba(0, 8, 30, 0.45),
+      0 0 24px rgba(255, 184, 27, 0.12);
+  }
 }

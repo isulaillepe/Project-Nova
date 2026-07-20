@@ -6,18 +6,25 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full text-sm font-semibold transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--nova-primary)]/50 disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full text-sm font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--nova-secondary)]/60 focus-visible:ring-offset-2 focus-visible:ring-offset-[#001233] disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       variant: {
-        default: "bg-[var(--nova-primary)] text-white hover:bg-[var(--nova-primary)]/90 shadow-lg shadow-[var(--nova-primary)]/20",
-        destructive: "bg-red-600 text-white hover:bg-red-600/90 shadow-lg shadow-red-600/20",
-        outline: "border border-white/10 bg-transparent hover:bg-white/5 text-white",
-        secondary: "bg-white/5 text-white border border-white/10 hover:bg-white/10 hover:border-white/20",
-        ghost: "hover:bg-white/5 hover:text-white text-slate-300",
-        link: "text-[var(--nova-primary)] underline-offset-4 hover:underline",
-        gradient: "px-8 py-4 bg-gradient-to-r from-[var(--nova-primary)] to-indigo-600 text-white font-semibold rounded-full hover:opacity-95 active:scale-95 transition-all duration-300 tracking-tight text-center shadow-lg shadow-[var(--nova-primary)]/20",
-        accent: "px-8 py-4 bg-[var(--nova-secondary)] text-slate-950 font-bold rounded-full hover:bg-[#e09e12] active:scale-95 transition-all duration-300 tracking-tight text-center shadow-lg shadow-[var(--nova-secondary)]/10",
+        // Solid sun-gold fill on deep midnight text — the divine focus action
+        default:
+          "bg-[var(--nova-secondary)] text-[#001233] font-bold hover:brightness-105 hover:scale-[1.02] active:scale-[0.98] shadow-[0_6px_24px_rgba(255,184,27,0.25)]",
+        destructive: "bg-red-600 text-white hover:bg-red-600/90 hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-red-600/20",
+        outline:
+          "border border-[var(--nova-secondary)]/30 bg-transparent text-[var(--nova-linen)] hover:border-[var(--nova-secondary)]/70 hover:bg-[var(--nova-secondary)]/5 hover:scale-[1.02] active:scale-[0.98]",
+        secondary:
+          "bg-[var(--nova-blue)]/20 text-[var(--nova-linen)] border border-[var(--nova-blue)]/40 hover:bg-[var(--nova-blue)]/30 hover:border-[var(--nova-secondary)]/40 hover:scale-[1.02] active:scale-[0.98]",
+        ghost: "hover:bg-[var(--nova-secondary)]/10 hover:text-[var(--nova-secondary)] text-[var(--nova-slate)]",
+        link: "text-[var(--nova-secondary)] underline-offset-4 hover:underline",
+        // gradient now reads as a burnished-gold fill with spring scaling
+        gradient:
+          "px-8 py-4 bg-[var(--nova-secondary)] text-[#001233] font-bold rounded-full hover:brightness-105 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 tracking-tight text-center shadow-[0_6px_24px_rgba(255,184,27,0.28)]",
+        accent:
+          "px-8 py-4 bg-[var(--nova-secondary)] text-[#001233] font-bold rounded-full hover:brightness-105 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 tracking-tight text-center shadow-[0_6px_24px_rgba(255,184,27,0.2)]",
       },
       size: {
         default: "h-10 px-4 py-2",

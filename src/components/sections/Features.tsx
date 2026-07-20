@@ -101,8 +101,8 @@ export function Features() {
     hidden: { scale: 0.9, borderColor: "rgba(255,255,255,0.15)" },
     visible: { 
       scale: 1, 
-      borderColor: "#FF5533", 
-      boxShadow: "0 0 10px rgba(255,85,51,0.2)",
+      borderColor: "#FFB81B", 
+      boxShadow: "0 0 10px rgba(255,184,27,0.2)",
       transition: { duration: 0.4 } 
     }
   };
@@ -111,7 +111,7 @@ export function Features() {
     hidden: { scale: 0, backgroundColor: "rgba(255,255,255,0.2)" },
     visible: { 
       scale: 1, 
-      backgroundColor: "#FF5533", 
+      backgroundColor: "#FFB81B", 
       transition: { duration: 0.4 } 
     }
   };
@@ -144,8 +144,8 @@ export function Features() {
 
         {/* Outlined Heading Title with header offset padding */}
         <div className="absolute top-28 sm:top-36 left-0 right-0 text-center space-y-2 z-30">
-          <span className="text-[#FF5533] text-[10px] font-bold uppercase tracking-[0.25em] flex items-center justify-center gap-1.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#FF5533] shadow-[0_0_8px_#FF5533]" />
+          <span className="text-[#FFB81B] text-[10px] font-bold uppercase tracking-[0.25em] flex items-center justify-center gap-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#FFB81B] shadow-[0_0_8px_#FFB81B]" />
             OUR JOURNEY
           </span>
           <h2 className="text-4xl sm:text-5xl font-light tracking-tight leading-none text-white font-space uppercase">
@@ -172,7 +172,7 @@ export function Features() {
           <div className="absolute left-0 right-0 top-[50%] -translate-y-1/2 h-[1.5px] z-10 pointer-events-none overflow-hidden">
             <motion.div 
               style={{ width: progressWidth }} 
-              className="h-full bg-[#FF5533] shadow-[0_0_8px_#FF5533]" 
+              className="h-full bg-[#FFB81B] shadow-[0_0_8px_#FFB81B]" 
             />
           </div>
 
@@ -205,7 +205,7 @@ export function Features() {
 
                   {/* Alternating Card layout: Odd cards above, Even cards below the top-[50%] line */}
                   <div 
-                    className={`absolute left-0 right-0 bg-slate-950/65 border border-white/10 rounded-xl p-4 sm:p-5 hover:border-[#FF5533]/35 transition-all duration-300 text-left border-l-[3px] border-l-[#FF5533] ${
+                    className={`absolute left-0 right-0 bg-[#001233]/65 border border-white/10 rounded-xl p-4 sm:p-5 hover:border-[#FFB81B]/35 transition-all duration-300 text-left border-l-[3px] border-l-[#FFB81B] ${
                       isOdd ? "bottom-[50%] mb-4" : "top-[50%] mt-4"
                     }`}
                   >
@@ -214,7 +214,7 @@ export function Features() {
                       <span className="text-[10px] font-bold text-slate-500 font-space tracking-widest">
                         STEP {step.step}
                       </span>
-                      <Shield className="w-3.5 h-3.5 text-[#FF5533]" />
+                      <Shield className="w-3.5 h-3.5 text-[#FFB81B]" />
                     </div>
                     <h3 className="text-base sm:text-lg font-bold text-white mb-1.5 uppercase font-space tracking-tight">
                       {step.title}
@@ -239,7 +239,7 @@ export function Features() {
                     {/* Date marker directly below/under the card container for Step 4 and Step 6 */}
                     {(step.step === "04" || step.step === "06") && (
                       <div className="absolute top-[calc(100%+12px)] left-0 right-0 text-center pointer-events-none">
-                        <span className="text-[#FF5533] font-black text-xl sm:text-2xl md:text-3xl uppercase tracking-widest block font-space drop-shadow-[0_0_10px_rgba(255,85,51,0.35)]">
+                        <span className="text-[#FFB81B] font-black text-xl sm:text-2xl md:text-3xl uppercase tracking-widest block font-space drop-shadow-[0_0_10px_rgba(255,184,27,0.35)]">
                           {step.step === "04" ? "31st of July" : "30th of August"}
                         </span>
                       </div>
@@ -257,7 +257,7 @@ export function Features() {
         {/* Skip Timeline Button */}
         <button
           onClick={handleSkip}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 z-30 px-5 py-2 rounded-full bg-slate-950/80 backdrop-blur-md border border-white/10 text-slate-300 text-[10px] font-bold uppercase tracking-widest hover:border-[#FF5533]/50 hover:text-white hover:shadow-[0_0_15px_rgba(255,85,51,0.2)] transition-all duration-300"
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 z-30 px-5 py-2 rounded-full bg-[#001233]/80 backdrop-blur-md border border-white/10 text-slate-300 text-[10px] font-bold uppercase tracking-widest hover:border-[#FFB81B]/50 hover:text-white hover:shadow-[0_0_15px_rgba(255,184,27,0.2)] transition-all duration-300"
         >
           Skip Timeline »
         </button>

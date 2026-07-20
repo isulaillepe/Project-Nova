@@ -175,6 +175,10 @@ export function Footer() {
       </div>
 
       <div className="absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
+        <div 
+          style={{ backgroundImage: "url('/images/greek_gods_footer.jpg')" }}
+          className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-full bg-cover bg-bottom opacity-10 mix-blend-lighten pointer-events-none select-none"
+        />
         <div className="absolute bottom-0 left-1/2 h-[600px] w-[600px] -translate-x-1/2 translate-y-1/2 rounded-full bg-gradient-to-t from-[#003599]/20 to-transparent blur-3xl" />
         <div className="absolute bottom-0 right-0 h-[400px] w-[400px] rounded-full bg-gradient-to-t from-[#ffb81b]/10 to-transparent blur-3xl" />
       </div>

@@ -183,11 +183,11 @@ export default function Faq() {
     };
   }, []);
 
-  // Background cross-fade: cosmic → rocket
+  // Background cross-fade: cosmic → rocket → footer
   const cosmicBgScale = useTransform(scrollYProgress, [0, 0.35], [1.0, 1.08]);
   const rocketBgScale = useTransform(scrollYProgress, [0.35, 0.70], [1.08, 1.0]);
   const cosmicBgOpacity = useTransform(scrollYProgress, [0.25, 0.45], [1, 0]);
-  const rocketBgOpacity = useTransform(scrollYProgress, [0.25, 0.45], [0, 1]);
+  const rocketBgOpacity = useTransform(scrollYProgress, [0.25, 0.45, 0.50, 0.70], [0, 1, 1, 0]);
 
   // FAQ content fades out first
   const faqContentOpacity = useTransform(scrollYProgress, [0.20, 0.40], [1, 0]);
@@ -214,7 +214,7 @@ export default function Faq() {
           <div className="absolute inset-0 z-0">
             <motion.div
               style={{
-                backgroundImage: "url('/images/cosmic_faq_bg.png')",
+                backgroundImage: "url('/images/greek_gods_faq_orange.jpg')",
                 scale: cosmicBgScale,
                 opacity: cosmicBgOpacity,
                 visibility: cosmicBgVisibility,
@@ -224,12 +224,20 @@ export default function Faq() {
             />
             <motion.div
               style={{
-                backgroundImage: "url('/images/rocket_launch_bg.png')",
+                backgroundImage: "url('/images/greek_gods_ascent_orange.jpg')",
                 scale: rocketBgScale,
                 opacity: rocketBgOpacity,
                 filter: "brightness(0.4)",
               }}
               className="absolute inset-0 bg-cover bg-center origin-center z-10"
+            />
+            <motion.div
+              style={{
+                backgroundImage: "url('/images/greek_gods_footer.jpg')",
+                opacity: registerOpacity,
+                filter: "brightness(0.4)",
+              }}
+              className="absolute inset-0 bg-cover bg-center origin-center z-20"
             />
           </div>
 

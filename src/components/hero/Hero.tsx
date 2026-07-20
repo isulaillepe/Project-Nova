@@ -47,7 +47,7 @@ export default function Hero() {
         <motion.div
           style={{
             scale: bgScale,
-            backgroundImage: "url('/images/greek_temple_statue.png')",
+            backgroundImage: "url('/images/greek_gods_bg.jpg')",
           }}
           className="absolute inset-0 bg-cover bg-center z-0 origin-center"
         />

@@ -43,7 +43,7 @@ const faqItems = [
   },
   {
     question: "What rewards can winners expect?",
-    answer: "Teams compete for a comprehensive cash prize layout consisting of LKR 75,000 for 1st place, LKR 50,000 for 2nd place, LKR 30,000 for 3rd place, and LKR 10,000 each for the next 10 places, accompanied by extensive corporate visibility and performance validation reports.",
+    answer: "Teams compete for a comprehensive cash prize layout consisting of LKR 75,000 for 1st place, LKR 40,000 for 2nd place, and LKR 20,000 for 3rd place, accompanied by extensive corporate visibility, certificates, and performance validation reports.",
   },
 ];
 

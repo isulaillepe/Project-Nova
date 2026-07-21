@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useWatch } from "react-hook-form";
 import {
   registrationSchema,
+  YEAR_OPTIONS,
   type RegistrationFormData,
 } from "@/lib/validations/registration";
 import { Button } from "@/components/ui/button";
@@ -24,14 +25,21 @@ import {
   GraduationCap,
   School,
 } from "lucide-react";
+import { FaWhatsapp } from "react-icons/fa";
 import { db } from "@/lib/firebase";
 import { collection, addDoc, getDocs, query, where, limit, serverTimestamp } from "firebase/firestore";
+
+const WHATSAPP_GROUP_LINK =
+  "https://www.google.com/search?q=mixkit&oq=mixkit&sourceid=chrome&source=chrome.ob&ie=UTF-8";
 
 const DEFAULT_MEMBER = {
   fullname: "",
   email: "",
   whatsapp_no: "",
   nic_no: "",
+  university: "",
+  year: "" as "" | "First Year" | "Second Year" | "Third Year" | "Fourth Year",
+  degree: "",
   is_leader: false,
 };
 
@@ -74,6 +82,15 @@ export function RegistrationForm() {
     watchedMembers.forEach((_, i: number) => {
       setValue(`members.${i}.is_leader`, i === index);
     });
+  };
+
+  const handleRemoveMember = (index: number) => {
+    const wasLeader = watchedMembers[index]?.is_leader;
+    remove(index);
+    // If the leader was removed, crown the first remaining member so a valid leader always exists
+    if (wasLeader) {
+      setValue("members.0.is_leader", true);
+    }
   };
 
   const handleNext = async () => {
@@ -172,20 +189,31 @@ export function RegistrationForm() {
         <p className="mb-8 text-sm text-[#8da2bd]">
           A confirmation scroll has been dispatched to your team leader.
         </p>
-        <Button
-          variant="gradient"
-          size="xl"
-          className="shadow-[0_0_30px_rgba(255,184,27,0.4)]"
-          onClick={() => {
-            setValue("teamName", "");
-            setValue("track", undefined as unknown as "school" | "university");
-            setValue("members", [{ ...DEFAULT_MEMBER, is_leader: true }]);
-            setSubmitStatus("idle");
-            setCurrentStep(1);
-          }}
-        >
-          Inscribe Another Crew
-        </Button>
+        <div className="flex flex-col items-center gap-4 w-full sm:w-auto">
+          <a
+            href={WHATSAPP_GROUP_LINK}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-flex items-center justify-center gap-2.5 rounded-xl bg-gradient-to-br from-[#25D366] to-[#128C7E] px-8 py-4 text-base font-space font-bold uppercase tracking-wider text-white shadow-[0_0_30px_rgba(37,211,102,0.4)] transition-all duration-300 hover:shadow-[0_0_40px_rgba(37,211,102,0.6)] hover:-translate-y-0.5 w-full sm:w-auto"
+          >
+            <FaWhatsapp className="h-5 w-5" />
+            Join Our WhatsApp Group
+          </a>
+          <Button
+            variant="gradient"
+            size="xl"
+            className="shadow-[0_0_30px_rgba(255,184,27,0.4)] w-full sm:w-auto"
+            onClick={() => {
+              setValue("teamName", "");
+              setValue("track", undefined as unknown as "school" | "university");
+              setValue("members", [{ ...DEFAULT_MEMBER, is_leader: true }]);
+              setSubmitStatus("idle");
+              setCurrentStep(1);
+            }}
+          >
+            Inscribe Another Crew
+          </Button>
+        </div>
       </div>
     );
   }
@@ -246,7 +274,7 @@ export function RegistrationForm() {
                   Join the <span className="text-gold-gradient drop-shadow-[0_0_15px_rgba(255,184,27,0.3)]">Odyssey</span>
                 </h2>
                 <p className="mt-2 text-xs sm:text-sm text-[#cbd5e0]/80 max-w-xl font-light">
-                  Form your dream crew of 2 to 4 members to brainstorm, design and pitch breakthrough innovations before the pantheon.
+                  Form your dream crew of 1 to 5 members to brainstorm, design and pitch breakthrough innovations before the pantheon.
                 </p>
               </div>
               <span className="rounded-lg bg-[#FFB81B]/10 border border-[#FFB81B]/20 px-4 py-1.5 text-[10px] font-space font-bold uppercase tracking-widest text-[#FFB81B]">
@@ -261,7 +289,7 @@ export function RegistrationForm() {
                 </div>
                 <div>
                   <div className="text-[11px] font-space font-bold uppercase tracking-wider text-[#f7fafc]">CREW LIMITS</div>
-                  <div className="text-xs text-[#cbd5e0]/70 mt-0.5">Crews must consist of exactly 2 to 4 members.</div>
+                  <div className="text-xs text-[#cbd5e0]/70 mt-0.5">Crews may consist of 1 to 5 members.</div>
                 </div>
               </div>
 
@@ -436,10 +464,10 @@ export function RegistrationForm() {
                             Crown Leader
                           </button>
                         )}
-                        {fields.length > 2 && (
+                        {fields.length > 1 && (
                           <button
                             type="button"
-                            onClick={() => remove(index)}
+                            onClick={() => handleRemoveMember(index)}
                             className="rounded-lg border border-[#003599]/40 bg-[#002066]/40 p-1.25 text-[#cbd5e0] transition-all hover:border-red-500/30 hover:bg-red-500/10 hover:text-red-400 cursor-pointer"
                           >
                             <Trash2 className="h-3.5 w-3.5" />
@@ -530,6 +558,79 @@ export function RegistrationForm() {
                           </p>
                         )}
                       </div>
+
+                      {/* University-track fields (shown only when the University trial is selected) */}
+                      {watchedTrack === "university" && (
+                        <>
+                          <div className="space-y-1.5 sm:col-span-2">
+                            <Label
+                              htmlFor={`members.${index}.university`}
+                              className="text-[10px] font-space font-bold uppercase tracking-wider text-[#cbd5e0]/80"
+                            >
+                              University Name <span className="text-[#FFB81B]">*</span>
+                            </Label>
+                            <Input
+                              id={`members.${index}.university`}
+                              placeholder="University of Sri Jayewardenepura"
+                              className="bg-[#002066]/40 border-[#003599]/40 text-[#f7fafc] placeholder:text-[#cbd5e0]/30 focus:border-[#FFB81B] focus:ring-1 focus:ring-[#FFB81B] h-10 rounded-lg text-xs"
+                              {...register(`members.${index}.university`)}
+                            />
+                            {errors.members?.[index]?.university && (
+                              <p className="mt-1 text-[10px] text-red-400">
+                                {errors.members[index].university.message}
+                              </p>
+                            )}
+                          </div>
+
+                          <div className="space-y-1.5">
+                            <Label
+                              htmlFor={`members.${index}.year`}
+                              className="text-[10px] font-space font-bold uppercase tracking-wider text-[#cbd5e0]/80"
+                            >
+                              Year of Study <span className="text-[#FFB81B]">*</span>
+                            </Label>
+                            <select
+                              id={`members.${index}.year`}
+                              {...register(`members.${index}.year`)}
+                              className="w-full bg-[#002066]/40 border border-[#003599]/40 text-[#f7fafc] focus:border-[#FFB81B] focus:ring-1 focus:ring-[#FFB81B] focus:shadow-[0_0_18px_rgba(255,184,27,0.2)] h-10 rounded-lg text-xs px-3 outline-none transition-all"
+                            >
+                              <option value="" className="bg-[#001233] text-[#cbd5e0]/50">
+                                Select year
+                              </option>
+                              {YEAR_OPTIONS.map((opt) => (
+                                <option key={opt} value={opt} className="bg-[#001233] text-[#f7fafc]">
+                                  {opt}
+                                </option>
+                              ))}
+                            </select>
+                            {errors.members?.[index]?.year && (
+                              <p className="mt-1 text-[10px] text-red-400">
+                                {errors.members[index].year.message}
+                              </p>
+                            )}
+                          </div>
+
+                          <div className="space-y-1.5">
+                            <Label
+                              htmlFor={`members.${index}.degree`}
+                              className="text-[10px] font-space font-bold uppercase tracking-wider text-[#cbd5e0]/80"
+                            >
+                              Degree / Programme <span className="text-[#FFB81B]">*</span>
+                            </Label>
+                            <Input
+                              id={`members.${index}.degree`}
+                              placeholder="B.Sc. Computer Science"
+                              className="bg-[#002066]/40 border-[#003599]/40 text-[#f7fafc] placeholder:text-[#cbd5e0]/30 focus:border-[#FFB81B] focus:ring-1 focus:ring-[#FFB81B] h-10 rounded-lg text-xs"
+                              {...register(`members.${index}.degree`)}
+                            />
+                            {errors.members?.[index]?.degree && (
+                              <p className="mt-1 text-[10px] text-red-400">
+                                {errors.members[index].degree.message}
+                              </p>
+                            )}
+                          </div>
+                        </>
+                      )}
                     </div>
                   </div>
                 ))}
@@ -663,6 +764,11 @@ export function RegistrationForm() {
                           <div className="text-xs text-[#cbd5e0]/60 truncate mt-0.5">
                             {member.email || "—"}
                           </div>
+                          {watchedTrack === "university" && (
+                            <div className="text-[10px] text-[#cbd5e0]/50 truncate mt-1 font-space">
+                              {member.degree || "—"} · {member.year || "—"} · {member.university || "—"}
+                            </div>
+                          )}
                         </div>
                       </div>
 

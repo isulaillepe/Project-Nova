@@ -1,6 +1,13 @@
 import { z } from "zod";
 import { sanitizeHtml, sanitizePhone, sanitizeEmail, sanitizeNic } from "@/lib/sanitize";
 
+export const YEAR_OPTIONS = [
+  "First Year",
+  "Second Year",
+  "Third Year",
+  "Fourth Year",
+] as const;
+
 export const memberSchema = z.object({
   fullname: z
     .string()
@@ -25,6 +32,20 @@ export const memberSchema = z.object({
     .min(5, "NIC/ID number must be at least 5 characters")
     .max(20, "NIC/ID number cannot exceed 20 characters")
     .transform(sanitizeNic),
+  // University-track fields (only required when track === "university" — enforced below)
+  university: z
+    .string()
+    .trim()
+    .max(150, "University name cannot exceed 150 characters")
+    .transform(sanitizeHtml)
+    .optional(),
+  year: z.union([z.enum(YEAR_OPTIONS), z.literal("")]).optional(),
+  degree: z
+    .string()
+    .trim()
+    .max(150, "Degree name cannot exceed 150 characters")
+    .transform(sanitizeHtml)
+    .optional(),
   is_leader: z.boolean(),
 });
 
@@ -46,6 +67,33 @@ export const registrationSchema = z.object({
       (members) => members.filter((m) => m.is_leader).length === 1,
       { message: "Exactly one team member must be designated as the leader" }
     ),
+}).superRefine((data, ctx) => {
+  // University-track fields are required only when the University track is selected
+  if (data.track === "university") {
+    data.members.forEach((member, index) => {
+      if (!member.university || member.university.length < 2) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ["members", index, "university"],
+          message: "University name is required",
+        });
+      }
+      if (!member.year) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ["members", index, "year"],
+          message: "Please select your year of study",
+        });
+      }
+      if (!member.degree || member.degree.length < 2) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ["members", index, "degree"],
+          message: "Degree name is required",
+        });
+      }
+    });
+  }
 });
 
 export type RegistrationFormData = z.infer<typeof registrationSchema>;

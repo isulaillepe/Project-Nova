@@ -125,7 +125,7 @@ export default function Stats() {
                 1st Runner-Up
               </span>
               <span className="text-3xl font-extrabold tracking-tight text-[#f7fafc] font-cinzel">
-                LKR 50,000
+                LKR 40,000
               </span>
               <p className="text-[10px] text-[#cbd5e0]/70 font-space leading-relaxed max-w-[200px] mt-1">
                 Awarded for high-impact concept designs and a structured developmental vision.
@@ -165,7 +165,7 @@ export default function Stats() {
                 2nd Runner-Up
               </span>
               <span className="text-3xl font-extrabold tracking-tight text-[#f7fafc] font-cinzel">
-                LKR 30,000
+                LKR 20,000
               </span>
               <p className="text-[10px] text-[#cbd5e0]/70 font-space leading-relaxed max-w-[200px] mt-1">
                 Recognized for clear industrial prototype readiness and engineering execution stability.
@@ -181,15 +181,15 @@ export default function Stats() {
               </div>
               <div>
                 <span className="text-[10px] font-bold tracking-[0.2em] text-[#FFB81B] uppercase block font-space">
-                  FINALIST MERIT SCHEME
+                  RECOGNITION & CERTIFICATES
                 </span>
                 <span className="text-[11px] text-[#cbd5e0] font-space font-medium leading-tight">
-                  LKR 10,000 allocated across 10 short-listed teams to honor their execution.
+                  All finalist teams will receive official participation credentials and exclusive performance validation reports.
                 </span>
               </div>
             </div>
             <div className="bg-[#FFB81B]/10 border border-[#FFB81B]/25 px-4 py-2 rounded-xl font-space font-bold text-xs text-[#FFB81B] tracking-wider shrink-0">
-              TOTAL POOL: LKR 255,000
+              TOTAL POOL: LKR 135,000
             </div>
           </div>
         </motion.div>

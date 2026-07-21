@@ -10,7 +10,7 @@ const tickerItems = [
   "GRAND FINALE · 11 JULY",
   "DHPL AUDITORIUM — COLOMBO",
   "THE TREASURY AWAITS",
-  "LKR 255,000 PRIZE POOL",
+  "LKR 135,000 PRIZE POOL",
   "INTER-UNIVERSITY",
   "PROJECT NOVA · AIESEC USJ",
 ];
@@ -47,7 +47,7 @@ export default function Hero() {
         <motion.div
           style={{
             scale: bgScale,
-            backgroundImage: "url('/images/greek_gods_bg.jpg')",
+            backgroundImage: "url('/images/astronaut_hero_bg.png')",
           }}
           className="absolute inset-0 bg-cover bg-center z-0 origin-center"
         />
@@ -136,7 +136,7 @@ export default function Hero() {
                 <span className="w-1.5 h-1.5 rounded-full bg-[#FFB81B]" /> THE TREASURY • PRIZE POOL
               </span>
               <span className="font-cinzel text-[#FFB81B] text-lg sm:text-xl font-bold mt-0.5 leading-none tracking-wide">
-                LKR 255,000
+                LKR 135,000
               </span>
             </div>
           </div>

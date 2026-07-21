@@ -41,7 +41,7 @@ const orbitron = Orbitron({
 export const metadata: Metadata = {
   metadataBase: new URL("https://projectnova.lk"),
   title: "Project Nova - Innovation Meets Opportunity",
-  description: "Sri Lanka's premier inter-university tech innovation competition. LKR 255,000 prize pool. Organized by AIESEC in University of Sri Jayewardenepura.",
+  description: "Sri Lanka's premier inter-university tech innovation competition. LKR 135,000 prize pool. Organized by AIESEC in University of Sri Jayewardenepura.",
   keywords: ["Project Nova", "AIESEC", "Sri Jayewardenepura", "tech competition", "student innovation", "youth leadership", "Sri Lanka tech event", "startup competition", "hackathon"],
   authors: [{ name: "AIESEC in University of Sri Jayewardenepura" }],
   creator: "AIESEC in University of Sri Jayewardenepura",

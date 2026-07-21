@@ -1,4 +1,5 @@
 import Hero from "@/components/hero/Hero";
+import ShatterSection from "@/components/sections/ShatterSection";
 import Stats from "@/components/sections/Stats";
 import WhoCanCompete from "@/components/sections/WhoCanCompete";
 import { Features } from "@/components/sections/Features";
@@ -11,6 +12,7 @@ export default function Home() {
   return (
     <>
       <Hero />
+      <ShatterSection />
       <Stats />
       <WhoCanCompete />
       <Features />

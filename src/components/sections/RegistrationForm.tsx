@@ -26,8 +26,7 @@ import {
   School,
 } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
-import { db } from "@/lib/firebase";
-import { collection, addDoc, getDocs, query, where, limit, serverTimestamp } from "firebase/firestore";
+import { registerTeam } from "@/app/actions/register";
 
 const WHATSAPP_GROUP_LINK =
   "https://www.google.com/search?q=mixkit&oq=mixkit&sourceid=chrome&source=chrome.ob&ie=UTF-8";
@@ -42,6 +41,20 @@ const DEFAULT_MEMBER = {
   degree: "",
   is_leader: false,
 };
+
+// Helper functions to mask PII in review step
+function maskNic(nic: string): string {
+  if (!nic) return "—";
+  if (nic.length <= 4) return "*".repeat(nic.length);
+  return `${"*".repeat(nic.length - 4)}${nic.slice(-4)}`;
+}
+
+function maskPhone(phone: string): string {
+  if (!phone) return "—";
+  const digits = phone.replace(/\D/g, "");
+  if (digits.length <= 4) return "*".repeat(digits.length);
+  return `+94 *** *** ${digits.slice(-4)}`;
+}
 
 export function RegistrationForm() {
   const [currentStep, setCurrentStep] = React.useState(1);
@@ -116,51 +129,19 @@ export function RegistrationForm() {
     setServerError("");
 
     try {
-      const teamsRef = collection(db, "teams");
+      const formData = new FormData();
+      formData.append("teamName", data.teamName);
+      formData.append("track", data.track);
+      formData.append("members", JSON.stringify(data.members));
 
-      // Case-insensitive check for team name uniqueness
-      const formattedTeamName = data.teamName.trim();
-      const teamNameLower = formattedTeamName.toLowerCase();
-      const q = query(
-        teamsRef,
-        where("teamNameLower", "==", teamNameLower),
-        limit(1)
-      );
-      const querySnapshot = await getDocs(q);
+      const result = await registerTeam(formData);
 
-      if (!querySnapshot.empty) {
-        throw new Error("A team with this name is already registered.");
+      if (result.success) {
+        setSubmitStatus("success");
+      } else {
+        setSubmitStatus("error");
+        setServerError(result.error || "An unexpected error occurred");
       }
-
-      // Add document to Firestore
-      const newTeam = {
-        ...data,
-        teamNameLower,
-        createdAt: serverTimestamp(),
-      };
-      await addDoc(teamsRef, newTeam);
-
-      // Send confirmation email via API route
-      const leader = data.members.find((m) => m.is_leader);
-      if (leader && leader.email) {
-        const memberNames = data.members.map((m) => m.fullname);
-        try {
-          await fetch("/api/send-email", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              email: leader.email,
-              teamName: data.teamName,
-              memberNames,
-            }),
-          });
-        } catch (emailErr) {
-          console.warn("Email sending failed:", emailErr);
-          // Don't fail registration if email fails
-        }
-      }
-
-      setSubmitStatus("success");
     } catch (err: unknown) {
       setSubmitStatus("error");
       setServerError(
@@ -775,11 +756,11 @@ export function RegistrationForm() {
                       <div className="flex justify-between sm:justify-end gap-6 text-right text-xs font-sans text-[#cbd5e0] sm:border-l sm:border-[#003599]/30 sm:pl-6">
                         <div className="space-y-0.5">
                           <div className="text-[9px] font-space font-bold text-[#cbd5e0]/50 text-left sm:text-right uppercase tracking-wider">WHATSAPP</div>
-                          <div className="text-[#f7fafc] font-medium">{member.whatsapp_no || "—"}</div>
+                          <div className="text-[#f7fafc] font-medium">{maskPhone(member.whatsapp_no)}</div>
                         </div>
                         <div className="space-y-0.5">
                           <div className="text-[9px] font-space font-bold text-[#cbd5e0]/50 text-left sm:text-right uppercase tracking-wider">NIC / ID</div>
-                          <div className="text-[#f7fafc] font-medium">{member.nic_no || "—"}</div>
+                          <div className="text-[#f7fafc] font-medium">{maskNic(member.nic_no)}</div>
                         </div>
                       </div>
                     </div>

@@ -22,6 +22,18 @@ export function SystemPreloader() {
   const [visible, setVisible] = React.useState(true);
   const [mounted, setMounted] = React.useState(false);
 
+  // Use refs to track state that cleanup needs access to
+  const rafRef = React.useRef<number | null>(null);
+  const startDelayRef = React.useRef<number | null>(null);
+  const prevOverflowRef = React.useRef<string>("");
+
+  // Restore scroll - this function is idempotent and safe to call multiple times
+  const restoreScroll = React.useCallback(() => {
+    if (typeof document !== "undefined") {
+      document.body.style.overflow = prevOverflowRef.current || "";
+    }
+  }, []);
+
   React.useEffect(() => {
     setMounted(true);
 
@@ -42,11 +54,10 @@ export function SystemPreloader() {
       "(prefers-reduced-motion: reduce)"
     ).matches;
 
-    // Lock scroll while booting.
-    const prevOverflow = document.body.style.overflow;
+    // Lock scroll while booting - save original overflow
+    prevOverflowRef.current = document.body.style.overflow || "";
     document.body.style.overflow = "hidden";
 
-    let raf = 0;
     let current = 0;
     const step = prefersReduced ? 100 : 1.4;
 
@@ -68,26 +79,34 @@ export function SystemPreloader() {
         return;
       }
       setProgress(current);
-      raf = window.requestAnimationFrame(tick);
+      rafRef.current = window.requestAnimationFrame(tick);
     };
 
-    const startDelay = window.setTimeout(() => {
-      raf = window.requestAnimationFrame(tick);
+    startDelayRef.current = window.setTimeout(() => {
+      rafRef.current = window.requestAnimationFrame(tick);
     }, prefersReduced ? 0 : 220);
 
+    // Cleanup function - guaranteed to run on unmount
     return () => {
-      window.cancelAnimationFrame(raf);
-      window.clearTimeout(startDelay);
-      document.body.style.overflow = prevOverflow;
+      if (rafRef.current !== null) {
+        window.cancelAnimationFrame(rafRef.current);
+        rafRef.current = null;
+      }
+      if (startDelayRef.current !== null) {
+        window.clearTimeout(startDelayRef.current);
+        startDelayRef.current = null;
+      }
+      // Always restore scroll on unmount
+      restoreScroll();
     };
-  }, []);
+  }, [restoreScroll]);
 
-  // Restore scroll once the overlay is dismissed.
+  // Also restore scroll once the overlay is dismissed (redundant but safe)
   React.useEffect(() => {
     if (!visible) {
-      document.body.style.overflow = "";
+      restoreScroll();
     }
-  }, [visible]);
+  }, [visible, restoreScroll]);
 
   const rounded = Math.round(progress);
   const activeLog =

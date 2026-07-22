@@ -33,6 +33,7 @@ const COMMITTEE: {
   email: string;
   avatar: string;
   image?: string;
+  objectPosition?: string;
   linkedin?: string;
 }[] = [
   {
@@ -41,47 +42,132 @@ const COMMITTEE: {
     title: "Organizing Committee President",
     email: "niyomabodinie@aiesec.net",
     avatar: "NB",
-    linkedin: "https://linkedin.com",
+    image: "/images/committee/niyoma.jpg",
+    linkedin: "https://www.linkedin.com/in/niyoma",
   },
   {
     id: "CM-02",
-    name: "Dinuki Masakorala",
-    title: "VP Business Development",
-    email: "dinuki.masakorala@aiesec.net",
-    avatar: "DM",
-    linkedin: "https://linkedin.com",
+    name: "Vickneshwaran Vinothini",
+    title: "OCVP Delegates",
+    email: "vinothinivickneshwaran27@gmail.com",
+    avatar: "VV",
+    image: "/images/committee/vinothini.jpg",
+    linkedin: "https://www.linkedin.com/in/vinothini-vickneshwaran-535071380",
   },
   {
     id: "CM-03",
-    name: "Dinuka Wimalagunasekara",
-    title: "VP Partnership Development",
-    email: "diw02@aiesec.net",
-    avatar: "DW",
-    linkedin: "https://linkedin.com",
+    name: "Manasha Fernando",
+    title: "OCVP Delegates",
+    email: "manashafernando@aiesec.net",
+    avatar: "MF",
+    image: "/images/committee/manasha.jpg",
+    linkedin: "https://www.linkedin.com/in/manasha-fernando-83003b345",
   },
   {
     id: "CM-04",
-    name: "Pahanma Kumarasiri",
-    title: "VP Partnership Development",
-    email: "pahanmakumarasiri@aiesec.net",
-    avatar: "PK",
-    linkedin: "https://linkedin.com",
+    name: "Isula Illeperuma",
+    title: "OCVP Marketing",
+    email: "isulaillepe2024@aiesec.net",
+    avatar: "II",
+    image: "/images/committee/isula.jpg",
+    linkedin: "https://www.linkedin.com/in/isulailleperuma/",
   },
   {
     id: "CM-05",
-    name: "Manaal Zainab",
-    title: "VP Partnership Development",
-    email: "manaalzainab@aiesec.net",
-    avatar: "MZ",
-    linkedin: "https://linkedin.com",
+    name: "Migara Wijewardana",
+    title: "OCVP Marketing",
+    email: "migara@aiesec.net",
+    avatar: "MW",
+    image: "/images/committee/migara.jpg",
   },
   {
     id: "CM-06",
-    name: "Tharsigan Gnanasekar",
-    title: "VP Partnership Development",
+    name: "Mihindi Liyanage",
+    title: "OCVP Marketing",
+    email: "mihindinilesha2004@aiesec.net",
+    avatar: "ML",
+    image: "/images/committee/mihindi.jpg",
+  },
+  {
+    id: "CM-07",
+    name: "Tharsigan Gnanasekara",
+    title: "OCVP Partnership Development",
     email: "tharsigan2004@aiesec.net",
     avatar: "TG",
-    linkedin: "https://linkedin.com",
+    image: "/images/committee/tharsigan.jpg",
+    linkedin: "https://www.linkedin.com/in/tharsi007",
+  },
+  {
+    id: "CM-08",
+    name: "Dinuka Wimalagunasekara",
+    title: "OCVP Partnership Development",
+    email: "diw02@aiesec.net",
+    avatar: "DW",
+    image: "/images/committee/dinuka.jpg",
+    linkedin: "https://www.linkedin.com/in/dinuka-wimalagunasekara-8678ba25b",
+  },
+  {
+    id: "CM-09",
+    name: "Pahanma Kumarasiri",
+    title: "OCVP Partnership Development",
+    email: "pahanmakumarasiri@aiesec.net",
+    avatar: "PK",
+    image: "/images/committee/pahanma.jpg",
+    linkedin: "https://www.linkedin.com/in/pahanma-kumarasiri-150496386",
+  },
+  {
+    id: "CM-10",
+    name: "Manaal Zainab",
+    title: "OCVP Partnership Development",
+    email: "manaalzainab@aiesec.net",
+    avatar: "MZ",
+    image: "/images/committee/manaal.jpg",
+    linkedin: "https://www.linkedin.com/in/manaalzainab",
+  },
+  {
+    id: "CM-11",
+    name: "Sanathmi Sanupama",
+    title: "OCVP Event Management",
+    email: "sanathmi.sanupama@aiesec.net",
+    avatar: "SS",
+    image: "/images/committee/sanathmi.jpg",
+    linkedin: "https://www.linkedin.com/in/sanathmi",
+  },
+  {
+    id: "CM-12",
+    name: "Imasha Peiris",
+    title: "OCVP Event Management",
+    email: "imashapeiris@aiesec.net",
+    avatar: "IP",
+    image: "/images/committee/imasha.jpg",
+    linkedin: "https://www.linkedin.com/in/imasha-peiris-a1a4832bb",
+  },
+  {
+    id: "CM-13",
+    name: "Umaira Usman",
+    title: "OCVP Public Relations",
+    email: "umairausman@aiesec.net",
+    avatar: "UU",
+    image: "/images/committee/umaira.jpg",
+    linkedin: "https://www.linkedin.com/in/umaira-usman-3abb3626b",
+  },
+  {
+    id: "CM-14",
+    name: "Nimna Tharushika",
+    title: "OCVP Logistics",
+    email: "n.tharushika309@aiesec.net",
+    avatar: "NT",
+    image: "/images/committee/nimna.jpg",
+    linkedin: "https://www.linkedin.com/in/nimna-tharushika-kandauda-arachchige-98543a316",
+  },
+  {
+    id: "CM-15",
+    name: "Savindu Rashmika",
+    title: "OCVP Logistics",
+    email: "savindurashmika@aiesec.net",
+    avatar: "SR",
+    image: "/images/committee/savindu.jpg",
+    linkedin: "https://www.linkedin.com/in/savindu-rashmika-05b363363",
   },
 ];
 
@@ -95,7 +181,12 @@ function MemberCard({ member }: { member: (typeof COMMITTEE)[number] }) {
       <div className="cm-photo">
         {member.image ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={member.image} alt={member.name} className="cm-photo-img" />
+          <img
+            src={member.image}
+            alt={member.name}
+            className="cm-photo-img"
+            style={member.objectPosition ? { objectPosition: member.objectPosition } : undefined}
+          />
         ) : (
           <div className="cm-photo-fallback">
             <span>{member.avatar}</span>
@@ -272,6 +363,8 @@ export default function OrganizingCommittee() {
           display: flex;
           width: max-content;
           animation: cmScroll 30s linear infinite;
+          will-change: transform;
+          transform: translateZ(0);
         }
 
         @keyframes cmScroll {
@@ -321,7 +414,7 @@ export default function OrganizingCommittee() {
           width: 100%;
           height: 100%;
           object-fit: cover;
-          object-position: top center;
+          object-position: center;
           display: block;
         }
 

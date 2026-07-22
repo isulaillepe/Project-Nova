@@ -1,9 +1,10 @@
 import type { Metadata, Viewport } from "next";
-import { Poppins, Space_Grotesk, Cormorant_Garamond, Orbitron } from "next/font/google";
-import Script from "next/script";
+import { Poppins, Space_Grotesk, Cormorant_Garamond, Cinzel, Orbitron } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { ConstellationCanvas } from "@/components/fx/ConstellationCanvas";
+import { SystemPreloader } from "@/components/fx/SystemPreloader";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -24,6 +25,13 @@ const cormorantGaramond = Cormorant_Garamond({
   style: ["normal", "italic"],
 });
 
+// Cinzel — the inscription-style display serif carrying the Olympus identity
+const cinzel = Cinzel({
+  variable: "--font-cinzel",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800", "900"],
+});
+
 const orbitron = Orbitron({
   variable: "--font-orbitron",
   subsets: ["latin"],
@@ -33,7 +41,7 @@ const orbitron = Orbitron({
 export const metadata: Metadata = {
   metadataBase: new URL("https://projectnova.lk"),
   title: "Project Nova - Innovation Meets Opportunity",
-  description: "Sri Lanka's premier inter-university tech innovation competition. LKR 255,000 prize pool. Organized by AIESEC in University of Sri Jayewardenepura.",
+  description: "Sri Lanka's premier inter-university tech innovation competition. LKR 135,000 prize pool. Organized by AIESEC in University of Sri Jayewardenepura.",
   keywords: ["Project Nova", "AIESEC", "Sri Jayewardenepura", "tech competition", "student innovation", "youth leadership", "Sri Lanka tech event", "startup competition", "hackathon"],
   authors: [{ name: "AIESEC in University of Sri Jayewardenepura" }],
   creator: "AIESEC in University of Sri Jayewardenepura",
@@ -86,15 +94,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${poppins.variable} ${spaceGrotesk.variable} ${cormorantGaramond.variable} ${orbitron.variable} min-h-screen antialiased`}>
-      <body className="min-h-screen flex flex-col bg-[var(--nova-bg)] text-slate-50">
-        <Script
-          type="module"
-          src="https://unpkg.com/@splinetool/viewer@1.9.82/build/spline-viewer.js"
-          strategy="lazyOnload"
-        />
+    <html lang="en" className={`${poppins.variable} ${spaceGrotesk.variable} ${cormorantGaramond.variable} ${cinzel.variable} ${orbitron.variable} min-h-screen antialiased`}>
+      <body className="relative min-h-screen flex flex-col bg-[var(--nova-deep)] text-[var(--nova-linen)]">
+        {/* Cinematic Olympus night sky — drifting golden constellations */}
+        <ConstellationCanvas />
+        {/* Boot sequence — establishing the divine link */}
+        <SystemPreloader />
         <Header />
-        <main className="flex-1">{children}</main>
+        <main className="relative z-[1] flex-1">{children}</main>
         <Footer />
       </body>
     </html>

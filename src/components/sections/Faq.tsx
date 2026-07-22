@@ -43,7 +43,7 @@ const faqItems = [
   },
   {
     question: "What rewards can winners expect?",
-    answer: "Teams compete for a comprehensive cash prize layout consisting of LKR 75,000 for 1st place, LKR 50,000 for 2nd place, LKR 30,000 for 3rd place, and LKR 10,000 each for the next 10 places, accompanied by extensive corporate visibility and performance validation reports.",
+    answer: "Teams compete for a comprehensive cash prize layout consisting of LKR 75,000 for 1st place, LKR 40,000 for 2nd place, and LKR 20,000 for 3rd place, accompanied by extensive corporate visibility, certificates, and performance validation reports.",
   },
 ];
 
@@ -75,9 +75,9 @@ function FaqItem({ item, index, openIndex, setOpenIndex, scrollYProgress }: FaqI
   return (
     <motion.div
       style={{ x, opacity }}
-      className={`group rounded-2xl bg-slate-950/75 backdrop-blur-md border transition-all duration-300 ${
+      className={`group rounded-2xl bg-[#001233]/75 backdrop-blur-md border transition-all duration-300 ${
         isOpen
-          ? "border-[#FF5533] shadow-[0_0_20px_rgba(255,85,51,0.25)]"
+          ? "border-[#FFB81B] shadow-[0_0_20px_rgba(255,184,27,0.25)]"
           : "border-white/10 hover:border-white/20"
       }`}
     >
@@ -88,7 +88,7 @@ function FaqItem({ item, index, openIndex, setOpenIndex, scrollYProgress }: FaqI
         >
           <span
             className={`font-space font-semibold text-sm sm:text-base md:text-lg transition-colors duration-300 ${
-              isOpen ? "text-[#FF5533]" : "text-white group-hover:text-slate-200"
+              isOpen ? "text-[#FFB81B]" : "text-white group-hover:text-slate-200"
             }`}
           >
             {item.question}
@@ -97,7 +97,7 @@ function FaqItem({ item, index, openIndex, setOpenIndex, scrollYProgress }: FaqI
             animate={{ rotate: isOpen ? 45 : 0 }}
             transition={{ duration: 0.2 }}
             className={`text-xl font-bold flex h-8 w-8 items-center justify-center rounded-lg bg-white/5 transition-all group-hover:bg-white/10 ${
-              isOpen ? "text-[#FF5533]" : "text-slate-400"
+              isOpen ? "text-[#FFB81B]" : "text-slate-400"
             }`}
           >
             +
@@ -183,11 +183,11 @@ export default function Faq() {
     };
   }, []);
 
-  // Background cross-fade: cosmic → rocket
+  // Background cross-fade: cosmic → rocket → footer
   const cosmicBgScale = useTransform(scrollYProgress, [0, 0.35], [1.0, 1.08]);
   const rocketBgScale = useTransform(scrollYProgress, [0.35, 0.70], [1.08, 1.0]);
   const cosmicBgOpacity = useTransform(scrollYProgress, [0.25, 0.45], [1, 0]);
-  const rocketBgOpacity = useTransform(scrollYProgress, [0.25, 0.45], [0, 1]);
+  const rocketBgOpacity = useTransform(scrollYProgress, [0.25, 0.45, 0.50, 0.70], [0, 1, 1, 0]);
 
   // FAQ content fades out first
   const faqContentOpacity = useTransform(scrollYProgress, [0.20, 0.40], [1, 0]);
@@ -214,7 +214,7 @@ export default function Faq() {
           <div className="absolute inset-0 z-0">
             <motion.div
               style={{
-                backgroundImage: "url('/images/cosmic_faq_bg.png')",
+                backgroundImage: "url('/images/greek_gods_faq_orange.jpg')",
                 scale: cosmicBgScale,
                 opacity: cosmicBgOpacity,
                 visibility: cosmicBgVisibility,
@@ -224,12 +224,20 @@ export default function Faq() {
             />
             <motion.div
               style={{
-                backgroundImage: "url('/images/rocket_launch_bg.png')",
+                backgroundImage: "url('/images/greek_gods_ascent_orange.jpg')",
                 scale: rocketBgScale,
                 opacity: rocketBgOpacity,
                 filter: "brightness(0.4)",
               }}
               className="absolute inset-0 bg-cover bg-center origin-center z-10"
+            />
+            <motion.div
+              style={{
+                backgroundImage: "url('/images/greek_gods_footer.jpg')",
+                opacity: registerOpacity,
+                filter: "brightness(0.4)",
+              }}
+              className="absolute inset-0 bg-cover bg-center origin-center z-20"
             />
           </div>
 
@@ -243,7 +251,7 @@ export default function Faq() {
               className="w-full text-center px-4 mb-8"
             >
               <h2 className="text-2xl sm:text-4xl md:text-5xl font-orbitron font-bold tracking-wider text-white">
-                FREQUENTLY ASKED <span className="text-[#FF5533]">QUESTIONS</span>
+                FREQUENTLY ASKED <span className="text-[#FFB81B]">QUESTIONS</span>
               </h2>
             </motion.div>
 
@@ -289,8 +297,8 @@ export default function Faq() {
                 {/* Left Column: System Status & Coordinates */}
                 <div className="flex flex-col items-center md:items-start gap-1 select-none text-center md:text-left font-space">
                   <div className="flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#FF5533] shadow-[0_0_8px_#FF5533] animate-pulse" />
-                    <span className="text-[#FF5533] font-bold text-[10px] sm:text-xs tracking-widest uppercase">SYS.ONLINE</span>
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#FFB81B] shadow-[0_0_8px_#FFB81B] animate-pulse" />
+                    <span className="text-[#FFB81B] font-bold text-[10px] sm:text-xs tracking-widest uppercase">SYS.ONLINE</span>
                   </div>
                   <span className="text-[9px] sm:text-[10px] text-slate-500 font-mono tracking-wider">6.9271° N   79.8612° E</span>
                 </div>
@@ -305,7 +313,7 @@ export default function Faq() {
                         href={social.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex h-9.5 w-9.5 items-center justify-center rounded-md bg-slate-950/40 border border-white/5 text-slate-400 hover:text-white hover:border-[#FF5533]/40 hover:bg-[#FF5533]/10 transition-all duration-300"
+                        className="flex h-9.5 w-9.5 items-center justify-center rounded-md bg-[#001233]/40 border border-white/5 text-slate-400 hover:text-white hover:border-[#FFB81B]/40 hover:bg-[#FFB81B]/10 transition-all duration-300"
                         aria-label={social.label}
                       >
                         <social.icon className="h-4 w-4" />
@@ -318,7 +326,7 @@ export default function Faq() {
                 <div className="flex flex-col items-center md:items-end gap-1 text-center md:text-right select-none font-space">
                   <div className="font-extrabold text-sm sm:text-base tracking-wider uppercase">
                     <span className="text-white">PROJECT</span>
-                    <span className="text-[#FF5533] ml-1">NOVA</span>
+                    <span className="text-[#FFB81B] ml-1">NOVA</span>
                   </div>
                   <div className="text-[8px] sm:text-[9px] text-slate-500 font-medium tracking-widest uppercase leading-tight">
                     COPYRIGHT © 2026 <br />

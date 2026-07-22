@@ -28,7 +28,7 @@ card-carousel layout used by **HackX 11.0**.
 | Card top accent | Thin red gradient line appears on hover |
 | Card border glow | Conic-gradient spinning border ring on hover |
 | Avatar ring | Blue gradient ring (→ red-blue on hover) |
-| ID badge | Red monospace label in top-right corner (`CM-01` … `CM-06`) |
+| ID badge | Red monospace label in top-right corner (`CM-01` … `CM-15`) |
 | Status indicator | Animated pulsing green dot + `ACTIVE` label |
 | Edge masks | CSS `mask-image` fade on left/right edges of carousel |
 

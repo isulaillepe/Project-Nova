@@ -100,15 +100,15 @@ export default function PastEvents() {
       >
         {/* Decorative gradient glowing backgrounds */}
         <div className="absolute inset-0 -z-10 overflow-hidden select-none pointer-events-none" aria-hidden="true">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[500px] w-[500px] rounded-full bg-[#FF5533]/5 blur-[120px]" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[500px] w-[500px] rounded-full bg-[#FFB81B]/5 blur-[120px]" />
         </div>
 
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           
           {/* Section Heading */}
           <div className="text-center space-y-2 mb-12 sm:mb-20">
-            <span className="text-[#FF5533] text-[10px] font-bold uppercase tracking-[0.25em] flex items-center justify-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#FF5533] shadow-[0_0_8px_#FF5533]" />
+            <span className="text-[#FFB81B] text-[10px] font-bold uppercase tracking-[0.25em] flex items-center justify-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#FFB81B] shadow-[0_0_8px_#FFB81B]" />
               OUR LEGACY
             </span>
             <h2 className="text-4xl sm:text-5xl font-light tracking-tight leading-none text-white font-space uppercase">
@@ -133,7 +133,7 @@ export default function PastEvents() {
               {/* Navigation Arrow Left */}
               <button
                 onClick={handlePrev}
-                className="pointer-events-auto p-2 sm:p-3 rounded-full bg-slate-950/60 backdrop-blur-md border border-white/10 hover:border-[#FF5533]/50 text-slate-400 hover:text-white transition-all duration-300 active:scale-95 shadow-[0_0_15px_rgba(0,0,0,0.5)] -translate-x-1/2"
+                className="pointer-events-auto p-2 sm:p-3 rounded-full bg-[#001233]/60 backdrop-blur-md border border-white/10 hover:border-[#FFB81B]/50 text-slate-400 hover:text-white transition-all duration-300 active:scale-95 shadow-[0_0_15px_rgba(0,0,0,0.5)] -translate-x-1/2"
                 aria-label="Previous event"
               >
                 <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
@@ -142,7 +142,7 @@ export default function PastEvents() {
               {/* Navigation Arrow Right */}
               <button
                 onClick={handleNext}
-                className="pointer-events-auto p-2 sm:p-3 rounded-full bg-slate-950/60 backdrop-blur-md border border-white/10 hover:border-[#FF5533]/50 text-slate-400 hover:text-white transition-all duration-300 active:scale-95 shadow-[0_0_15px_rgba(0,0,0,0.5)] translate-x-1/2"
+                className="pointer-events-auto p-2 sm:p-3 rounded-full bg-[#001233]/60 backdrop-blur-md border border-white/10 hover:border-[#FFB81B]/50 text-slate-400 hover:text-white transition-all duration-300 active:scale-95 shadow-[0_0_15px_rgba(0,0,0,0.5)] translate-x-1/2"
                 aria-label="Next event"
               >
                 <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
@@ -228,13 +228,13 @@ export default function PastEvents() {
                       className="w-full h-full p-[1.5px] transition-all duration-500 ease-out"
                       style={{
                         clipPath: clipPathString,
-                        backgroundColor: isHighlighted ? "#FF5533" : "rgba(255,255,255,0.1)",
-                        boxShadow: isActive ? "0 10px 30px -10px rgba(255,85,51,0.3)" : "none",
+                        backgroundColor: isHighlighted ? "#FFB81B" : "rgba(255,255,255,0.1)",
+                        boxShadow: isActive ? "0 10px 30px -10px rgba(255,184,27,0.3)" : "none",
                       }}
                     >
                       {/* Beveled Inner Content Area */}
                       <div
-                        className="relative w-full h-full bg-slate-950 overflow-hidden"
+                        className="relative w-full h-full bg-[#001233] overflow-hidden"
                         style={{ clipPath: clipPathString }}
                       >
                         {/* Event Image */}
@@ -263,7 +263,7 @@ export default function PastEvents() {
                               animate={{ opacity: 1, x: 0 }}
                               exit={{ opacity: 0, x: -10 }}
                               transition={{ duration: 0.3 }}
-                              className="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 bg-slate-950/90 border-l-[3.5px] border-[#FF5533] px-3 py-1.5 sm:px-4 sm:py-2 flex items-center gap-2 pointer-events-none select-none"
+                              className="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 bg-[#001233]/90 border-l-[3.5px] border-[#FFB81B] px-3 py-1.5 sm:px-4 sm:py-2 flex items-center gap-2 pointer-events-none select-none"
                             >
                               <span className="text-[10px] sm:text-[11px] font-bold text-white tracking-widest font-space uppercase">
                                 {item.name}
@@ -289,7 +289,7 @@ export default function PastEvents() {
                   onClick={() => handleIndicatorClick(index)}
                   className={`h-[3.5px] rounded-full transition-all duration-500 cursor-pointer ${
                     isActive
-                      ? "w-8 bg-[#FF5533] shadow-[0_0_8px_#FF5533]"
+                      ? "w-8 bg-[#FFB81B] shadow-[0_0_8px_#FFB81B]"
                       : "w-4 bg-slate-800 hover:bg-slate-700"
                   }`}
                   aria-label={`Go to slide ${index + 1}`}

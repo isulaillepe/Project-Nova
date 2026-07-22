@@ -6,10 +6,10 @@ import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 
 const navLinks = [
-  { href: "/#rules", label: "RULES" },
-  { href: "/#timeline", label: "TIMELINE" },
-  { href: "/#contact", label: "CONTACT" },
-  { href: "/#faq", label: "FAQ" },
+  { href: "/", label: "GATEWAY" },
+  { href: "/#timeline", label: "THE ODYSSEYS" },
+  { href: "/#prizes", label: "THE TREASURY" },
+  { href: "/#faq", label: "THE ORACLE" },
 ];
 
 export function Header() {
@@ -33,7 +33,7 @@ export function Header() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         shouldShowHeader
-          ? "bg-slate-950/85 backdrop-blur-xl border-b border-white/5 shadow-[0_4px_30px_rgba(0,0,0,0.5)] pointer-events-auto"
+          ? "bg-[#001233]/85 backdrop-blur-xl border-b border-[#003599]/30 shadow-[0_4px_30px_rgba(0,8,30,0.6)] pointer-events-auto"
           : "bg-transparent pointer-events-none"
       }`}
     >
@@ -50,13 +50,13 @@ export function Header() {
             }`}
             aria-label="Project Nova Home"
           >
-            <div className="relative border-y border-white/10 px-5 py-1.5 font-space font-extrabold tracking-widest text-sm select-none uppercase">
+            <div className="relative border-y border-[#ffb81b]/25 px-5 py-1.5 font-cinzel font-bold tracking-[0.2em] text-sm select-none uppercase">
               {/* Left bracket corners */}
-              <div className="absolute left-0 top-0 bottom-0 w-2 border-y border-l border-white/20" />
+              <div className="absolute left-0 top-0 bottom-0 w-2 border-y border-l border-[#ffb81b]/40" />
               {/* Right bracket corners */}
-              <div className="absolute right-0 top-0 bottom-0 w-2 border-y border-r border-white/20" />
-              <span className="text-white">PROJECT</span>
-              <span className="text-[#FF5533] ml-1.5">NOVA</span>
+              <div className="absolute right-0 top-0 bottom-0 w-2 border-y border-r border-[#ffb81b]/40" />
+              <span className="text-[#f7fafc]">PROJECT</span>
+              <span className="text-[#FFB81B] ml-1.5">NOVA</span>
             </div>
           </Link>
 
@@ -71,10 +71,10 @@ export function Header() {
             <div className="flex items-center gap-4 font-space">
               {navLinks.map((link, index) => (
                 <React.Fragment key={link.href}>
-                  {index > 0 && <span className="text-white/25 text-xs select-none">·</span>}
+                  {index > 0 && <span className="text-[#ffb81b]/30 text-xs select-none">·</span>}
                   <Link
                     href={link.href}
-                    className="text-[11px] font-bold uppercase tracking-widest text-slate-300 transition-colors hover:text-[#FF5533]"
+                    className="text-[11px] font-bold uppercase tracking-widest text-[#cbd5e0] transition-colors hover:text-[#FFB81B]"
                   >
                     {link.label}
                   </Link>
@@ -83,17 +83,17 @@ export function Header() {
             </div>
 
             {/* Vertical Separator */}
-            <div className="h-4 w-[1px] bg-white/10 mx-1" />
+            <div className="h-4 w-[1px] bg-[#003599]/50 mx-1" />
 
             <div className="flex items-center gap-3">
               <Link href="/execution-booklet">
-                <button className="border border-white/25 hover:border-white/50 hover:bg-white/5 text-white text-[10px] font-bold uppercase tracking-widest px-4 py-2 rounded-full transition-all duration-300">
-                  EXECUTION BOOKLET
+                <button className="border border-[#ffb81b]/25 hover:border-[#ffb81b]/60 hover:bg-[#ffb81b]/5 text-[#f7fafc] text-[10px] font-bold uppercase tracking-widest px-4 py-2 rounded-full transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]">
+                  THE CODEX
                 </button>
               </Link>
               <Link href="/register">
-                <button className="bg-[#FF5533] hover:bg-[#e04422] text-white text-[10px] font-bold uppercase tracking-widest px-5 py-2 rounded-full shadow-[0_0_15px_rgba(255,85,51,0.3)] hover:shadow-[0_0_20px_rgba(255,85,51,0.5)] transition-all duration-300">
-                  REGISTER NOW
+                <button className="bg-[#FFB81B] hover:brightness-105 text-[#001233] text-[10px] font-bold uppercase tracking-widest px-5 py-2 rounded-full shadow-[0_0_18px_rgba(255,184,27,0.35)] hover:shadow-[0_0_24px_rgba(255,184,27,0.5)] transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]">
+                  REGISTER
                 </button>
               </Link>
             </div>
@@ -101,7 +101,7 @@ export function Header() {
 
           {/* Mobile menu button */}
           <button
-            className={`md:hidden p-2 text-slate-300 hover:text-white transition-all duration-500 transform ${
+            className={`md:hidden p-2 text-[#cbd5e0] hover:text-[#FFB81B] transition-all duration-500 transform ${
               shouldShowHeader
                 ? "opacity-100 translate-y-0 pointer-events-auto"
                 : "opacity-0 -translate-y-4 pointer-events-none"
@@ -127,21 +127,21 @@ export function Header() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-sm font-semibold uppercase tracking-wider text-slate-300 hover:text-[#FF5533] transition-colors"
+                className="text-sm font-semibold uppercase tracking-wider text-[#cbd5e0] hover:text-[#FFB81B] transition-colors"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 {link.label}
               </Link>
             ))}
-            <div className="flex flex-col gap-3 pt-4 border-t border-white/10">
+            <div className="flex flex-col gap-3 pt-4 border-t border-[#003599]/40">
               <Link href="/execution-booklet" onClick={() => setIsMobileMenuOpen(false)}>
-                <button className="w-full text-center border border-white/20 text-white text-[11px] font-bold uppercase tracking-widest py-3 rounded-full">
-                  EXECUTION BOOKLET
+                <button className="w-full text-center border border-[#ffb81b]/25 text-[#f7fafc] text-[11px] font-bold uppercase tracking-widest py-3 rounded-full">
+                  THE CODEX
                 </button>
               </Link>
               <Link href="/register" onClick={() => setIsMobileMenuOpen(false)}>
-                <button className="w-full text-center bg-[#FF5533] text-white text-[11px] font-bold uppercase tracking-widest py-3 rounded-full shadow-[0_0_15px_rgba(255,85,51,0.3)]">
-                  REGISTER NOW
+                <button className="w-full text-center bg-[#FFB81B] text-[#001233] text-[11px] font-bold uppercase tracking-widest py-3 rounded-full shadow-[0_0_15px_rgba(255,184,27,0.35)]">
+                  REGISTER
                 </button>
               </Link>
             </div>

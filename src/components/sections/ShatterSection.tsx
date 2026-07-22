@@ -4,22 +4,22 @@ import React, { useRef } from "react";
 import { motion, useScroll, useTransform, MotionValue } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { FileText, Search, ShieldCheck, Globe, MousePointer, Download, ArrowRight, Terminal, Code, Folder, Compass } from "lucide-react";
+import { FileText, Search, ShieldCheck, Globe, MousePointer, Download, ArrowRight } from "lucide-react";
 
-// Generate seamless geometric polygon shards across a grid (6x7 grid with jittered nodes)
+// Generate clean 5x6 triangular shards for optimal 60fps performance
 interface ShardDef {
   id: number;
   clipPath: string;
-  cx: number; // center x %
-  cy: number; // center y %
-  dist: number; // distance from center (50, 50)
-  angle: number; // angle from center in radians
-  delay: number; // normalized delay based on distance
+  cx: number;
+  cy: number;
+  dist: number;
+  angle: number;
+  delay: number;
 }
 
 function createShards(): ShardDef[] {
-  const rows = 6;
-  const cols = 7;
+  const rows = 5;
+  const cols = 6;
   const grid: [number, number][][] = [];
 
   for (let r = 0; r <= rows; r++) {
@@ -29,9 +29,9 @@ function createShards(): ShardDef[] {
       let y = (r / rows) * 100;
 
       if (c > 0 && c < cols && r > 0 && r < rows) {
-        const seed = (r * 13 + c * 37) % 100;
-        const jitterX = ((seed % 7) - 3) * 2.5;
-        const jitterY = (((seed * 3) % 7) - 3) * 2.5;
+        const seed = (r * 11 + c * 29) % 100;
+        const jitterX = ((seed % 7) - 3) * 2.0;
+        const jitterY = (((seed * 3) % 7) - 3) * 2.0;
         x = Math.max(1, Math.min(99, x + jitterX));
         y = Math.max(1, Math.min(99, y + jitterY));
       }
@@ -50,7 +50,6 @@ function createShards(): ShardDef[] {
       const p3 = grid[r + 1][c + 1];
       const p4 = grid[r + 1][c];
 
-      // Triangle 1: p1, p2, p3
       const t1Points = [p1, p2, p3];
       const cx1 = (p1[0] + p2[0] + p3[0]) / 3;
       const cy1 = (p1[1] + p2[1] + p3[1]) / 3;
@@ -67,7 +66,6 @@ function createShards(): ShardDef[] {
         delay: Math.max(0, 1 - dist1 / 60),
       });
 
-      // Triangle 2: p1, p3, p4
       const t2Points = [p1, p3, p4];
       const cx2 = (p1[0] + p3[0] + p4[0]) / 3;
       const cy2 = (p1[1] + p3[1] + p4[1]) / 3;
@@ -91,17 +89,18 @@ function createShards(): ShardDef[] {
 
 const SHARDS = createShards();
 
-function DocumentWindow() {
+// Original Clean Document Window Card (No OS/Terminal decorations)
+function DocumentWindowCard() {
   return (
-    <div className="w-full max-w-xl bg-[#0f172a]/95 border border-[#334155] rounded-xl shadow-2xl overflow-hidden backdrop-blur-md text-[#f8fafc] font-sans">
-      {/* Window Header */}
-      <div className="flex items-center justify-between px-4 py-2.5 bg-[#1e293b]/90 border-b border-[#334155]">
+    <div className="w-full max-w-2xl bg-[#090d16]/95 border border-[#1e293b] rounded-xl shadow-2xl overflow-hidden backdrop-blur-md text-[#f8fafc] font-sans select-none">
+      {/* Card Top Bar */}
+      <div className="flex items-center justify-between px-4 py-3 bg-[#0f172a]/90 border-b border-[#1e293b]">
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 rounded-full bg-[#ef4444]" />
           <div className="w-3 h-3 rounded-full bg-[#f59e0b]" />
           <div className="w-3 h-3 rounded-full bg-[#10b981]" />
         </div>
-        <div className="flex items-center gap-2 text-xs font-mono text-[#94a3b8] bg-[#0f172a] px-3 py-1 rounded-md border border-[#334155]/60">
+        <div className="flex items-center gap-2 text-xs font-mono text-[#94a3b8] bg-[#030712] px-3 py-1 rounded-md border border-[#1e293b]">
           <FileText className="w-3.5 h-3.5 text-[#38bdf8]" />
           <span>about-nova-2.0.pdf</span>
           <span className="text-[9px] bg-[#065f46] text-[#34d399] px-1.5 py-0.5 rounded font-bold uppercase">
@@ -114,36 +113,36 @@ function DocumentWindow() {
         </div>
       </div>
 
-      {/* Document Content */}
-      <div className="p-6 space-y-5">
-        <div className="p-5 rounded-lg bg-gradient-to-r from-[#1e1b4b]/90 via-[#312e81]/70 to-[#1e1b4b]/90 border border-[#4338ca]/50 relative overflow-hidden">
+      {/* Card Main Body */}
+      <div className="p-6 sm:p-8 space-y-6">
+        <div className="p-6 rounded-lg bg-gradient-to-r from-[#1e1b4b]/90 via-[#312e81]/70 to-[#1e1b4b]/90 border border-[#4338ca]/50 relative overflow-hidden">
           <div className="absolute top-0 right-0 p-3 opacity-20 text-[#818cf8]">
             <Globe className="w-20 h-20" />
           </div>
 
-          <div className="relative z-10 space-y-1.5">
-            <span className="text-[9px] font-mono font-bold tracking-[0.2em] text-[#818cf8] uppercase bg-[#312e81]/90 px-2.5 py-0.5 rounded border border-[#4945ff]/40">
+          <div className="relative z-10 space-y-2">
+            <span className="text-[10px] font-mono font-bold tracking-[0.2em] text-[#818cf8] uppercase bg-[#312e81]/90 px-2.5 py-1 rounded border border-[#4945ff]/40">
               OFFICIAL BRIEFING
             </span>
-            <h2 className="text-xl sm:text-3xl font-extrabold tracking-tight text-white font-cinzel pt-1">
+            <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-white font-cinzel pt-1">
               Project Nova <span className="text-[#38bdf8]">2.0</span>
             </h2>
-            <p className="text-[11px] font-mono text-[#93c5fd] tracking-widest uppercase">
+            <p className="text-xs font-mono text-[#93c5fd] tracking-widest uppercase">
               INTER-UNIVERSITY INNOVATION CHAMPIONSHIP
             </p>
           </div>
         </div>
 
-        <div className="p-4 rounded-lg bg-[#1e293b]/70 border border-[#334155]/70 space-y-2">
+        <div className="p-5 rounded-lg bg-[#0f172a]/70 border border-[#1e293b] space-y-3">
           <div className="flex items-center gap-2 text-xs font-mono font-bold uppercase text-[#38bdf8] tracking-wider">
             <ShieldCheck className="w-4 h-4 text-[#38bdf8]" />
             <span>01 INTRODUCTION</span>
           </div>
-          <p className="text-xs text-[#cbd5e1] leading-relaxed font-sans">
+          <p className="text-xs sm:text-sm text-[#cbd5e1] leading-relaxed font-sans">
             Project Nova 2.0 is Sri Lanka&apos;s premier student-led inter-university innovation
             championship, returning for its second edition. This initiative brings together the
             brightest minds from universities across the island to solve critical real-world
-            problems using cloud tech and visionary strategies.
+            problems using cloud technologies.
           </p>
         </div>
       </div>
@@ -151,72 +150,23 @@ function DocumentWindow() {
   );
 }
 
-function DesktopOverlay() {
+// Clean Full-Screen Foreground Layer (Cosmic Backdrop + Center Card)
+function ForegroundLayer() {
   return (
-    <div className="w-full h-full relative bg-[#030712] overflow-hidden flex flex-col justify-between p-3 sm:p-5 font-sans select-none">
-      {/* Desktop Background Constellation Grid */}
-      <div className="absolute inset-0 bg-[#030712] bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:28px_28px] opacity-80 pointer-events-none" />
+    <div className="w-full h-full relative bg-[#030712] overflow-hidden flex items-center justify-center p-4 select-none">
+      {/* Constellation grid pattern overlay */}
+      <div className="absolute inset-0 bg-[#030712] bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:28px_28px] opacity-70 pointer-events-none" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(56,189,248,0.12)_0%,transparent_70%)] pointer-events-none" />
 
-      {/* Top macOS Status Bar (Matching Screenshot 1 & 4) */}
-      <div className="relative z-10 w-full flex items-center justify-between px-4 py-1.5 bg-[#0f172a]/90 border-b border-[#1e293b] text-xs font-mono text-[#cbd5e1] backdrop-blur-md rounded-t-lg">
-        <div className="flex items-center gap-4">
-          <span className="font-bold text-[#38bdf8]">Activities</span>
-          <span className="text-[11px] text-[#64748b] hidden sm:inline">Project Nova OS v2.0</span>
-        </div>
-        <div className="text-center font-bold text-[#e2e8f0] text-xs">
-          Jul 22 00:46
-        </div>
-        <div className="flex items-center gap-3 text-[#94a3b8] text-xs">
-          <span>📶</span>
-          <span>🔊</span>
-          <span className="text-[10px] bg-[#1e293b] px-1.5 py-0.5 rounded text-[#38bdf8] font-bold">100%</span>
-        </div>
-      </div>
-
-      {/* Desktop Workspace Area with Icon & Briefing Card */}
-      <div className="relative z-10 flex-1 w-full flex items-center justify-center p-4 my-2">
-        {/* Top-Left Shortcut Icon */}
-        <div className="absolute top-4 left-4 hidden sm:flex flex-col items-center gap-1.5 p-2 rounded-lg hover:bg-[#1e293b]/40 cursor-pointer">
-          <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-[#38bdf8] to-[#1e3a8a] p-0.5 shadow-lg flex items-center justify-center">
-            <div className="w-full h-full bg-[#0f172a] rounded-[10px] flex items-center justify-center text-[#38bdf8]">
-              <Globe className="w-5 h-5" />
-            </div>
-          </div>
-          <span className="text-[10px] font-mono text-[#e2e8f0] font-medium tracking-tight">
-            About Nova 2.0
-          </span>
-        </div>
-
-        {/* Center Document Viewer Window */}
-        <DocumentWindow />
-      </div>
-
-      {/* Bottom macOS Floating Dock Bar (Matching Screenshot 1 & 4) */}
-      <div className="relative z-10 w-full flex justify-center pb-2">
-        <div className="flex items-center gap-3 px-4 py-2 bg-[#0f172a]/95 border border-[#1e293b] rounded-2xl shadow-2xl backdrop-blur-xl">
-          <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-[#3b82f6] to-[#60a5fa] flex items-center justify-center text-white shadow-md">
-            <Globe className="w-4 h-4" />
-          </div>
-          <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-[#10b981] to-[#34d399] flex items-center justify-center text-white shadow-md">
-            <Folder className="w-4 h-4" />
-          </div>
-          <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-[#f59e0b] to-[#fbbf24] flex items-center justify-center text-white shadow-md">
-            <Code className="w-4 h-4" />
-          </div>
-          <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-[#8b5cf6] to-[#a78bfa] flex items-center justify-center text-white shadow-md">
-            <Terminal className="w-4 h-4" />
-          </div>
-          <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-[#ec4899] to-[#f472b6] flex items-center justify-center text-white shadow-md">
-            <Compass className="w-4 h-4" />
-          </div>
-        </div>
+      {/* Center Document Card */}
+      <div className="relative z-10 w-full flex items-center justify-center">
+        <DocumentWindowCard />
       </div>
     </div>
   );
 }
 
-// Individual Shard Component (Clips full DesktopOverlay so ENTIRE screen shatters together!)
+// Individual Shard Component (Optimized with GPU hardware acceleration)
 interface SingleShardProps {
   shard: ShardDef;
   scrollYProgress: MotionValue<number>;
@@ -225,48 +175,49 @@ interface SingleShardProps {
 function SingleShard({ shard, scrollYProgress }: SingleShardProps) {
   const distFactor = Math.max(0.3, shard.dist / 50);
 
-  // Progressive displacement vectors radiating out from center
+  // Smooth progressive displacement vectors
   const translateX = useTransform(
     scrollYProgress,
-    [0.08, 0.25, 0.58, 0.68],
-    [0, Math.cos(shard.angle) * 35 * (1 - shard.delay), Math.cos(shard.angle) * 1500 * distFactor, Math.cos(shard.angle) * 2400 * distFactor]
+    [0.08, 0.22, 0.48, 0.55],
+    [0, Math.cos(shard.angle) * 30 * (1 - shard.delay), Math.cos(shard.angle) * 1400 * distFactor, Math.cos(shard.angle) * 2200 * distFactor]
   );
 
   const translateY = useTransform(
     scrollYProgress,
-    [0.08, 0.25, 0.58, 0.68],
-    [0, Math.sin(shard.angle) * 35 * (1 - shard.delay), Math.sin(shard.angle) * 1500 * distFactor, Math.sin(shard.angle) * 2400 * distFactor]
+    [0.08, 0.22, 0.48, 0.55],
+    [0, Math.sin(shard.angle) * 30 * (1 - shard.delay), Math.sin(shard.angle) * 1400 * distFactor, Math.sin(shard.angle) * 2200 * distFactor]
   );
 
   const scale = useTransform(
     scrollYProgress,
-    [0.1, 0.35, 0.62],
-    [1.0, 1.15, 4.5 * distFactor]
+    [0.1, 0.3, 0.52],
+    [1.0, 1.12, 4.2 * distFactor]
   );
 
   const rotateX = useTransform(
     scrollYProgress,
-    [0.15, 0.62],
-    [0, (shard.cx - 50) * 5]
+    [0.12, 0.52],
+    [0, (shard.cx - 50) * 4]
   );
 
   const rotateY = useTransform(
     scrollYProgress,
-    [0.15, 0.62],
-    [0, (shard.cy - 50) * 5]
+    [0.12, 0.52],
+    [0, (shard.cy - 50) * 4]
   );
 
   const rotateZ = useTransform(
     scrollYProgress,
-    [0.1, 0.62],
-    [0, Math.sin(shard.angle) * 160]
+    [0.1, 0.52],
+    [0, Math.sin(shard.angle) * 140]
   );
 
-  // Opacity reaches 0 at progress 0.65 so shards completely disappear as requested!
+  // CRITICAL FIX: Opacity goes to 0 at 0.52 and STAYS STRICTLY 0.0 through 1.0!
+  // Shards will NEVER re-appear at the end of the section!
   const opacity = useTransform(
     scrollYProgress,
-    [0.0, 0.45, 0.64, 0.65],
-    [1.0, 0.95, 0.2, 0.0]
+    [0.0, 0.35, 0.50, 0.52, 1.0],
+    [1.0, 0.9, 0.15, 0.0, 0.0]
   );
 
   return (
@@ -280,10 +231,11 @@ function SingleShard({ shard, scrollYProgress }: SingleShardProps) {
         rotateY,
         rotateZ,
         opacity,
+        willChange: "transform, opacity",
       }}
       className="absolute inset-0 w-full h-full pointer-events-none origin-center"
     >
-      <DesktopOverlay />
+      <ForegroundLayer />
     </motion.div>
   );
 }
@@ -296,31 +248,30 @@ export default function ShatterSection() {
     offset: ["start start", "end end"],
   });
 
-  // Background sky parallax Y movement (moves down as you scroll further)
-  const bgY = useTransform(scrollYProgress, [0.4, 1.0], ["0%", "30%"]);
-  const bgScale = useTransform(scrollYProgress, [0.4, 1.0], [1.0, 1.15]);
+  // Smooth Sky Background Parallax
+  const bgY = useTransform(scrollYProgress, [0.35, 1.0], ["0%", "25%"]);
+  const bgScale = useTransform(scrollYProgress, [0.35, 1.0], [1.0, 1.12]);
 
-  // Falling Man figure pinned scale & position (remains stationary near center)
-  const manY = useTransform(scrollYProgress, [0.4, 0.7, 1.0], ["0px", "-10px", "0px"]);
-  const manScale = useTransform(scrollYProgress, [0.4, 1.0], [1.0, 1.08]);
+  // Pinned Stationary Falling Hero Silhouette
+  const manY = useTransform(scrollYProgress, [0.35, 0.7, 1.0], ["0px", "-8px", "0px"]);
 
-  // Initial scroll guide indicator opacity
-  const guideOpacity = useTransform(scrollYProgress, [0.0, 0.2], [1.0, 0.0]);
+  // Scroll guide indicator opacity
+  const guideOpacity = useTransform(scrollYProgress, [0.0, 0.18], [1.0, 0.0]);
 
   // Central bursting sky light beam during crack opening
-  const centerBeamOpacity = useTransform(scrollYProgress, [0.1, 0.35, 0.6], [0.0, 1.0, 0.0]);
-  const centerBeamScale = useTransform(scrollYProgress, [0.1, 0.55], [0.2, 2.5]);
+  const centerBeamOpacity = useTransform(scrollYProgress, [0.1, 0.3, 0.5], [0.0, 1.0, 0.0]);
+  const centerBeamScale = useTransform(scrollYProgress, [0.1, 0.48], [0.2, 2.2]);
 
-  // Next Page Overlay Content (Fades in over sky & pinned man after shards disappear)
-  const missionOpacity = useTransform(scrollYProgress, [0.66, 0.78, 0.95], [0.0, 1.0, 1.0]);
-  const missionY = useTransform(scrollYProgress, [0.66, 0.78], [40, 0]);
+  // Next Page Mission Overlay Content (Fades in smoothly after shards vanish)
+  const missionOpacity = useTransform(scrollYProgress, [0.55, 0.72, 0.95], [0.0, 1.0, 1.0]);
+  const missionY = useTransform(scrollYProgress, [0.55, 0.72], [35, 0]);
 
   return (
-    <section ref={containerRef} className="relative h-[480vh] bg-[#030712] select-none">
+    <section ref={containerRef} className="relative h-[420vh] bg-[#030712] select-none">
       {/* Sticky Full-Viewport Container */}
       <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center">
         
-        {/* Parallax Moving Sky Background Layer */}
+        {/* Parallax Sky & Cloud Background Layer */}
         <motion.div
           style={{
             y: bgY,
@@ -342,11 +293,10 @@ export default function ShatterSection() {
         <motion.div
           style={{
             y: manY,
-            scale: manScale,
           }}
           className="absolute inset-0 z-5 flex items-center justify-center pointer-events-none"
         >
-          <div className="w-80 h-80 rounded-full bg-[radial-gradient(circle_at_center,rgba(56,189,248,0.25)_0%,transparent_70%)] blur-xl" />
+          <div className="w-72 h-72 rounded-full bg-[radial-gradient(circle_at_center,rgba(56,189,248,0.22)_0%,transparent_70%)] blur-xl" />
         </motion.div>
 
         {/* Central Bursting Sky Light Beam during Crack Opening */}
@@ -355,10 +305,10 @@ export default function ShatterSection() {
             opacity: centerBeamOpacity,
             scale: centerBeamScale,
           }}
-          className="absolute z-10 w-96 h-96 rounded-full bg-[radial-gradient(circle_at_center,rgba(56,189,248,0.85)_0%,rgba(147,197,253,0.35)_40%,transparent_70%)] blur-2xl pointer-events-none"
+          className="absolute z-10 w-80 h-80 rounded-full bg-[radial-gradient(circle_at_center,rgba(56,189,248,0.85)_0%,rgba(147,197,253,0.35)_40%,transparent_70%)] blur-2xl pointer-events-none"
         />
 
-        {/* Shattering Full Desktop Layer (Disappears completely by progress 0.65) */}
+        {/* Smooth Shattering Layer (Fades out completely by 0.52 and NEVER re-appears) */}
         <div className="absolute inset-0 z-20 w-full h-full perspective-[1200px] pointer-events-none">
           {SHARDS.map((shard) => (
             <SingleShard key={shard.id} shard={shard} scrollYProgress={scrollYProgress} />

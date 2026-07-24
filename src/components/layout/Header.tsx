@@ -6,10 +6,11 @@ import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 
 const navLinks = [
-  { href: "/", label: "GATEWAY" },
-  { href: "/#timeline", label: "THE ODYSSEYS" },
-  { href: "/#prizes", label: "THE TREASURY" },
-  { href: "/#faq", label: "THE ORACLE" },
+  { href: "/", label: "HOME" },
+  { href: "/#timeline", label: "TIMELINE" },
+  { href: "/#prizes", label: "PRIZES" },
+  { href: "/#committee", label: "COMMITTEE" },
+  { href: "/#faq", label: "FAQ" },
 ];
 
 export function Header() {

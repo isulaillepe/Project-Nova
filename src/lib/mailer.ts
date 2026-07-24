@@ -26,20 +26,23 @@ export async function sendRegistrationEmail(
   // Sanitize all template variables to prevent HTML injection
   const safeTeamName = escapeHtml(teamName);
   const safeMemberNames = memberNames.map(escapeHtml);
+
+  const textTemplate = `Hello,\n\nThank you for registering your team "${teamName}" for the Nova Hackathon.\n\nRegistered Team Members:\n${memberNames.map((name) => `- ${name}`).join("\n")}\n\nWe will be sending more details regarding the hackathon schedule and rules closer to the event date.\n\nBest regards,\nThe Nova Hackathon Team`;
+
   const htmlTemplate = `
-    <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto;">
+    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #1e293b; line-height: 1.6;">
       <h2 style="color: #8b5cf6;">Registration Confirmed! 🎉</h2>
       <p>Hello,</p>
       <p>Thank you for registering your team <strong>${safeTeamName}</strong> for the Nova Hackathon.</p>
 
-      <p>Here are your registered team members:</p>
+      <p><strong>Registered Team Members:</strong></p>
       <ul>
         ${safeMemberNames.map((name) => `<li>${name}</li>`).join("")}
       </ul>
 
       <p>We will be sending more details regarding the hackathon schedule and rules closer to the event date.</p>
 
-      <p>Best regards,<br>The Nova Hackathon Team</p>
+      <p>Best regards,<br><strong>The Nova Hackathon Team</strong></p>
     </div>
   `;
 
@@ -47,15 +50,14 @@ export async function sendRegistrationEmail(
     const response = await client.send({
       from: sender,
       to: [{ email: leaderEmail }],
-      subject: `Registration Confirmed: ${safeTeamName}`,
+      subject: `Nova Hackathon: Registration Confirmed - ${safeTeamName}`,
       html: htmlTemplate,
+      text: textTemplate,
     });
     console.log("Email sent successfully:", response);
     return response;
   } catch (error) {
     console.error("Failed to send email via Mailtrap:", error);
-    // Depending on requirements, we might want to throw here, but usually
-    // it's better to not fail the whole request if just the email fails.
     return null;
   }
 }

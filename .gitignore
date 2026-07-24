@@ -3,3 +3,4 @@ node_modules
 
 # Next.js build output (includes large Turbopack dev cache — must never be committed)
 .next/
+.claude/

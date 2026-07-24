@@ -23,8 +23,27 @@ export const memberSchema = z.object({
   whatsapp_no: z
     .string()
     .trim()
-    .min(8, "WhatsApp number must be at least 8 digits")
-    .max(20, "WhatsApp number cannot exceed 20 characters")
+    .refine(
+      (val) => {
+        const digits = val.replace(/\D/g, "");
+        return digits.startsWith("0");
+      },
+      { message: "WhatsApp number must start with 0 (e.g. 0774710234)" }
+    )
+    .refine(
+      (val) => {
+        const digits = val.replace(/\D/g, "");
+        return digits.length <= 10;
+      },
+      { message: "WhatsApp number cannot exceed 10 digits" }
+    )
+    .refine(
+      (val) => {
+        const digits = val.replace(/\D/g, "");
+        return digits.length >= 10;
+      },
+      { message: "WhatsApp number must be 10 digits (e.g. 0774710234)" }
+    )
     .transform(sanitizePhone),
   nic_no: z
     .string()

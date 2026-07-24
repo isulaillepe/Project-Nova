@@ -93,7 +93,7 @@ body {
     #001a4d 42%,
     #001233 100%
   );
-  background-attachment: fixed;
+  /* background-attachment: fixed; removed - causes scroll jank on mobile */
   color: var(--foreground);
   font-family: var(--font-sans), system-ui, sans-serif;
 }
@@ -308,6 +308,7 @@ body {
 
 /* ─────────────────────────────────────────────
    Gold aura — pulsing divine glow (max 0.25 opacity)
+   Runs only when not reduced-motion and tab is visible
    ───────────────────────────────────────────── */
 @keyframes goldGlow {
   0%, 100% {
@@ -326,6 +327,14 @@ body {
 
 .shadow-gold-glow {
   animation: goldGlow 4.5s ease-in-out infinite;
+  will-change: box-shadow;
+}
+
+/* Pause animation when tab is not visible to save GPU/CPU */
+@media (prefers-reduced-motion: no-preference) {
+  .shadow-gold-glow:not(:hover):not(:focus-within) {
+    animation-play-state: paused;
+  }
 }
 
 /* Static gold rim (no pulse) for focus rings and small elements */
@@ -343,6 +352,13 @@ body {
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(0, 53, 153, 0.3);
   animation: goldGlow 4.5s ease-in-out infinite;
+  will-change: box-shadow, border-color;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .glass:not(:hover):not(:focus-within) {
+    animation-play-state: paused;
+  }
 }
 
 .glass-dark {
@@ -462,23 +478,46 @@ body {
 
 /* ─────────────────────────────────────────────
    Reduced motion — respect the quality floor
+   Targeted overrides only (no universal selector)
    ───────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
-    scroll-behavior: auto !important;
+  /* Disable infinite animations on our animated utility classes */
+  .glass,
+  .shadow-gold-glow,
+  .animate-pulse-glow,
+  .animate-float,
+  .animate-gradient,
+  .animate-scroll,
+  .animate-marquee,
+  .animate-marquee-left,
+  .animate-marquee-right,
+  .animate-scroll-wheel,
+  .hero-ticker-track,
+  .animate-[pulseGlow_3s_ease-in-out_infinite] {
+    animation: none !important;
   }
 
+  /* Static gold glow for glass/shadow-gold-glow when reduced motion */
   .glass,
   .shadow-gold-glow {
-    animation: none !important;
     box-shadow:
       inset 0 1px 0 0 rgba(255, 184, 27, 0.1),
       0 10px 40px rgba(0, 8, 30, 0.45),
       0 0 24px rgba(255, 184, 27, 0.12);
+  }
+
+  /* Disable scroll animations and smooth scroll */
+  html {
+    scroll-behavior: auto;
+  }
+
+  /* Disable transitions on interactive elements only */
+  button,
+  a,
+  input,
+  select,
+  textarea,
+  [role="button"] {
+    transition-duration: 0.001ms !important;
   }
 }

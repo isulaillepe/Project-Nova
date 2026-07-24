@@ -3,19 +3,20 @@ import { Poppins, Space_Grotesk, Cormorant_Garamond, Cinzel, Orbitron } from "ne
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
-import { ConstellationCanvas } from "@/components/fx/ConstellationCanvas";
-import { SystemPreloader } from "@/components/fx/SystemPreloader";
+import { ClientFX } from "@/components/fx/ClientFX";
 
 const poppins = Poppins({
   variable: "--font-poppins",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800", "900"],
+  weight: ["300", "400", "500", "600", "700"],
+  display: "swap",
 });
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
+  display: "swap",
 });
 
 const cormorantGaramond = Cormorant_Garamond({
@@ -23,19 +24,22 @@ const cormorantGaramond = Cormorant_Garamond({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
   style: ["normal", "italic"],
+  display: "swap",
 });
 
 // Cinzel — the inscription-style display serif carrying the Olympus identity
 const cinzel = Cinzel({
   variable: "--font-cinzel",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800", "900"],
+  weight: ["400", "600", "700", "900"],
+  display: "swap",
 });
 
 const orbitron = Orbitron({
   variable: "--font-orbitron",
   subsets: ["latin"],
   weight: ["400", "500", "600", "700", "800", "900"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -96,10 +100,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${poppins.variable} ${spaceGrotesk.variable} ${cormorantGaramond.variable} ${cinzel.variable} ${orbitron.variable} min-h-screen antialiased`}>
       <body className="relative min-h-screen flex flex-col bg-[var(--nova-deep)] text-[var(--nova-linen)]">
-        {/* Cinematic Olympus night sky — drifting golden constellations */}
-        <ConstellationCanvas />
-        {/* Boot sequence — establishing the divine link */}
-        <SystemPreloader />
+        <ClientFX />
         <Header />
         <main className="relative z-[1] flex-1">{children}</main>
         <Footer />

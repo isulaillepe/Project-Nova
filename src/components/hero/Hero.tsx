@@ -121,7 +121,7 @@ export default function Hero() {
             <Link href="/register">
               <button className="group relative bg-[#FFB81B] hover:brightness-105 text-[#001233] text-[11px] sm:text-xs font-bold uppercase tracking-widest px-8 py-4 rounded-full shadow-[0_4px_24px_rgba(255,184,27,0.3)] transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]">
                 <span className="flex items-center gap-2">
-                  CLAIM YOUR PLACE
+                  REGISTER NOW
                   <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </span>
               </button>

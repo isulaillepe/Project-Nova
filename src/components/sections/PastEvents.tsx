@@ -2,50 +2,44 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Play } from "lucide-react";
 
 interface EventItem {
   name: string;
   image: string;
-  year: string;
-  description: string;
+  url: string;
 }
 
 const EVENTS_DATA: EventItem[] = [
   {
-    name: "PROJECT NOVA 2.0",
-    image: "/images/past-events/codesprint_2.png",
-    year: "2017",
-    description: "The spark that started it all - igniting startup collaboration and team building.",
+    name: "Oceana After Movie",
+    image: "https://i.ytimg.com/vi/DDPcTk39bi0/hqdefault.jpg",
+    url: "https://youtu.be/DDPcTk39bi0?si=D5u9I9Ix8vQkiVzI",
   },
   {
-    name: "PROJECT NOVA 3.0",
-    image: "/images/past-events/codesprint_3.png",
-    year: "2019",
-    description: "Expanding the horizons with tech pitches in front of elite venture capitalists.",
+    name: "LaunchPad 3.0 After Movie",
+    image: "https://i.ytimg.com/vi/9PwS06duexc/hqdefault.jpg",
+    url: "https://youtu.be/9PwS06duexc?si=zZxT0plOBBwaY_T2",
   },
   {
-    name: "PROJECT NOVA 4.0",
-    image: "/images/past-events/codesprint_4.png",
-    year: "2021",
-    description: "Pioneering the hybrid hackathon model during global digital transformation.",
+    name: "Winter Induction 25.26 Aftermovie",
+    image: "https://i.ytimg.com/vi/hxSPTD9Pt9g/hqdefault.jpg",
+    url: "https://youtu.be/hxSPTD9Pt9g?si=Up8wFL501KPnaicF",
   },
   {
-    name: "PROJECT NOVA 5.0",
-    image: "/images/past-events/codesprint_5.png",
-    year: "2023",
-    description: "Fostering raw execution with intense 24-hour non-stop building and hacking.",
+    name: "Go Beyond - Dare to Explore",
+    image: "https://i.ytimg.com/vi/Tn4ZuYdjxf0/hqdefault.jpg",
+    url: "https://youtu.be/Tn4ZuYdjxf0?si=VhLbc9IJqLYsdBfQ",
   },
   {
-    name: "PROJECT NOVA 7.0",
-    image: "/images/past-events/codesprint_7.png",
-    year: "2025",
-    description: "A monumental edition showcasing groundbreaking student-led startup creations.",
+    name: "Avurudu LCM '25",
+    image: "https://i.ytimg.com/vi/gci6Yfkr4M4/hqdefault.jpg",
+    url: "https://youtu.be/gci6Yfkr4M4?si=lRIlVDwAUKl_Ze8h",
   },
 ];
 
 export default function PastEvents() {
-  const [currentIndex, setCurrentIndex] = useState(2); // Start with Project Nova 4.0 (index 2) as active
+  const [currentIndex, setCurrentIndex] = useState(2); // Start with middle item as active
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const sectionRef = useRef<HTMLElement>(null);
@@ -61,11 +55,11 @@ export default function PastEvents() {
   const scale = useTransform(scrollYProgress, [0, 0.25, 0.75, 0.95], [0.92, 1, 1, 0.92]);
   const y = useTransform(scrollYProgress, [0, 0.25, 0.75, 0.95], [40, 0, 0, -40]);
 
-  // Auto scroll every 3 seconds
+  // Auto scroll every 4 seconds
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentIndex((prev) => (prev + 1) % EVENTS_DATA.length);
-    }, 3000);
+    }, 4000);
 
     return () => clearInterval(timer);
   }, [currentIndex]);
@@ -121,14 +115,14 @@ export default function PastEvents() {
               <span className="font-cormorant italic text-white font-medium lowercase">Events</span>
             </h2>
             <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest block font-space">
-              MOMENTS FROM PREVIOUS COMPETITIONS
+              MOMENTS FROM PREVIOUS COMPETITIONS & EVENTS
             </span>
           </div>
 
           {/* Carousel Container */}
           <div className="relative w-full h-[280px] sm:h-[380px] md:h-[440px] flex items-center justify-center">
             
-            {/* Arrow Navigation Wrapper (directly positioned relative to the centers of the left and right sibling cards) */}
+            {/* Arrow Navigation Wrapper */}
             <div className="absolute w-[90vw] sm:w-[75vw] md:w-[63vw] lg:w-[52.5vw] aspect-[16/10] pointer-events-none z-40 flex items-center justify-between">
               {/* Navigation Arrow Left */}
               <button
@@ -152,7 +146,6 @@ export default function PastEvents() {
             {/* Carousel Slide Window */}
             <div ref={containerRef} className="relative w-full h-full flex items-center justify-center overflow-visible">
               {EVENTS_DATA.map((item, index) => {
-                // Calculate offset index with wrap-around
                 let offset = index - currentIndex;
                 if (offset < -Math.floor(EVENTS_DATA.length / 2)) {
                   offset += EVENTS_DATA.length;
@@ -164,7 +157,6 @@ export default function PastEvents() {
                 const isHovered = index === hoveredIndex;
                 const isHighlighted = isActive || isHovered;
 
-                // Translate and styling logic
                 let x = "0%";
                 let scaleVal = 0.8;
                 let opacityVal = 0;
@@ -219,9 +211,13 @@ export default function PastEvents() {
                     onMouseEnter={() => setHoveredIndex(index)}
                     onMouseLeave={() => setHoveredIndex(null)}
                     onClick={() => {
-                      if (!isActive) setCurrentIndex(index);
+                      if (!isActive) {
+                        setCurrentIndex(index);
+                      } else {
+                        window.open(item.url, "_blank", "noopener,noreferrer");
+                      }
                     }}
-                    className={`absolute w-[85vw] sm:w-[50vw] md:w-[42vw] lg:w-[35vw] aspect-[16/10] cursor-pointer origin-center`}
+                    className="absolute w-[85vw] sm:w-[50vw] md:w-[42vw] lg:w-[35vw] aspect-[16/10] cursor-pointer origin-center group"
                   >
                     {/* Beveled Border Wrapper */}
                     <div
@@ -243,7 +239,7 @@ export default function PastEvents() {
                             src={item.image}
                             alt={item.name}
                             className={`w-full h-full object-cover transition-all duration-700 ease-out ${
-                              isHighlighted ? "grayscale-0 contrast-100 scale-100" : "grayscale contrast-[1.15] brightness-[0.6] scale-98"
+                              isHighlighted ? "grayscale-0 contrast-100 scale-105" : "grayscale contrast-[1.15] brightness-[0.6] scale-100"
                             }`}
                           />
                         </picture>
@@ -251,11 +247,20 @@ export default function PastEvents() {
                         {/* Dark overlay for inactive slides */}
                         <div
                           className={`absolute inset-0 bg-black transition-opacity duration-700 pointer-events-none ${
-                            isHighlighted ? "opacity-0" : "opacity-30"
+                            isHighlighted ? "opacity-20" : "opacity-50"
                           }`}
                         />
 
-                        {/* Event Tag Box - Bottom Left (renders dynamically or highlights when active/hovered) */}
+                        {/* Play Button Overlay on Active Card */}
+                        {isActive && (
+                          <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                            <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#FFB81B] text-[#001233] flex items-center justify-center shadow-[0_0_24px_rgba(255,184,27,0.6)] group-hover:scale-110 transition-transform duration-300">
+                              <Play className="w-6 h-6 sm:w-7 sm:h-7 fill-current translate-x-0.5" />
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Event Tag Box - Bottom Left */}
                         <AnimatePresence>
                           {isHighlighted && (
                             <motion.div
@@ -263,9 +268,10 @@ export default function PastEvents() {
                               animate={{ opacity: 1, x: 0 }}
                               exit={{ opacity: 0, x: -10 }}
                               transition={{ duration: 0.3 }}
-                              className="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 bg-[#001233]/90 border-l-[3.5px] border-[#FFB81B] px-3 py-1.5 sm:px-4 sm:py-2 flex items-center gap-2 pointer-events-none select-none"
+                              className="absolute bottom-4 left-4 sm:bottom-6 sm:left-6 max-w-[85%] bg-[#001233]/90 border-l-[3.5px] border-[#FFB81B] px-3 py-1.5 sm:px-4 sm:py-2 flex items-center gap-2 pointer-events-none select-none"
                             >
-                              <span className="text-[10px] sm:text-[11px] font-bold text-white tracking-widest font-space uppercase">
+                              <Play className="w-3 h-3 text-[#FFB81B] shrink-0 fill-[#FFB81B]" />
+                              <span className="text-[10px] sm:text-[11px] font-bold text-white tracking-wider font-space truncate">
                                 {item.name}
                               </span>
                             </motion.div>

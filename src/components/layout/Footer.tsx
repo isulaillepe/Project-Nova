@@ -7,17 +7,17 @@ import { FaLinkedinIn, FaInstagram, FaYoutube, FaFacebookF } from "react-icons/f
 
 const footerLinks = {
   pantheon: [
-    { label: "The Gateway", href: "/" },
-    { label: "The Odysseys", href: "/#timeline" },
-    { label: "The Treasury", href: "/#prizes" },
-    { label: "The Guardians", href: "/#committee" },
-    { label: "The Allies", href: "/#partners" },
+    { label: "Home", href: "/" },
+    { label: "Timeline", href: "/#timeline" },
+    { label: "Prizes", href: "/#prizes" },
+    { label: "Committee", href: "/#committee" },
+    { label: "Partners", href: "/#partners" },
   ],
   trials: [
     { label: "School Track", href: "/register?track=school" },
     { label: "University Track", href: "/register?track=university" },
     { label: "Register", href: "/register" },
-    { label: "The Oracle (FAQ)", href: "/#faq" },
+    { label: "FAQ", href: "/#faq" },
     { label: "Rules & Guidelines", href: "/#rules" },
   ],
   alliances: [

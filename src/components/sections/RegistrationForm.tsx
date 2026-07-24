@@ -53,7 +53,7 @@ function maskPhone(phone: string): string {
   if (!phone) return "—";
   const digits = phone.replace(/\D/g, "");
   if (digits.length <= 4) return "*".repeat(digits.length);
-  return `+94 *** *** ${digits.slice(-4)}`;
+  return `${digits.slice(0, 3)} *** ${digits.slice(-4)}`;
 }
 
 export function RegistrationForm() {
@@ -468,7 +468,7 @@ export function RegistrationForm() {
                         </Label>
                         <Input
                           id={`members.${index}.fullname`}
-                          placeholder="Athena Petra"
+                          placeholder="Isula Illeperuma"
                           className="bg-[#002066]/40 border-[#003599]/40 text-[#f7fafc] placeholder:text-[#cbd5e0]/30 focus:border-[#FFB81B] focus:ring-1 focus:ring-[#FFB81B] h-10 rounded-lg text-xs"
                           {...register(`members.${index}.fullname`)}
                         />
@@ -509,7 +509,7 @@ export function RegistrationForm() {
                         </Label>
                         <Input
                           id={`members.${index}.whatsapp_no`}
-                          placeholder="+94 77 123 4567"
+                          placeholder="0774710234"
                           className="bg-[#002066]/40 border-[#003599]/40 text-[#f7fafc] placeholder:text-[#cbd5e0]/30 focus:border-[#FFB81B] focus:ring-1 focus:ring-[#FFB81B] h-10 rounded-lg text-xs"
                           {...register(`members.${index}.whatsapp_no`)}
                         />

@@ -105,14 +105,12 @@ export default function Stats() {
           <p className="mx-auto max-w-xl text-sm text-[#cbd5e0]/80 font-space font-light tracking-wide">
             The spoils of victory — a LKR 255,000 treasury awaiting the crews who earn the favor of the pantheon.
           </p>
-        </motion.div>
-
-        {/* Floating Glassmorphic Podium Card */}
+        </motion.div>        {/* Floating Glassmorphic Podium Card */}
         <motion.div
           variants={cardVariants}
-          className="glass backdrop-blur-xl rounded-[28px] p-8 md:p-12 shadow-[0_12px_40px_rgba(0,8,30,0.655)]"
+          className="glass backdrop-blur-xl rounded-[24px] sm:rounded-[28px] p-4 sm:p-8 md:p-12 shadow-[0_12px_40px_rgba(0,8,30,0.655)]"
         >
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6 items-center">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
             {/* 2nd Place (Silver) */}
             <motion.div
               variants={leftCardVariants}
@@ -159,7 +157,7 @@ export default function Stats() {
               className="order-3 md:order-3 border border-[#cd7f32]/25 bg-[#cd7f32]/5 rounded-2xl p-6 flex flex-col items-center justify-center text-center shadow-lg transition-transform duration-300 hover:scale-[1.02] min-h-[220px]"
             >
               <div className="w-10 h-10 rounded-full bg-[#cd7f32]/10 border border-[#cd7f32]/20 flex items-center justify-center mb-4 text-[#e0995a]">
-                <Award className="w-5 w-5" />
+                <Award className="w-5 h-5" />
               </div>
               <span className="text-[10px] font-bold font-space uppercase tracking-[0.2em] text-[#e0995a] mb-1">
                 2nd Runner-Up
@@ -173,43 +171,46 @@ export default function Stats() {
             </motion.div>
           </div>
 
-          {/* Finalist Merits sub-row footer inside the card — fine golden divider */}
-          <div className="mt-10 pt-8 divider-gold flex flex-col sm:flex-row items-center justify-between gap-4 w-full text-center sm:text-left relative z-10">
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-full bg-[#FFB81B]/10 border border-[#FFB81B]/20 flex items-center justify-center text-[#FFB81B] text-xs">
-                ⭐
-              </div>
-              <div>
-                <span className="text-[10px] font-bold tracking-[0.2em] text-[#FFB81B] uppercase block font-space">
-                  RECOGNITION & CERTIFICATES
-                </span>
-                <span className="text-[11px] text-[#cbd5e0] font-space font-medium leading-tight">
-                  All finalist teams will receive official participation credentials and exclusive performance validation reports.
-                </span>
+          {/* Finalist Merits sub-row footer inside the card with gold background */}
+          <div className="mt-8 sm:mt-10 pt-6 sm:pt-8 border-t border-[#FFB81B]/20 flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4 w-full relative z-10">
+            <div className="w-full lg:flex-1 rounded-2xl bg-gradient-to-r from-[#FFB81B]/20 via-[#FFB81B]/10 to-[#002066]/50 border border-[#FFB81B]/35 p-4 sm:p-5 shadow-[0_0_20px_rgba(255,184,27,0.12)] backdrop-blur-md">
+              <div className="flex flex-col sm:flex-row items-center sm:items-center gap-3 sm:gap-4">
+                <div className="w-10 h-10 rounded-xl bg-[#FFB81B]/20 border border-[#FFB81B]/40 flex items-center justify-center text-[#FFB81B] text-base shrink-0 shadow-[0_0_12px_rgba(255,184,27,0.25)]">
+                  ⭐
+                </div>
+                <div className="text-center sm:text-left min-w-0 flex-1">
+                  <span className="text-xs font-bold font-space tracking-[0.2em] text-[#FFB81B] uppercase block">
+                    RECOGNITION & CERTIFICATES
+                  </span>
+                  <p className="text-xs text-[#f7fafc] font-space font-medium leading-relaxed mt-1">
+                    All finalist teams will receive official participation credentials and exclusive performance validation reports.
+                  </p>
+                </div>
               </div>
             </div>
-            <div className="bg-[#FFB81B]/10 border border-[#FFB81B]/25 px-4 py-2 rounded-xl font-space font-bold text-xs text-[#FFB81B] tracking-wider shrink-0">
+
+            <div className="w-full lg:w-auto bg-[#FFB81B]/15 border border-[#FFB81B]/40 px-5 py-4 rounded-2xl font-space font-bold text-xs text-[#FFB81B] tracking-wider text-center shrink-0 shadow-[0_0_15px_rgba(255,184,27,0.15)] flex items-center justify-center">
               TOTAL POOL: LKR 135,000
             </div>
           </div>
         </motion.div>
 
         {/* Realms & Disciplines Tracks Grid */}
-        <div className="pt-10 grid grid-cols-1 md:grid-cols-2 gap-6 font-mono text-[10px] sm:text-xs text-[#cbd5e0] max-w-5xl mx-auto w-full relative">
+        <div className="pt-8 sm:pt-10 grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 font-mono text-[10px] sm:text-xs text-[#cbd5e0] max-w-5xl mx-auto w-full relative">
           <motion.div
             variants={trackLeftVariants}
-            className="border-y border-l border-[#003599]/50 p-5 rounded-l-xl bg-[#001233]/50 backdrop-blur-sm relative"
+            className="border border-[#003599]/50 p-5 rounded-xl bg-[#001233]/50 backdrop-blur-sm relative"
           >
-            <div className="absolute left-0 top-0 bottom-0 w-[2px] bg-[#FFB81B]/80" />
+            <div className="absolute left-0 top-0 bottom-0 w-[2px] bg-[#FFB81B]/80 rounded-l-xl" />
             <span className="text-[#FFB81B] font-bold block mb-1 text-[11px] tracking-widest font-space">REALMS TRACK:</span>
             <span className="leading-relaxed opacity-90">MARKETPLACES, EDTECH, DIGITAL HEALTH, E-COMMERCE, SAAS</span>
           </motion.div>
 
           <motion.div
             variants={trackRightVariants}
-            className="border-y border-r border-[#003599]/50 p-5 rounded-r-xl bg-[#001233]/50 backdrop-blur-sm relative"
+            className="border border-[#003599]/50 p-5 rounded-xl bg-[#001233]/50 backdrop-blur-sm relative"
           >
-            <div className="absolute right-0 top-0 bottom-0 w-[2px] bg-[#FFB81B]/80" />
+            <div className="absolute right-0 top-0 bottom-0 w-[2px] bg-[#FFB81B]/80 rounded-r-xl" />
             <span className="text-[#FFB81B] font-bold block mb-1 text-[11px] tracking-widest font-space">WISDOM TRACK:</span>
             <span className="leading-relaxed opacity-90">PREDICTIVE HEALTH, GENERATIVE AI, FINTECH ANALYTICS, BIO-INFORMATICS</span>
           </motion.div>

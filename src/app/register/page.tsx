@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function RegisterPage() {
   return (
-    <div className="relative min-h-screen bg-[#001233] pt-24 pb-16">
+    <div className="relative min-h-screen bg-[#001233] pt-24 pb-16 overflow-x-hidden">
       {/* Background Effects */}
       <div className="absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
         <div className="absolute top-0 right-0 h-[600px] w-[600px] rounded-full bg-[radial-gradient(circle_at_75%_25%,rgba(255,184,27,0.12)_0%,transparent_60%)] blur-3xl" />

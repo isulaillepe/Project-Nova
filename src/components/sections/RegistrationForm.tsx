@@ -202,18 +202,19 @@ export function RegistrationForm() {
   return (
     <div className="w-full max-w-3xl mx-auto">
       {/* Premium glass window shell */}
-      <div className="glass relative rounded-[28px] p-6 sm:p-8 md:p-10 shadow-[0_20px_60px_rgba(0,8,30,0.6)]">
+      <div className="glass relative rounded-[24px] sm:rounded-[28px] p-4 sm:p-8 md:p-10 shadow-[0_20px_60px_rgba(0,8,30,0.6)] overflow-hidden">
         {/* Top Branding Header */}
         <div className="flex flex-col items-center justify-center mb-8 select-none">
           <div className="relative flex items-center justify-center">
-            <div className="absolute inset-0 bg-[#FFB81B]/20 blur-xl rounded-full w-16 h-16 animate-pulse-glow" />
-            <svg className="w-14 h-14 text-[#FFB81B] relative filter drop-shadow-[0_0_15px_rgba(255,184,27,0.6)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15a4.5 4.5 0 0 0 4.5 4.5H18a3.75 3.75 0 0 0 1.332-7.257 3 3 0 0 0-3.758-3.848 5.25 5.25 0 0 0-10.233 2.33A4.502 4.502 0 0 0 2.25 15z" />
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9 14l-2-2 2-2m6 4l2-2-2-2" />
-            </svg>
+            <div className="absolute inset-0 bg-[#FFB81B]/20 blur-xl rounded-full w-24 h-16 animate-pulse-glow" />
+            <img
+              src="/images/project_nova_logo.png"
+              alt="Project Nova"
+              className="h-10 sm:h-12 w-auto object-contain relative filter drop-shadow-[0_0_18px_rgba(255,184,27,0.5)]"
+            />
           </div>
-          <div className="mt-3 text-xs font-cinzel font-bold tracking-[0.3em] text-[#FFB81B] uppercase">
-            NOVA ENLISTMENT
+          <div className="mt-2 text-xs font-cinzel font-bold tracking-[0.3em] text-[#FFB81B] uppercase">
+            ENLISTMENT
           </div>
           <div className="mt-1 text-[9px] font-space font-semibold text-[#cbd5e0]/60 tracking-[0.4em] uppercase">
             AMBITION | WISDOM | LEGACY
@@ -299,7 +300,7 @@ export function RegistrationForm() {
                 </span>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6 rounded-2xl border border-[#003599]/30 bg-[#001233]/40 backdrop-blur-sm">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-4 sm:p-6 rounded-2xl border border-[#003599]/30 bg-[#001233]/40 backdrop-blur-sm">
                 {/* Team Name */}
                 <div className="space-y-2">
                   <Label
@@ -376,12 +377,12 @@ export function RegistrationForm() {
               </div>
 
               {/* Next Button */}
-              <div className="flex justify-end pt-4">
+              <div className="flex justify-end pt-4 border-t border-[#003599]/30">
                 <Button
                   type="button"
                   variant="gradient"
                   size="xl"
-                  className="group gap-2 shadow-[0_0_30px_rgba(255,184,27,0.3)] w-full sm:w-auto"
+                  className="group gap-2 shadow-[0_0_30px_rgba(255,184,27,0.3)] w-full sm:w-auto justify-center"
                   onClick={handleNext}
                 >
                   Next: Summon Members
@@ -394,7 +395,7 @@ export function RegistrationForm() {
           {/* ==================== STEP 2: Members ==================== */}
           {currentStep === 2 && (
             <div className="space-y-6 animate-in fade-in slide-in-from-right-4 duration-500">
-              <div className="flex items-center justify-between mb-4">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
                 <div className="flex items-center gap-3 select-none">
                   <div className="w-1 h-6 bg-gradient-to-b from-[#FFB81B] to-[#e0a015] rounded-full animate-pulse" />
                   <span className="text-xs font-cinzel font-bold tracking-[0.25em] text-[#cbd5e0] uppercase">
@@ -410,7 +411,7 @@ export function RegistrationForm() {
                 {fields.map((field, index: number) => (
                   <div
                     key={field.id}
-                    className="relative rounded-2xl border border-[#003599]/30 bg-[#001233]/40 p-5 backdrop-blur-sm transition-all duration-300 hover:border-[#FFB81B]/30"
+                    className="relative rounded-2xl border border-[#003599]/30 bg-[#001233]/40 p-4 sm:p-5 backdrop-blur-sm transition-all duration-300 hover:border-[#FFB81B]/30"
                   >
                     {/* Member header */}
                     <div className="mb-4 flex items-center justify-between">
@@ -638,12 +639,12 @@ export function RegistrationForm() {
               )}
 
               {/* Navigation */}
-              <div className="flex items-center justify-between pt-4 border-t border-[#003599]/30">
+              <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-4 border-t border-[#003599]/30">
                 <Button
                   type="button"
                   variant="ghost"
                   size="lg"
-                  className="gap-2 text-[#cbd5e0] hover:text-[#f7fafc]"
+                  className="gap-2 text-[#cbd5e0] hover:text-[#f7fafc] w-full sm:w-auto justify-center sm:justify-start"
                   onClick={handleBack}
                 >
                   <ArrowLeft className="h-4 w-4" />
@@ -653,7 +654,7 @@ export function RegistrationForm() {
                   type="button"
                   variant="gradient"
                   size="xl"
-                  className="group gap-2 shadow-[0_0_30px_rgba(255,184,27,0.3)] w-full sm:w-auto"
+                  className="group gap-2 shadow-[0_0_30px_rgba(255,184,27,0.3)] w-full sm:w-auto justify-center"
                   onClick={handleNext}
                 >
                   Review Crew
@@ -674,14 +675,14 @@ export function RegistrationForm() {
               </div>
 
               {/* Team Summary */}
-              <div className="rounded-2xl border border-[#003599]/30 bg-[#001233]/40 p-5 backdrop-blur-sm">
+              <div className="rounded-2xl border border-[#003599]/30 bg-[#001233]/40 p-4 sm:p-5 backdrop-blur-sm">
                 <h3 className="mb-4 text-[10px] font-space font-bold uppercase tracking-widest text-[#cbd5e0]/60">
                   CREW MANIFEST
                 </h3>
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div className="rounded-xl bg-[#002066]/40 border border-[#003599]/30 p-4">
                     <div className="text-[10px] font-space font-bold uppercase tracking-wider text-[#cbd5e0]/60">Crew Name</div>
-                    <div className="mt-1 text-base font-cinzel font-bold text-[#f7fafc] tracking-wide uppercase">
+                    <div className="mt-1 text-base font-cinzel font-bold text-[#f7fafc] tracking-wide uppercase truncate">
                       {watchedTeamName}
                     </div>
                   </div>
@@ -703,7 +704,7 @@ export function RegistrationForm() {
               </div>
 
               {/* Members Summary */}
-              <div className="rounded-2xl border border-[#003599]/30 bg-[#001233]/40 p-5 backdrop-blur-sm">
+              <div className="rounded-2xl border border-[#003599]/30 bg-[#001233]/40 p-4 sm:p-5 backdrop-blur-sm">
                 <h3 className="mb-4 text-[10px] font-space font-bold uppercase tracking-widest text-[#cbd5e0]/60">
                   CREW ROSTER ({watchedMembers.length})
                 </h3>
@@ -717,9 +718,9 @@ export function RegistrationForm() {
                           : "bg-[#002066]/40 border border-[#003599]/30"
                       }`}
                     >
-                      <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-3 min-w-0">
                         <div
-                          className={`flex h-9 w-9 items-center justify-center rounded-lg font-bold ${
+                          className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg font-bold ${
                             member.is_leader
                               ? "bg-[#FFB81B]/15 text-[#FFB81B] border border-[#FFB81B]/30"
                               : "bg-white/5 text-[#cbd5e0] border border-white/5"
@@ -731,13 +732,13 @@ export function RegistrationForm() {
                             index + 1
                           )}
                         </div>
-                        <div className="min-w-0">
-                          <div className="flex items-center gap-2">
+                        <div className="min-w-0 flex-1">
+                          <div className="flex flex-wrap items-center gap-2">
                             <span className="font-semibold text-[#f7fafc] truncate text-sm">
                               {member.fullname || "—"}
                             </span>
                             {member.is_leader && (
-                              <span className="rounded-full bg-[#FFB81B]/10 px-2 py-0.5 text-[9px] font-space font-bold uppercase tracking-wider text-[#FFB81B] border border-[#FFB81B]/20">
+                              <span className="rounded-full bg-[#FFB81B]/10 px-2 py-0.5 text-[9px] font-space font-bold uppercase tracking-wider text-[#FFB81B] border border-[#FFB81B]/20 shrink-0">
                                 Leader
                               </span>
                             )}
@@ -753,13 +754,13 @@ export function RegistrationForm() {
                         </div>
                       </div>
 
-                      <div className="flex justify-between sm:justify-end gap-6 text-right text-xs font-sans text-[#cbd5e0] sm:border-l sm:border-[#003599]/30 sm:pl-6">
+                      <div className="flex justify-between sm:justify-end gap-4 sm:gap-6 text-xs font-sans text-[#cbd5e0] sm:border-l sm:border-[#003599]/30 sm:pl-6 pt-3 sm:pt-0 border-t border-[#003599]/20 sm:border-t-0">
                         <div className="space-y-0.5">
                           <div className="text-[9px] font-space font-bold text-[#cbd5e0]/50 text-left sm:text-right uppercase tracking-wider">WHATSAPP</div>
                           <div className="text-[#f7fafc] font-medium">{maskPhone(member.whatsapp_no)}</div>
                         </div>
-                        <div className="space-y-0.5">
-                          <div className="text-[9px] font-space font-bold text-[#cbd5e0]/50 text-left sm:text-right uppercase tracking-wider">NIC / ID</div>
+                        <div className="space-y-0.5 text-right">
+                          <div className="text-[9px] font-space font-bold text-[#cbd5e0]/50 text-right uppercase tracking-wider">NIC / ID</div>
                           <div className="text-[#f7fafc] font-medium">{maskNic(member.nic_no)}</div>
                         </div>
                       </div>
@@ -780,12 +781,12 @@ export function RegistrationForm() {
               )}
 
               {/* Navigation */}
-              <div className="flex items-center justify-between pt-4 border-t border-[#003599]/30">
+              <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-4 border-t border-[#003599]/30">
                 <Button
                   type="button"
                   variant="ghost"
                   size="lg"
-                  className="gap-2 text-[#cbd5e0] hover:text-[#f7fafc]"
+                  className="gap-2 text-[#cbd5e0] hover:text-[#f7fafc] w-full sm:w-auto justify-center sm:justify-start"
                   onClick={handleBack}
                 >
                   <ArrowLeft className="h-4 w-4" />
@@ -796,7 +797,7 @@ export function RegistrationForm() {
                   variant="gradient"
                   size="xl"
                   disabled={submitStatus === "loading"}
-                  className="group gap-2 shadow-[0_0_30px_rgba(255,184,27,0.3)] disabled:opacity-60 w-full sm:w-auto"
+                  className="group gap-2 shadow-[0_0_30px_rgba(255,184,27,0.3)] disabled:opacity-60 w-full sm:w-auto justify-center"
                 >
                   {submitStatus === "loading" ? (
                     <>

@@ -206,14 +206,15 @@ export function RegistrationForm() {
         {/* Top Branding Header */}
         <div className="flex flex-col items-center justify-center mb-8 select-none">
           <div className="relative flex items-center justify-center">
-            <div className="absolute inset-0 bg-[#FFB81B]/20 blur-xl rounded-full w-16 h-16 animate-pulse-glow" />
-            <svg className="w-14 h-14 text-[#FFB81B] relative filter drop-shadow-[0_0_15px_rgba(255,184,27,0.6)]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15a4.5 4.5 0 0 0 4.5 4.5H18a3.75 3.75 0 0 0 1.332-7.257 3 3 0 0 0-3.758-3.848 5.25 5.25 0 0 0-10.233 2.33A4.502 4.502 0 0 0 2.25 15z" />
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9 14l-2-2 2-2m6 4l2-2-2-2" />
-            </svg>
+            <div className="absolute inset-0 bg-[#FFB81B]/20 blur-xl rounded-full w-24 h-16 animate-pulse-glow" />
+            <img
+              src="/images/project_nova_logo.png"
+              alt="Project Nova"
+              className="h-10 sm:h-12 w-auto object-contain relative filter drop-shadow-[0_0_18px_rgba(255,184,27,0.5)]"
+            />
           </div>
-          <div className="mt-3 text-xs font-cinzel font-bold tracking-[0.3em] text-[#FFB81B] uppercase">
-            NOVA ENLISTMENT
+          <div className="mt-2 text-xs font-cinzel font-bold tracking-[0.3em] text-[#FFB81B] uppercase">
+            ENLISTMENT
           </div>
           <div className="mt-1 text-[9px] font-space font-semibold text-[#cbd5e0]/60 tracking-[0.4em] uppercase">
             AMBITION | WISDOM | LEGACY

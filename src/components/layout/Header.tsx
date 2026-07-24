@@ -41,7 +41,7 @@ export function Header() {
       <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" aria-label="Main navigation">
         <div className="flex h-20 items-center justify-between">
           
-          {/* Logo with futuristic brackets */}
+          {/* Logo with official Project Nova image */}
           <Link
             href="/"
             className={`flex items-center transition-all duration-500 transform ${
@@ -51,14 +51,11 @@ export function Header() {
             }`}
             aria-label="Project Nova Home"
           >
-            <div className="relative border-y border-[#ffb81b]/25 px-5 py-1.5 font-cinzel font-bold tracking-[0.2em] text-sm select-none uppercase">
-              {/* Left bracket corners */}
-              <div className="absolute left-0 top-0 bottom-0 w-2 border-y border-l border-[#ffb81b]/40" />
-              {/* Right bracket corners */}
-              <div className="absolute right-0 top-0 bottom-0 w-2 border-y border-r border-[#ffb81b]/40" />
-              <span className="text-[#f7fafc]">PROJECT</span>
-              <span className="text-[#FFB81B] ml-1.5">NOVA</span>
-            </div>
+            <img
+              src="/images/project_nova_logo.png"
+              alt="Project Nova"
+              className="h-8 sm:h-9 w-auto object-contain filter drop-shadow-[0_0_12px_rgba(255,184,27,0.4)]"
+            />
           </Link>
 
           {/* Desktop Navigation & Action Buttons */}
@@ -89,7 +86,7 @@ export function Header() {
             <div className="flex items-center gap-3">
               <Link href="/execution-booklet">
                 <button className="border border-[#ffb81b]/25 hover:border-[#ffb81b]/60 hover:bg-[#ffb81b]/5 text-[#f7fafc] text-[10px] font-bold uppercase tracking-widest px-4 py-2 rounded-full transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]">
-                  THE CODEX
+                  DELEGATE BOOKLET
                 </button>
               </Link>
               <Link href="/register">
@@ -137,7 +134,7 @@ export function Header() {
             <div className="flex flex-col gap-3 pt-4 border-t border-[#003599]/40">
               <Link href="/execution-booklet" onClick={() => setIsMobileMenuOpen(false)}>
                 <button className="w-full text-center border border-[#ffb81b]/25 text-[#f7fafc] text-[11px] font-bold uppercase tracking-widest py-3 rounded-full">
-                  THE CODEX
+                  DELEGATE BOOKLET
                 </button>
               </Link>
               <Link href="/register" onClick={() => setIsMobileMenuOpen(false)}>

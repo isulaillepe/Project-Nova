@@ -29,7 +29,7 @@ export default function Hero() {
   // Flying center emblem animation to top-left header position
   const logoY = useTransform(scrollYProgress, [0, 0.45], ["0%", "-42vh"]);
   const logoX = useTransform(scrollYProgress, [0, 0.45], ["0%", "-37vw"]);
-  const logoScale = useTransform(scrollYProgress, [0, 0.45], [1.8, 1.0]);
+  const logoScale = useTransform(scrollYProgress, [0, 0.45], [1.0, 1.0]);
   const logoOpacity = useTransform(scrollYProgress, [0, 0.42, 0.46], [1.0, 1.0, 0.0]);
 
   const scrollIndicatorOpacity = useTransform(scrollYProgress, [0, 0.15], [1.0, 0.0]);
@@ -57,7 +57,7 @@ export default function Hero() {
         <div className="absolute right-0 top-0 w-full md:w-[60%] h-full bg-[radial-gradient(circle_at_75%_25%,rgba(255,184,27,0.16)_0%,transparent_60%)] z-0 pointer-events-none" />
         <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#001233] to-transparent z-0 pointer-events-none" />
 
-        {/* Flying centered emblem for intro effect */}
+        {/* Flying centered logo image keeping small size moving to top title bar */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-20">
           <motion.div
             style={{
@@ -66,12 +66,13 @@ export default function Hero() {
               scale: logoScale,
               opacity: logoOpacity,
             }}
-            className="border-y border-[#ffb81b]/30 px-5 py-1.5 font-cinzel font-bold tracking-[0.2em] text-sm uppercase select-none relative bg-[#001233]/30 backdrop-blur-[2px]"
+            className="relative flex items-center justify-center select-none"
           >
-            <div className="absolute left-0 top-0 bottom-0 w-2 border-y border-l border-[#ffb81b]/40" />
-            <div className="absolute right-0 top-0 bottom-0 w-2 border-y border-r border-[#ffb81b]/40" />
-            <span className="text-[#f7fafc]">PROJECT</span>
-            <span className="text-[#FFB81B] ml-1.5">NOVA</span>
+            <img
+              src="/images/project_nova_logo.png"
+              alt="Project Nova"
+              className="h-8 sm:h-9 w-auto object-contain filter drop-shadow-[0_0_15px_rgba(255,184,27,0.4)]"
+            />
           </motion.div>
         </div>
 

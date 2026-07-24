@@ -1,6 +1,8 @@
 "use client";
 
 import * as React from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState, useRef, useEffect } from "react";
 import { motion, useScroll, useTransform, useMotionValueEvent, MotionValue } from "framer-motion";
 import { Mail } from "lucide-react";
@@ -120,6 +122,7 @@ function FaqItem({ item, index, openIndex, setOpenIndex, scrollYProgress }: FaqI
 }
 
 export default function Faq() {
+  const pathname = usePathname();
   const containerRef = useRef<HTMLDivElement>(null);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
@@ -323,7 +326,17 @@ export default function Faq() {
                 </div>
 
                 {/* Right Column: Project Nova Logo & Copyright */}
-                <div className="flex flex-col items-center md:items-end gap-1 text-center md:text-right select-none font-space">
+                <Link
+                  href="/"
+                  onClick={(e) => {
+                    if (pathname === "/") {
+                      e.preventDefault();
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    }
+                  }}
+                  className="flex flex-col items-center md:items-end gap-1 text-center md:text-right select-none font-space cursor-pointer hover:opacity-80 transition-opacity"
+                  aria-label="Project Nova Home"
+                >
                   <div className="font-extrabold text-sm sm:text-base tracking-wider uppercase">
                     <span className="text-white">PROJECT</span>
                     <span className="text-[#FFB81B] ml-1">NOVA</span>
@@ -332,7 +345,7 @@ export default function Faq() {
                     COPYRIGHT © 2026 <br />
                     AIESEC IN USJ // DESIGN UNIT
                   </div>
-                </div>
+                </Link>
 
               </div>
             </motion.div>

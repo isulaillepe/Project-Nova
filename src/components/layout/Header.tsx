@@ -44,7 +44,13 @@ export function Header() {
           {/* Logo with official Project Nova image */}
           <Link
             href="/"
-            className={`flex items-center transition-all duration-500 transform ${
+            onClick={(e) => {
+              if (pathname === "/") {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }
+            }}
+            className={`flex items-center transition-all duration-500 transform cursor-pointer ${
               shouldShowHeader
                 ? "opacity-100 translate-y-0 pointer-events-auto"
                 : "opacity-0 -translate-y-4 pointer-events-none"
@@ -72,6 +78,12 @@ export function Header() {
                   {index > 0 && <span className="text-[#ffb81b]/30 text-xs select-none">·</span>}
                   <Link
                     href={link.href}
+                    onClick={(e) => {
+                      if (link.href === "/" && pathname === "/") {
+                        e.preventDefault();
+                        window.scrollTo({ top: 0, behavior: "smooth" });
+                      }
+                    }}
                     className="text-[11px] font-bold uppercase tracking-widest text-[#cbd5e0] transition-colors hover:text-[#FFB81B]"
                   >
                     {link.label}
@@ -126,7 +138,13 @@ export function Header() {
                 key={link.href}
                 href={link.href}
                 className="text-sm font-semibold uppercase tracking-wider text-[#cbd5e0] hover:text-[#FFB81B] transition-colors"
-                onClick={() => setIsMobileMenuOpen(false)}
+                onClick={(e) => {
+                  setIsMobileMenuOpen(false);
+                  if (link.href === "/" && pathname === "/") {
+                    e.preventDefault();
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                  }
+                }}
               >
                 {link.label}
               </Link>

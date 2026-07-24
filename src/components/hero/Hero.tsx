@@ -104,8 +104,8 @@ export default function Hero() {
 
           {/* Heading — luxury serif display */}
           <h1 className="display-serif text-5xl sm:text-7xl md:text-8xl text-[#f7fafc]">
-            From <span className="font-bold">Mortal</span> <br />
-            to <span className="text-gold-gradient font-semibold">Myth</span>
+            From <span className="font-bold">Concept</span> <br />
+            to <span className="text-gold-gradient font-semibold">Creation</span>
             <span className="text-[#FFB81B] font-bold">.</span>
           </h1>
 

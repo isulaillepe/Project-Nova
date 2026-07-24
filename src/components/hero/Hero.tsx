@@ -66,13 +66,23 @@ export default function Hero() {
               scale: logoScale,
               opacity: logoOpacity,
             }}
-            className="relative flex items-center justify-center select-none"
+            className="relative flex items-center justify-center select-none pointer-events-auto"
           >
-            <img
-              src="/images/project_nova_logo.png"
-              alt="Project Nova"
-              className="h-8 sm:h-9 w-auto object-contain filter drop-shadow-[0_0_15px_rgba(255,184,27,0.4)]"
-            />
+            <Link
+              href="/"
+              onClick={(e) => {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }}
+              className="cursor-pointer flex items-center justify-center"
+              aria-label="Project Nova Home"
+            >
+              <img
+                src="/images/project_nova_logo.png"
+                alt="Project Nova"
+                className="h-8 sm:h-9 w-auto object-contain filter drop-shadow-[0_0_15px_rgba(255,184,27,0.4)] transition-transform hover:scale-105"
+              />
+            </Link>
           </motion.div>
         </div>
 

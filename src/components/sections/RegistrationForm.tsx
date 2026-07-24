@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import Link from "next/link";
 import { useForm, useFieldArray } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useWatch } from "react-hook-form";
@@ -205,14 +206,18 @@ export function RegistrationForm() {
       <div className="glass relative rounded-[24px] sm:rounded-[28px] p-4 sm:p-8 md:p-10 shadow-[0_20px_60px_rgba(0,8,30,0.6)] overflow-hidden">
         {/* Top Branding Header */}
         <div className="flex flex-col items-center justify-center mb-8 select-none">
-          <div className="relative flex items-center justify-center">
+          <Link
+            href="/"
+            className="relative flex items-center justify-center cursor-pointer hover:scale-105 transition-transform"
+            aria-label="Project Nova Home"
+          >
             <div className="absolute inset-0 bg-[#FFB81B]/20 blur-xl rounded-full w-24 h-16 animate-pulse-glow" />
             <img
               src="/images/project_nova_logo.png"
               alt="Project Nova"
               className="h-10 sm:h-12 w-auto object-contain relative filter drop-shadow-[0_0_18px_rgba(255,184,27,0.5)]"
             />
-          </div>
+          </Link>
           <div className="mt-2 text-xs font-cinzel font-bold tracking-[0.3em] text-[#FFB81B] uppercase">
             ENLISTMENT
           </div>

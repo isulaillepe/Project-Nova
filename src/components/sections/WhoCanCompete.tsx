@@ -6,7 +6,7 @@ import Image from "next/image";
 
 const cardsData = [
   {
-    image: "/images/stone_solo_team.png",
+    image: "/images/david_plain.png",
     title: "Go Solo or Build a Team",
     description:
       "Participate individually or form a team of two to five members. All team members must be currently enrolled undergraduates from the same university or higher education institute.",
@@ -14,7 +14,7 @@ const cardsData = [
     highlight: false,
   },
   {
-    image: "/images/stone_idea.png",
+    image: "/images/david_vr.png",
     title: "Your Idea",
     description:
       "Present an innovative startup idea, product, service, or solution that addresses a real-world problem or creates meaningful value. Your idea should demonstrate originality, practical potential, and the ability to grow into a sustainable venture.",
@@ -22,7 +22,7 @@ const cardsData = [
     highlight: true,
   },
   {
-    image: "/images/stone_journey.png",
+    image: "/images/david_sunglasses.png",
     title: "Start Your Journey",
     description:
       "Participation is completely free with no registration fees or prerequisites. Simply sign up, submit your proposal, and let your idea do the talking.",
@@ -146,7 +146,7 @@ export default function WhoCanCompete() {
                     repeat: Infinity,
                     ease: "easeInOut",
                   }}
-                  className="relative w-36 h-36 flex items-center justify-center drop-shadow-[0_0_25px_rgba(0,149,255,0.35)]"
+                  className="relative w-40 h-44 flex items-center justify-center drop-shadow-[0_0_25px_rgba(0,149,255,0.35)]"
                 >
                   <Image
                     src={card.image}

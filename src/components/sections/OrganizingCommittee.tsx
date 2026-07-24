@@ -248,7 +248,7 @@ export default function OrganizingCommittee() {
         .cm-section {
           position: relative;
           padding: 6rem 0 7rem;
-          background: var(--nova-bg);
+          background: transparent;
           overflow: hidden;
         }
 
@@ -262,7 +262,7 @@ export default function OrganizingCommittee() {
           height: 350px;
           background: radial-gradient(
             ellipse,
-            rgba(0, 53, 153, 0.16) 0%,
+            rgba(255, 184, 27, 0.06) 0%,
             transparent 70%
           );
           pointer-events: none;
@@ -282,15 +282,15 @@ export default function OrganizingCommittee() {
           display: inline-flex;
           align-items: center;
           gap: 0.45rem;
-          background: rgba(0, 53, 153, 0.15);
-          border: 1px solid rgba(0, 53, 153, 0.35);
+          background: rgba(255, 184, 27, 0.1);
+          border: 1px solid rgba(255, 184, 27, 0.25);
           border-radius: 9999px;
           padding: 0.3rem 0.95rem;
           font-size: 0.67rem;
           font-weight: 600;
           letter-spacing: 0.12em;
           text-transform: uppercase;
-          color: #6eb3ff;
+          color: #FFB81B;
           margin-bottom: 1.25rem;
         }
 
@@ -298,7 +298,8 @@ export default function OrganizingCommittee() {
           width: 6px;
           height: 6px;
           border-radius: 50%;
-          background: #6eb3ff;
+          background: #FFB81B;
+          box-shadow: 0 0 8px #FFB81B;
           animation: cmPulse 2s ease-in-out infinite;
         }
 
@@ -317,7 +318,7 @@ export default function OrganizingCommittee() {
         }
 
         .cm-heading-accent {
-          background: linear-gradient(90deg, var(--nova-primary), #6eb3ff, #00d4ff);
+          background: linear-gradient(180deg, #ffe9a8 0%, #ffb81b 55%, #e0a015 100%);
           -webkit-background-clip: text;
           background-clip: text;
           -webkit-text-fill-color: transparent;

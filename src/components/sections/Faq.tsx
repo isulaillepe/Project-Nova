@@ -137,7 +137,7 @@ export default function Faq() {
     progressRef.current = latest;
   });
 
-  // Scroll locking: stop scroll down at 0.70 progress to keep footer permanent
+  // Scroll locking: stop scroll down at 0.95 progress to keep footer permanent
   useEffect(() => {
     let touchStartY = 0;
 
@@ -148,10 +148,10 @@ export default function Faq() {
     };
 
     const handleTouchMove = (e: TouchEvent) => {
-      if (progressRef.current >= 0.70 && e.touches.length > 0) {
+      if (progressRef.current >= 0.95 && e.touches.length > 0) {
         const touchY = e.touches[0].clientY;
         const deltaY = touchStartY - touchY; // positive deltaY = scrolling down
-        
+
         if (deltaY > 0) {
           e.preventDefault();
         }
@@ -159,13 +159,13 @@ export default function Faq() {
     };
 
     const handleWheel = (e: WheelEvent) => {
-      if (progressRef.current >= 0.70 && e.deltaY > 0) {
+      if (progressRef.current >= 0.95 && e.deltaY > 0) {
         e.preventDefault();
       }
     };
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (progressRef.current >= 0.70) {
+      if (progressRef.current >= 0.95) {
         const keys = ["ArrowDown", "PageDown", " ", "End"];
         if (keys.includes(e.key)) {
           e.preventDefault();
@@ -188,9 +188,9 @@ export default function Faq() {
 
   // Background cross-fade: cosmic → rocket → footer
   const cosmicBgScale = useTransform(scrollYProgress, [0, 0.35], [1.0, 1.08]);
-  const rocketBgScale = useTransform(scrollYProgress, [0.35, 0.70], [1.08, 1.0]);
+  const rocketBgScale = useTransform(scrollYProgress, [0.35, 1.0], [1.08, 1.0]);
   const cosmicBgOpacity = useTransform(scrollYProgress, [0.25, 0.45], [1, 0]);
-  const rocketBgOpacity = useTransform(scrollYProgress, [0.25, 0.45, 0.50, 0.70], [0, 1, 1, 0]);
+  const rocketBgOpacity = useTransform(scrollYProgress, [0.25, 0.45, 0.50, 1.0], [0, 1, 1, 0]);
 
   // FAQ content fades out first
   const faqContentOpacity = useTransform(scrollYProgress, [0.20, 0.40], [1, 0]);
@@ -199,18 +199,18 @@ export default function Faq() {
   const faqVisibility = useTransform(scrollYProgress, (v) => v > 0.42 ? "hidden" : "visible");
   const cosmicBgVisibility = useTransform(scrollYProgress, (v) => v > 0.42 ? "hidden" : "visible");
 
-  // Register section and footer fade in together between 0.50 and 0.70
-  const registerOpacity = useTransform(scrollYProgress, [0.50, 0.70], [0, 1]);
-  const registerY = useTransform(scrollYProgress, [0.50, 0.70], ["30px", "0px"]);
-  const registerPointerEvents = useTransform(scrollYProgress, (v) => v >= 0.70 ? "auto" : "none");
+  // Register section and footer fade in together between 0.50 and 1.0
+  const registerOpacity = useTransform(scrollYProgress, [0.50, 1.0], [0, 1]);
+  const registerY = useTransform(scrollYProgress, [0.50, 1.0], ["30px", "0px"]);
+  const registerPointerEvents = useTransform(scrollYProgress, (v) => v >= 1.0 ? "auto" : "none");
 
-  const footerScale = useTransform(scrollYProgress, [0.50, 0.70], [0.95, 1.0]);
+  const footerScale = useTransform(scrollYProgress, [0.50, 1.0], [0.95, 1.0]);
 
   return (
     <section id="faq" className="relative z-10">
-      
+
       {/* Pinned scroll container */}
-      <div ref={containerRef} className="relative h-[300vh] z-10">
+      <div ref={containerRef} className="relative h-[210vh] z-10">
         <div className="sticky top-0 h-screen w-full overflow-hidden select-none z-10">
 
           {/* Backgrounds */}

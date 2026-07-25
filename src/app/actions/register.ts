@@ -53,6 +53,19 @@ export async function registerTeam(
     const formattedTeamName = validatedData.teamName.trim();
     const teamNameLower = formattedTeamName.toLowerCase();
 
+    const leader = validatedData.members.find((m) => m.is_leader) || validatedData.members[0];
+    const otherMembers = validatedData.members.filter((m) => !m.is_leader);
+
+    const teamPayload = {
+      teamName: formattedTeamName,
+      track: validatedData.track,
+      leader,
+      members: validatedData.members,
+      otherMembers,
+      memberCount: validatedData.members.length,
+      teamNameLower,
+    };
+
     const adminDb = await getAdminDb();
 
     if (adminDb) {
@@ -69,8 +82,7 @@ export async function registerTeam(
 
       const { FieldValue } = await import("firebase-admin/firestore");
       await teamsRef.add({
-        ...validatedData,
-        teamNameLower,
+        ...teamPayload,
         createdAt: FieldValue.serverTimestamp(),
       });
     } else {
@@ -84,14 +96,12 @@ export async function registerTeam(
       }
 
       await addDoc(teamsCollection, {
-        ...validatedData,
-        teamNameLower,
+        ...teamPayload,
         createdAt: serverTimestamp(),
       });
     }
 
     // Send confirmation email server-side (after successful registration)
-    const leader = validatedData.members.find((m) => m.is_leader);
     if (leader && leader.email) {
       const memberNames = validatedData.members.map((m) => m.fullname);
       try {

@@ -45,6 +45,7 @@ export async function registerTeam(
     const rawData: Record<string, unknown> = {
       teamName: formData.get("teamName"),
       track: formData.get("track"),
+      institutionName: formData.get("institutionName"),
       members: JSON.parse(formData.get("members") as string),
     };
 
@@ -59,6 +60,7 @@ export async function registerTeam(
     const teamPayload = {
       teamName: formattedTeamName,
       track: validatedData.track,
+      institutionName: validatedData.institutionName,
       leader,
       members: validatedData.members,
       otherMembers,

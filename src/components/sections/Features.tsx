@@ -6,6 +6,7 @@ import { Shield } from "lucide-react";
 
 const timelineSteps = [
   {
+    
     step: "01",
     title: "Registration of Teams",
     description: "Sign up your team to claim your place in this national innovation experience",

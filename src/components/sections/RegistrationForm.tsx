@@ -78,6 +78,9 @@ export function RegistrationForm() {
       track: undefined,
       members: [
         { ...DEFAULT_MEMBER, is_leader: true },
+        { ...DEFAULT_MEMBER, is_leader: false },
+        { ...DEFAULT_MEMBER, is_leader: false },
+        { ...DEFAULT_MEMBER, is_leader: false },
       ],
     },
     mode: "onChange",
@@ -188,7 +191,12 @@ export function RegistrationForm() {
             onClick={() => {
               setValue("teamName", "");
               setValue("track", undefined as unknown as "school" | "university");
-              setValue("members", [{ ...DEFAULT_MEMBER, is_leader: true }]);
+              setValue("members", [
+                { ...DEFAULT_MEMBER, is_leader: true },
+                { ...DEFAULT_MEMBER, is_leader: false },
+                { ...DEFAULT_MEMBER, is_leader: false },
+                { ...DEFAULT_MEMBER, is_leader: false },
+              ]);
               setSubmitStatus("idle");
               setCurrentStep(1);
             }}
@@ -261,7 +269,7 @@ export function RegistrationForm() {
                   Join the <span className="text-gold-gradient drop-shadow-[0_0_15px_rgba(255,184,27,0.3)]">Odyssey</span>
                 </h2>
                 <p className="mt-2 text-xs sm:text-sm text-[#cbd5e0]/80 max-w-xl font-light">
-                  Form your dream crew of 1 to 5 members to brainstorm, design and pitch breakthrough innovations before the pantheon.
+                  Form your dream crew of 4 to 5 members to brainstorm, design and pitch breakthrough innovations before the pantheon.
                 </p>
               </div>
               <span className="rounded-lg bg-[#FFB81B]/10 border border-[#FFB81B]/20 px-4 py-1.5 text-[10px] font-space font-bold uppercase tracking-widest text-[#FFB81B]">
@@ -276,7 +284,7 @@ export function RegistrationForm() {
                 </div>
                 <div>
                   <div className="text-[11px] font-space font-bold uppercase tracking-wider text-[#f7fafc]">CREW LIMITS</div>
-                  <div className="text-xs text-[#cbd5e0]/70 mt-0.5">Crews may consist of 1 to 5 members.</div>
+                  <div className="text-xs text-[#cbd5e0]/70 mt-0.5">Crews may consist of 4 to 5 members.</div>
                 </div>
               </div>
 
@@ -451,7 +459,7 @@ export function RegistrationForm() {
                             Crown Leader
                           </button>
                         )}
-                        {fields.length > 1 && (
+                        {fields.length > 4 && (
                           <button
                             type="button"
                             onClick={() => handleRemoveMember(index)}

@@ -10,8 +10,8 @@ const tickerItems = [
   "GRAND FINALE · 11 JULY",
   "DHPL AUDITORIUM — COLOMBO",
   "THE TREASURY AWAITS",
-  "LKR 135,000 PRIZE POOL",
-  "INTER-UNIVERSITY",
+  "LKR 180,000 PRIZE POOL",
+  "INTER-UNIVERSITY & SCHOOL",
   "PROJECT NOVA · AIESEC USJ",
 ];
 
@@ -147,7 +147,7 @@ export default function Hero() {
                 <span className="w-1.5 h-1.5 rounded-full bg-[#FFB81B]" /> THE TREASURY • PRIZE POOL
               </span>
               <span className="font-cinzel text-[#FFB81B] text-lg sm:text-xl font-bold mt-0.5 leading-none tracking-wide">
-                LKR 135,000
+                LKR 180,000
               </span>
             </div>
           </div>

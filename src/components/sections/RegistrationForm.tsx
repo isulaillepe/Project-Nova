@@ -76,8 +76,12 @@ export function RegistrationForm() {
     defaultValues: {
       teamName: "",
       track: undefined,
+      institutionName: "",
       members: [
         { ...DEFAULT_MEMBER, is_leader: true },
+        { ...DEFAULT_MEMBER, is_leader: false },
+        { ...DEFAULT_MEMBER, is_leader: false },
+        { ...DEFAULT_MEMBER, is_leader: false },
       ],
     },
     mode: "onChange",
@@ -89,6 +93,7 @@ export function RegistrationForm() {
   });
 
   const watchedTrack = useWatch({ control, name: "track" });
+  const watchedInstitutionName = useWatch({ control, name: "institutionName" });
   const watchedMembers = useWatch({ control, name: "members" });
   const watchedTeamName = useWatch({ control, name: "teamName" });
 
@@ -110,7 +115,7 @@ export function RegistrationForm() {
   const handleNext = async () => {
     let fieldsToValidate: (keyof RegistrationFormData)[] = [];
     if (currentStep === 1) {
-      fieldsToValidate = ["teamName", "track"];
+      fieldsToValidate = ["teamName", "track", "institutionName"];
     } else if (currentStep === 2) {
       fieldsToValidate = ["members"];
     }
@@ -133,6 +138,7 @@ export function RegistrationForm() {
       const formData = new FormData();
       formData.append("teamName", data.teamName);
       formData.append("track", data.track);
+      formData.append("institutionName", data.institutionName);
       formData.append("members", JSON.stringify(data.members));
 
       const result = await registerTeam(formData);
@@ -188,7 +194,13 @@ export function RegistrationForm() {
             onClick={() => {
               setValue("teamName", "");
               setValue("track", undefined as unknown as "school" | "university");
-              setValue("members", [{ ...DEFAULT_MEMBER, is_leader: true }]);
+              setValue("institutionName", "");
+              setValue("members", [
+                { ...DEFAULT_MEMBER, is_leader: true },
+                { ...DEFAULT_MEMBER, is_leader: false },
+                { ...DEFAULT_MEMBER, is_leader: false },
+                { ...DEFAULT_MEMBER, is_leader: false },
+              ]);
               setSubmitStatus("idle");
               setCurrentStep(1);
             }}
@@ -261,7 +273,7 @@ export function RegistrationForm() {
                   Join the <span className="text-gold-gradient drop-shadow-[0_0_15px_rgba(255,184,27,0.3)]">Odyssey</span>
                 </h2>
                 <p className="mt-2 text-xs sm:text-sm text-[#cbd5e0]/80 max-w-xl font-light">
-                  Form your dream crew of 1 to 5 members to brainstorm, design and pitch breakthrough innovations before the pantheon.
+                  Form your dream crew of 4 to 5 members to brainstorm, design and pitch breakthrough innovations before the pantheon.
                 </p>
               </div>
               <span className="rounded-lg bg-[#FFB81B]/10 border border-[#FFB81B]/20 px-4 py-1.5 text-[10px] font-space font-bold uppercase tracking-widest text-[#FFB81B]">
@@ -276,7 +288,7 @@ export function RegistrationForm() {
                 </div>
                 <div>
                   <div className="text-[11px] font-space font-bold uppercase tracking-wider text-[#f7fafc]">CREW LIMITS</div>
-                  <div className="text-xs text-[#cbd5e0]/70 mt-0.5">Crews may consist of 1 to 5 members.</div>
+                  <div className="text-xs text-[#cbd5e0]/70 mt-0.5">Crews may consist of 4 to 5 members.</div>
                 </div>
               </div>
 
@@ -379,6 +391,35 @@ export function RegistrationForm() {
                     </p>
                   )}
                 </div>
+
+                {/* Dynamic Institution Field (School Name or University Name) */}
+                {watchedTrack && (
+                  <div className="space-y-2 md:col-span-2 animate-in fade-in slide-in-from-top-2 duration-300">
+                    <Label
+                      htmlFor="institutionName"
+                      className="text-xs font-space font-bold uppercase tracking-wider text-[#cbd5e0] flex items-center gap-1.5"
+                    >
+                      {watchedTrack === "school" ? "School Name" : "University Name"}{" "}
+                      <span className="text-[#FFB81B]">*</span>
+                    </Label>
+                    <Input
+                      id="institutionName"
+                      placeholder={
+                        watchedTrack === "school"
+                          ? "Enter your school name (e.g. Royal College, Ananda College)"
+                          : "Enter your university name (e.g. University of Sri Jayewardenepura)"
+                      }
+                      className="bg-[#002066]/40 border-[#003599]/40 text-[#f7fafc] placeholder:text-[#cbd5e0]/40 focus:border-[#FFB81B] focus:ring-1 focus:ring-[#FFB81B] focus:shadow-[0_0_18px_rgba(255,184,27,0.2)] h-12 text-sm rounded-xl"
+                      {...register("institutionName")}
+                    />
+                    {errors.institutionName && (
+                      <p className="mt-1.5 flex items-center gap-1.5 text-xs text-red-400">
+                        <AlertCircle className="h-3.5 w-3.5 flex-shrink-0" />
+                        {errors.institutionName.message}
+                      </p>
+                    )}
+                  </div>
+                )}
               </div>
 
               {/* Next Button */}
@@ -451,7 +492,7 @@ export function RegistrationForm() {
                             Crown Leader
                           </button>
                         )}
-                        {fields.length > 1 && (
+                        {fields.length > 4 && (
                           <button
                             type="button"
                             onClick={() => handleRemoveMember(index)}
@@ -549,26 +590,6 @@ export function RegistrationForm() {
                       {/* University-track fields (shown only when the University trial is selected) */}
                       {watchedTrack === "university" && (
                         <>
-                          <div className="space-y-1.5 sm:col-span-2">
-                            <Label
-                              htmlFor={`members.${index}.university`}
-                              className="text-[10px] font-space font-bold uppercase tracking-wider text-[#cbd5e0]/80"
-                            >
-                              University Name <span className="text-[#FFB81B]">*</span>
-                            </Label>
-                            <Input
-                              id={`members.${index}.university`}
-                              placeholder="University of Sri Jayewardenepura"
-                              className="bg-[#002066]/40 border-[#003599]/40 text-[#f7fafc] placeholder:text-[#cbd5e0]/30 focus:border-[#FFB81B] focus:ring-1 focus:ring-[#FFB81B] h-10 rounded-lg text-xs"
-                              {...register(`members.${index}.university`)}
-                            />
-                            {errors.members?.[index]?.university && (
-                              <p className="mt-1 text-[10px] text-red-400">
-                                {errors.members[index].university.message}
-                              </p>
-                            )}
-                          </div>
-
                           <div className="space-y-1.5">
                             <Label
                               htmlFor={`members.${index}.year`}
@@ -684,7 +705,7 @@ export function RegistrationForm() {
                 <h3 className="mb-4 text-[10px] font-space font-bold uppercase tracking-widest text-[#cbd5e0]/60">
                   CREW MANIFEST
                 </h3>
-                <div className="grid gap-4 sm:grid-cols-2">
+                <div className="grid gap-4 sm:grid-cols-3">
                   <div className="rounded-xl bg-[#002066]/40 border border-[#003599]/30 p-4">
                     <div className="text-[10px] font-space font-bold uppercase tracking-wider text-[#cbd5e0]/60">Crew Name</div>
                     <div className="mt-1 text-base font-cinzel font-bold text-[#f7fafc] tracking-wide uppercase truncate">
@@ -703,6 +724,15 @@ export function RegistrationForm() {
                       <span className="text-sm font-space font-bold uppercase tracking-wider text-[#f7fafc]">
                         {watchedTrack} TRIAL
                       </span>
+                    </div>
+                  </div>
+
+                  <div className="rounded-xl bg-[#002066]/40 border border-[#003599]/30 p-4">
+                    <div className="text-[10px] font-space font-bold uppercase tracking-wider text-[#cbd5e0]/60">
+                      {watchedTrack === "school" ? "School" : "University"}
+                    </div>
+                    <div className="mt-1 text-sm font-space font-bold text-[#f7fafc] tracking-wide uppercase truncate">
+                      {watchedInstitutionName || "—"}
                     </div>
                   </div>
                 </div>
@@ -753,7 +783,7 @@ export function RegistrationForm() {
                           </div>
                           {watchedTrack === "university" && (
                             <div className="text-[10px] text-[#cbd5e0]/50 truncate mt-1 font-space">
-                              {member.degree || "—"} · {member.year || "—"} · {member.university || "—"}
+                              {member.degree || "—"} · {member.year || "—"}
                             </div>
                           )}
                         </div>

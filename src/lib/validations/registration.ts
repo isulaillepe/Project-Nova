@@ -78,25 +78,31 @@ export const registrationSchema = z.object({
   track: z.enum(["school", "university"], {
     message: "Please select a competition track",
   }),
+  institutionName: z
+    .string()
+    .trim()
+    .max(150, "Name cannot exceed 150 characters")
+    .transform(sanitizeHtml),
   members: z
     .array(memberSchema)
-    .min(1, "A team must have at least 1 member")
+    .min(4, "A team must have at least 4 members including the leader")
     .max(5, "A team cannot have more than 5 members")
     .refine(
       (members) => members.filter((m) => m.is_leader).length === 1,
       { message: "Exactly one team member must be designated as the leader" }
     ),
 }).superRefine((data, ctx) => {
+  if (!data.institutionName || data.institutionName.length < 2) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      path: ["institutionName"],
+      message: data.track === "school" ? "School name is required" : "University name is required",
+    });
+  }
+
   // University-track fields are required only when the University track is selected
   if (data.track === "university") {
     data.members.forEach((member, index) => {
-      if (!member.university || member.university.length < 2) {
-        ctx.addIssue({
-          code: z.ZodIssueCode.custom,
-          path: ["members", index, "university"],
-          message: "University name is required",
-        });
-      }
       if (!member.year) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,

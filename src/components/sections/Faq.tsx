@@ -45,7 +45,7 @@ const faqItems = [
   },
   {
     question: "What rewards can winners expect?",
-    answer: "Teams compete for a comprehensive cash prize layout consisting of LKR 75,000 for 1st place, LKR 40,000 for 2nd place, and LKR 20,000 for 3rd place, accompanied by extensive corporate visibility, certificates, and performance validation reports.",
+    answer: "Teams compete for an overall cash prize treasury of LKR 180,000 across two tracks. University Category: LKR 70,000 (1st Place), LKR 45,000 (2nd Place), LKR 20,000 (3rd Place). School Category: LKR 20,000 (1st Place), LKR 15,000 (2nd Place), LKR 10,000 (3rd Place), accompanied by certificates and corporate visibility.",
   },
 ];
 

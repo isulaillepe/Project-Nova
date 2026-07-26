@@ -6,16 +6,13 @@ import { usePathname } from "next/navigation";
 import { useState, useRef, useEffect } from "react";
 import { motion, useScroll, useTransform, useMotionValueEvent, MotionValue } from "framer-motion";
 import { Mail } from "lucide-react";
-import { FaLinkedinIn, FaFacebookF, FaYoutube, FaInstagram, FaTiktok, FaWhatsapp } from "react-icons/fa";
+import { FaFacebookF, FaInstagram, FaWhatsapp } from "react-icons/fa";
 
 const socialLinks = [
-  { icon: Mail, href: "mailto:projectnova.usj@gmail.com", label: "Mail" },
-  { icon: FaFacebookF, href: "https://facebook.com", label: "Facebook" },
-  { icon: FaInstagram, href: "https://instagram.com", label: "Instagram" },
-  { icon: FaWhatsapp, href: "https://wa.me/94771234567", label: "WhatsApp" },
-  { icon: FaLinkedinIn, href: "https://linkedin.com", label: "LinkedIn" },
-  { icon: FaYoutube, href: "https://youtube.com", label: "YouTube" },
-  { icon: FaTiktok, href: "https://tiktok.com", label: "TikTok" },
+  { icon: Mail, href: "mailto:manashafernando@aiesec.net,vinothinivickneshwaran27@gmail.com", label: "Mail" },
+  { icon: FaFacebookF, href: "https://www.facebook.com/AIESECinUSJ", label: "Facebook" },
+  { icon: FaInstagram, href: "https://www.instagram.com/lc_usj?igsh=MWJqeXppczg1Nm9wdQ==", label: "Instagram" },
+  { icon: FaWhatsapp, href: "https://chat.whatsapp.com/IxwczRq3afkAKRV6NKozdP?s=sw&p=i&mlu=0&amv=0", label: "WhatsApp" },
 ];
 
 const faqItems = [

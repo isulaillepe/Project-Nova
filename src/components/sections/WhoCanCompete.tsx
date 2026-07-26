@@ -17,7 +17,7 @@ const cardsData = [
     image: "/images/david_vr.png",
     title: "Your Idea",
     description:
-      "Pitch an innovative solution addressing real-world challenges with strong practical potential.",
+      "Brainstorm and formulate an innovative solution addressing real-world challenges with strong practical impact.",
     floatDuration: 6,
     highlight: true,
   },
@@ -25,7 +25,7 @@ const cardsData = [
     image: "/images/david_sunglasses.png",
     title: "Start Your Journey",
     description:
-      "Participation is completely free with no registration fees. Register your team and submit your project proposal.",
+      "Start building your final product and submit your project proposal for the competition.",
     floatDuration: 5.5,
     highlight: false,
   },

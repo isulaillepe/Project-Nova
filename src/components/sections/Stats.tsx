@@ -43,22 +43,22 @@ export default function Stats() {
       pool: "LKR 135,000",
       icon: GraduationCap,
       first: {
-        amount: "LKR 70,000",
+        amount: "LKR 75,000",
         label: "1st Place",
-        title: "Grand Champion",
-        desc: "Awarded for absolute mastery in innovative architecture, engineering & problem solving.",
+        title: "Champion",
+        desc: "Awarded for absolute mastery in innovative problem solving, proposal quality & technical execution.",
       },
       second: {
-        amount: "LKR 45,000",
+        amount: "LKR 40,000",
         label: "2nd Place",
         title: "1st Runner-Up",
-        desc: "Awarded for high-impact concept designs and a structured developmental vision.",
+        desc: "Awarded for high-impact concept designs, feasibility, and strong presentation excellence.",
       },
       third: {
         amount: "LKR 20,000",
         label: "3rd Place",
         title: "2nd Runner-Up",
-        desc: "Recognized for clear industrial prototype readiness and engineering stability.",
+        desc: "Recognized for creative problem solving, prototype readiness, and technical innovation.",
       },
     },
     school: {
@@ -140,32 +140,32 @@ export default function Stats() {
         </motion.div>
 
         {/* Category Selector Tabs */}
-        <div className="flex justify-center">
-          <div className="inline-flex p-1.5 rounded-2xl bg-[#002066]/60 border border-[#003599]/40 backdrop-blur-md shadow-[0_4px_20px_rgba(0,0,0,0.4)]">
+        <div className="flex justify-center w-full">
+          <div className="inline-grid grid-cols-2 sm:flex p-1.5 rounded-2xl bg-[#002066]/60 border border-[#003599]/40 backdrop-blur-md shadow-[0_4px_20px_rgba(0,0,0,0.4)] w-full sm:w-auto">
             <button
               type="button"
               onClick={() => setActiveTab("university")}
-              className={`flex items-center gap-2 px-6 py-2.5 rounded-xl text-xs font-space font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
+              className={`flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-6 py-2.5 rounded-xl text-[11px] sm:text-xs font-space font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
                 activeTab === "university"
                   ? "bg-[#FFB81B] text-[#001233] shadow-[0_0_20px_rgba(255,184,27,0.4)] scale-105"
                   : "text-[#cbd5e0] hover:text-[#f7fafc] hover:bg-white/5"
               }`}
             >
-              <GraduationCap className="h-4 w-4" />
-              <span>University Track</span>
+              <GraduationCap className="h-4 w-4 shrink-0" />
+              <span>University</span>
             </button>
 
             <button
               type="button"
               onClick={() => setActiveTab("school")}
-              className={`flex items-center gap-2 px-6 py-2.5 rounded-xl text-xs font-space font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
+              className={`flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-6 py-2.5 rounded-xl text-[11px] sm:text-xs font-space font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
                 activeTab === "school"
                   ? "bg-[#FFB81B] text-[#001233] shadow-[0_0_20px_rgba(255,184,27,0.4)] scale-105"
                   : "text-[#cbd5e0] hover:text-[#f7fafc] hover:bg-white/5"
               }`}
             >
-              <School className="h-4 w-4" />
-              <span>School Track</span>
+              <School className="h-4 w-4 shrink-0" />
+              <span>School</span>
             </button>
           </div>
         </div>

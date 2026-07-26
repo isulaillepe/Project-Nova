@@ -2,7 +2,7 @@
 
 import { z } from "zod";
 import { registrationSchema, type RegistrationFormData } from "@/lib/validations/registration";
-import { sendRegistrationEmail } from "@/lib/mailer";
+import { triggerRegistrationWebhook } from "@/lib/webhook";
 import { db as clientDb } from "@/lib/firebase";
 import { collection, addDoc, query, where, getDocs, serverTimestamp } from "firebase/firestore";
 
@@ -103,15 +103,21 @@ export async function registerTeam(
       });
     }
 
-    // Send confirmation email server-side (after successful registration)
+    // Trigger webhook asynchronously (don't await to not slow down response)
+    // but we'll still await it to ensure it fires before returning
     if (leader && leader.email) {
       const memberNames = validatedData.members.map((m) => m.fullname);
-      try {
-        await sendRegistrationEmail(leader.email, validatedData.teamName, memberNames);
-      } catch (emailErr) {
-        console.warn("Email sending failed:", emailErr);
-        // Don't fail registration if email fails
-      }
+      triggerRegistrationWebhook({
+        teamName: validatedData.teamName,
+        track: validatedData.track,
+        institutionName: validatedData.institutionName,
+        leaderEmail: leader.email,
+        leaderName: leader.fullname,
+        memberNames,
+        memberCount: validatedData.members.length,
+      }).catch((err) => {
+        console.warn("Webhook trigger failed (non-blocking):", err);
+      });
     }
 
     return { success: true, teamName: validatedData.teamName };

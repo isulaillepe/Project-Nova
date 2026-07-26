@@ -535,6 +535,8 @@ export default function OrganizingCommittee() {
               style={{ animationPlayState: isPaused ? "paused" : "running" }}
               onMouseEnter={() => setIsPaused(true)}
               onMouseLeave={() => setIsPaused(false)}
+              onTouchStart={() => setIsPaused(true)}
+              onTouchEnd={() => setIsPaused(false)}
             >
               {TRACK.map((member, idx) => (
                 <MemberCard key={`${member.id}-${idx}`} member={member} />

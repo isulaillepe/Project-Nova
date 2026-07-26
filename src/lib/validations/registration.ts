@@ -85,7 +85,7 @@ export const registrationSchema = z.object({
     .transform(sanitizeHtml),
   members: z
     .array(memberSchema)
-    .min(4, "A team must have at least 4 members including the leader")
+    .min(4, "A team must comprise of at least 4 members including the team leader (minimum 4, maximum 5)")
     .max(5, "A team cannot have more than 5 members")
     .refine(
       (members) => members.filter((m) => m.is_leader).length === 1,

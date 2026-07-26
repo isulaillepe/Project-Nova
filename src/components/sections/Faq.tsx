@@ -21,31 +21,27 @@ const socialLinks = [
 const faqItems = [
   {
     question: "What is Project Nova?",
-    answer: "Project Nova is a dynamic, tech-based ecosystem curated for school and university students, building an active bridge where future innovation meets direct corporate opportunities. Managed alongside a global student-driven non-profit network, it connects young thinkers directly with progressive enterprises.",
+    answer: "Project Nova is a dynamic tech-based initiative organized by AIESEC in the University of Sri Jayewardenepura, designed to empower school and university students by providing a platform where innovation, creativity, and opportunity come together. Through workshops, proposal submissions, and a final showcase, participants develop practical solutions to real-world challenges.",
   },
   {
     question: "Who can participate?",
-    answer: "The challenge is tailored broadly for school and university students across Sri Lanka who show a distinct curiosity for technical problem-solving, innovative ideation, and leadership development.",
+    answer: "Undergraduates from any university (University Category) and school students (School Category) across Sri Lanka can participate. All teams must comprise of 4 to 5 members. Solo participation or teams of fewer than 4 members are strictly not permitted.",
   },
   {
-    question: "How can participate in Project Nova?",
-    answer: "Teams can register formally on our page during the initial launch, granting immediate access to the early workshop modules and proposal submission portals.",
+    question: "How many members can join a team?",
+    answer: "All teams must comprise of 4 to 5 members (including the team leader). Solo participation is not allowed. One person can represent only one team, and all team members must represent the same institution.",
   },
   {
-    question: "What is the competition format?",
-    answer: "The event runs over two major phases. First Phase handles conceptual proposal collection and essential skill-building workshops. Second Phase requires qualified teams to submit concrete project completions, leading to live panel presentations.",
-  },
-  {
-    question: "When do registrations open?",
-    answer: "Registrations will open soon! Keep an eye on our social media channels and the registration section of this website for the official announcement.",
+    question: "What is the competition format & timeline?",
+    answer: "The event timeline key milestones are: Team Registration (26th-30th July, Flash Round 01st-03rd Aug) → Proposal Submissions (01st-06th Aug) → Workshop & Shortlist Announcement (09th Aug) → UI Submission (12th Aug) → Final Teams Selection (15th Aug) → Grand Finale Event Day (30th Aug at USJ).",
   },
   {
     question: "Is participation free?",
-    answer: "Yes! Participation in Project Nova is completely free, providing every eligible student with an equal opportunity to compete and innovate.",
+    answer: "Yes! Participation in Project Nova is completely free, with no registration fees or hidden costs.",
   },
   {
     question: "What rewards can winners expect?",
-    answer: "Teams compete for an overall cash prize treasury of LKR 180,000 across two tracks. University Category: LKR 70,000 (1st Place), LKR 45,000 (2nd Place), LKR 20,000 (3rd Place). School Category: LKR 20,000 (1st Place), LKR 15,000 (2nd Place), LKR 10,000 (3rd Place), accompanied by certificates and corporate visibility.",
+    answer: "Teams compete for an overall cash prize treasury of LKR 180,000. University Category: LKR 75,000 (Champion), LKR 40,000 (1st Runner-Up), LKR 20,000 (2nd Runner-Up). School Category: LKR 20,000 (1st Place), LKR 15,000 (2nd Place), LKR 10,000 (3rd Place), along with certificates and corporate visibility.",
   },
 ];
 
@@ -148,7 +144,7 @@ export default function Faq() {
     };
 
     const handleTouchMove = (e: TouchEvent) => {
-      if (progressRef.current >= 0.95 && e.touches.length > 0) {
+      if (window.innerWidth >= 768 && progressRef.current >= 0.95 && e.touches.length > 0) {
         const touchY = e.touches[0].clientY;
         const deltaY = touchStartY - touchY; // positive deltaY = scrolling down
 
@@ -159,13 +155,13 @@ export default function Faq() {
     };
 
     const handleWheel = (e: WheelEvent) => {
-      if (progressRef.current >= 0.95 && e.deltaY > 0) {
+      if (window.innerWidth >= 768 && progressRef.current >= 0.95 && e.deltaY > 0) {
         e.preventDefault();
       }
     };
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (progressRef.current >= 0.95) {
+      if (window.innerWidth >= 768 && progressRef.current >= 0.95) {
         const keys = ["ArrowDown", "PageDown", " ", "End"];
         if (keys.includes(e.key)) {
           e.preventDefault();

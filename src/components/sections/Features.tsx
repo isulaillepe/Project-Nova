@@ -6,64 +6,63 @@ import { Shield } from "lucide-react";
 
 const timelineSteps = [
   {
-    
     step: "01",
-    title: "Registration of Teams",
-    description: "Sign up your team to claim your place in this national innovation experience",
+    title: "Team Registration",
+    description: "Sign up your crew of 4 to 5 members for the School or University competition track",
     details: [
-      "Form teams of 3-5 members",
-      "Choose School or University track",
-      "Get immediate access to resources"
+      "26th July – 30th July (Main Window)",
+      "01st Aug – 03rd Aug (Flash Round)",
+      "Teams of 4-5 members (no solo)"
     ]
   },
   {
     step: "02",
     title: "Proposal Submission",
-    description: "Submit your project concept and foundational framework during the initial rollout phase",
+    description: "Submit your project concept proposal following the sample structure provided",
     details: [
-      "Technical project proposal",
-      "Problem statement & solution",
-      "Implementation roadmap"
+      "01st Aug – 06th Aug",
+      "Solutions for real-world problems",
+      "Sample proposal structure"
     ]
   },
   {
     step: "03",
-    title: "Reviewing the Proposals",
-    description: "Submissions are formally evaluated to shortlist the most promising tech solutions",
+    title: "Proposal Evaluation",
+    description: "Submissions are evaluated by an expert panel to select shortlisted teams for the next stage",
     details: [
-      "Expert panel evaluation",
-      "Innovation & feasibility scoring",
-      "Shortlist announcement"
+      "06th Aug (Main Deadline)",
+      "07th Aug (Flash Deadline)",
+      "Expert evaluation & scoring"
     ]
   },
   {
     step: "04",
-    title: "Workshops for Selected Teams",
-    description: "Access deep-dive technical workshops designed to equip participants with expert knowledge and career tools",
+    title: "UI / UX Workshop & Shortlist",
+    description: "Shortlisted teams announced and participate in a mandatory workshop with industry mentors",
     details: [
-      "Technical skill building",
-      "Mentorship sessions",
-      "Industry expert talks"
+      "09th August",
+      "Shortlisted teams announced",
+      "Interactive UI/UX workshop"
     ]
   },
   {
     step: "05",
-    title: "Implementation of Projects",
-    description: "Develop and refine your active engineering solution before the final project submission window closes",
+    title: "UI Submission & Finalist Selection",
+    description: "Teams develop and submit their UI designs, leading to the final team selection",
     details: [
-      "Build & iterate on solution",
-      "Technical mentorship",
-      "Mid-project checkpoints"
+      "12th August (UI Submission Deadline)",
+      "15th August (Final Teams Announcement)",
+      "Final showcase preparation"
     ]
   },
   {
     step: "06",
-    title: "The Final Event Day",
-    description: "Present your complete project live to judges and engage in panel discussions at the University of Sri Jayewardenepura campus",
+    title: "Project Nova Event Day",
+    description: "Present your solution live to judges, engage in panel discussions, and compete for the treasury at USJ",
     details: [
-      "Live project presentations",
-      "Panel discussions",
-      "Award ceremony"
+      "30th August",
+      "University of Sri Jayewardenepura",
+      "Live presentations & awarding top 3"
     ]
   }
 ];
@@ -152,7 +151,7 @@ export function Features() {
           className="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-0"
         >
           <span className="text-[14vw] font-black text-white/5 font-space tracking-widest select-none uppercase">
-            NOV 11
+            29 AUG
           </span>
         </motion.div>
 
@@ -270,7 +269,7 @@ export function Features() {
                       {(step.step === "04" || step.step === "06") && (
                         <div className="mt-3 pt-3 border-t border-white/5 text-center pointer-events-none">
                           <span className="text-[#FFB81B] font-black text-lg sm:text-xl md:text-2xl uppercase tracking-widest block font-space drop-shadow-[0_0_10px_rgba(255,184,27,0.35)]">
-                            {step.step === "04" ? "31st of July" : "30th of August"}
+                            {step.step === "04" ? "09th of August" : "30th of August"}
                           </span>
                         </div>
                       )}

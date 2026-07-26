@@ -7,9 +7,9 @@ import { useScroll, useTransform, motion } from "framer-motion";
 
 const tickerItems = [
   "ASCEND TO OLYMPUS",
-  "GRAND FINALE · 11 JULY",
-  "DHPL AUDITORIUM — COLOMBO",
-  "THE TREASURY AWAITS",
+  "GRAND FINALE · 30 AUGUST",
+  "UNIVERSITY OF SRI JAYEWARDENEPURA",
+  "TEAMS OF 4 TO 5 MEMBERS",
   "LKR 180,000 PRIZE POOL",
   "INTER-UNIVERSITY & SCHOOL",
   "PROJECT NOVA · AIESEC USJ",
@@ -114,23 +114,23 @@ export default function Hero() {
           </div>
 
           {/* Heading — luxury serif display */}
-          <h1 className="display-serif text-5xl sm:text-7xl md:text-8xl text-[#f7fafc]">
+          <h1 className="display-serif text-3.5xl sm:text-7xl md:text-8xl text-[#f7fafc] leading-[1.1]">
             From <span className="font-bold">Concept</span> <br />
             to <span className="text-gold-gradient font-semibold">Creation</span>
             <span className="text-[#FFB81B] font-bold">.</span>
           </h1>
 
           {/* Description */}
-          <p className="font-space font-medium text-sm sm:text-base max-w-[540px] leading-relaxed text-left text-[#cbd5e0]/90">
+          <p className="font-space font-medium text-xs sm:text-base max-w-[540px] leading-relaxed text-left text-[#cbd5e0]/90">
             Sri Lanka&apos;s premier inter-university innovation trials — student
             crews forge raw ideas into immortal ventures and pitch them before the
             pantheon of live investors.
           </p>
 
           {/* Actions Row */}
-          <div className="flex flex-wrap items-center gap-4 sm:gap-6 pt-6">
-            <Link href="/register">
-              <button className="group relative bg-[#FFB81B] hover:brightness-105 text-[#001233] text-[11px] sm:text-xs font-bold uppercase tracking-widest px-8 py-4 rounded-full shadow-[0_4px_24px_rgba(255,184,27,0.3)] transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 sm:gap-6 pt-4 sm:pt-6">
+            <Link href="/register" className="w-full sm:w-auto">
+              <button className="w-full sm:w-auto group relative bg-[#FFB81B] hover:brightness-105 text-[#001233] text-[11px] sm:text-xs font-bold uppercase tracking-widest px-8 py-3.5 sm:py-4 rounded-full shadow-[0_4px_24px_rgba(255,184,27,0.3)] transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] cursor-pointer justify-center flex items-center">
                 <span className="flex items-center gap-2">
                   REGISTER NOW
                   <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />

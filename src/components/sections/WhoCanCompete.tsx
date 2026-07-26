@@ -35,7 +35,7 @@ const importantGuidelines = [
   {
     number: "01",
     title: "Category Eligibility",
-    description: "Undergraduates from any university participate under University Category. School students participate under School Category.",
+    description: "Undergraduates from any university participate under University Category. School students (aged 18+) participate under School Category.",
   },
   {
     number: "02",

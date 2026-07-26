@@ -25,7 +25,7 @@ const faqItems = [
   },
   {
     question: "Who can participate?",
-    answer: "Undergraduates from any university (University Category) and school students (School Category) across Sri Lanka can participate. All teams must comprise of 4 to 5 members. Solo participation or teams of fewer than 4 members are strictly not permitted.",
+    answer: "Undergraduates from any university (University Category) and school students aged 18+ (School Category) across Sri Lanka can participate. All teams must comprise of 4 to 5 members. Solo participation or teams of fewer than 4 members are strictly not permitted.",
   },
   {
     question: "How many members can join a team?",

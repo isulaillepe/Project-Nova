@@ -129,19 +129,6 @@ export default function Hero() {
                 </span>
               </button>
             </Link>
-
-            {/* Vertical Separator */}
-            <div className="h-10 w-[1px] bg-[#003599]/60 hidden sm:block" />
-
-            {/* Prize pool focus */}
-            <div className="flex flex-col text-left justify-center font-space">
-              <span className="text-[#FFB81B] text-[9px] font-bold tracking-[0.2em] flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#FFB81B]" /> THE TREASURY • PRIZE POOL
-              </span>
-              <span className="font-cinzel text-[#FFB81B] text-lg sm:text-xl font-bold mt-0.5 leading-none tracking-wide">
-                LKR 180,000
-              </span>
-            </div>
           </div>
         </motion.div>
 

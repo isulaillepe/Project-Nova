@@ -518,8 +518,8 @@ export default function OrganizingCommittee() {
             <span className="cm-heading-accent">Project Nova</span>
           </h2>
           <p className="cm-subtitle">
-            A dedicated team of student leaders driving innovation and creating
-            opportunities for the next generation of tech innovators.
+            The friendly crew working behind the scenes to make
+            Project Nova an unforgettable journey for all of you! ✨
           </p>
         </div>
 

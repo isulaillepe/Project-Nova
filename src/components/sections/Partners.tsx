@@ -302,10 +302,10 @@ export default function Partners() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-16 sm:mb-24">
         {/* Section Heading */}
         <div className="text-center space-y-3 select-none">
-          <h2 className="text-4xl sm:text-6xl font-light tracking-tight leading-none text-white font-space uppercase">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light tracking-tight leading-none text-white font-space uppercase">
             <span
               className="font-extrabold"
-              style={{ WebkitTextStroke: "1px rgba(255, 255, 255, 0.4)", color: "transparent" }}
+              style={{ WebkitTextStroke: "1.5px #FFB81B", color: "transparent" }}
             >
               OUR
             </span>{" "}

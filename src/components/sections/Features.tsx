@@ -157,10 +157,10 @@ export function Features() {
 
         {/* Outlined Heading Title with header offset padding */}
         <div className="absolute top-28 sm:top-36 left-0 right-0 text-center space-y-2 z-30">
-          <h2 className="text-4xl sm:text-5xl font-light tracking-tight leading-none text-white font-space uppercase">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light tracking-tight leading-none text-white font-space uppercase">
             <span 
               className="font-extrabold"
-              style={{ WebkitTextStroke: "1px rgba(255, 255, 255, 0.4)", color: "transparent" }}
+              style={{ WebkitTextStroke: "1.5px #FFB81B", color: "transparent" }}
             >
               THE
             </span>{" "}

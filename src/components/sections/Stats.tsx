@@ -118,14 +118,14 @@ export default function Stats() {
       >
         {/* Outlined Section Header */}
         <motion.div variants={headerVariants} className="space-y-3 text-center">
-          <h2 className="display-serif text-4xl sm:text-6xl md:text-7xl text-[#f7fafc]">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light tracking-tight leading-none text-white font-space uppercase">
             <span
-              className="font-bold"
-              style={{ WebkitTextStroke: "1px rgba(255, 184, 27, 0.4)", color: "transparent" }}
+              className="font-extrabold"
+              style={{ WebkitTextStroke: "1.5px #FFB81B", color: "transparent" }}
             >
               REWARDS
             </span>{" "}
-            <span className="font-cormorant italic text-[#ffcb47] font-medium lowercase">of Olympus</span>
+            <span className="font-cormorant italic text-white font-medium lowercase">of Olympus</span>
           </h2>
           <p className="mx-auto max-w-2xl text-sm text-[#cbd5e0]/80 font-space font-light tracking-wide">
             The spoils of victory{" "}

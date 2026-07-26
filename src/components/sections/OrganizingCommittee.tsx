@@ -513,9 +513,14 @@ export default function OrganizingCommittee() {
       <section id="committee" className="cm-section">
         {/* ── Header ───────────────────────────────── */}
         <div className="cm-header">
-          <h2 className="cm-heading">
-            Meet the Team Behind&nbsp;
-            <span className="cm-heading-accent">Project Nova</span>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light tracking-tight leading-none text-white font-space uppercase mb-4">
+            <span
+              className="font-extrabold"
+              style={{ WebkitTextStroke: "1.5px #FFB81B", color: "transparent" }}
+            >
+              OUR
+            </span>{" "}
+            <span className="font-cormorant italic text-white font-medium lowercase">Team</span>
           </h2>
           <p className="cm-subtitle">
             The friendly crew working behind the scenes to make

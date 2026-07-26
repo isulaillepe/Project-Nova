@@ -129,8 +129,14 @@ export default function WhoCanCompete() {
             variants={headerVariants}
             className="text-center mb-16 sm:mb-20 space-y-4"
           >
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-orbitron font-extrabold tracking-[0.1em] text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.1)] uppercase">
-              WHO CAN COMPETE
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light tracking-tight leading-none text-white font-space uppercase">
+              <span
+                className="font-extrabold"
+                style={{ WebkitTextStroke: "1.5px #FFB81B", color: "transparent" }}
+              >
+                IMPORTANT
+              </span>{" "}
+              <span className="font-cormorant italic text-white font-medium lowercase">Guidelines</span>
             </h2>
             <div className="w-24 h-[1px] bg-gradient-to-r from-transparent via-[#FFB81B] to-transparent mx-auto mt-2" />
           </motion.div>

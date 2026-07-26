@@ -101,10 +101,10 @@ export default function PastEvents() {
           
           {/* Section Heading */}
           <div className="text-center space-y-2 mb-12 sm:mb-20">
-            <h2 className="text-4xl sm:text-5xl font-light tracking-tight leading-none text-white font-space uppercase">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light tracking-tight leading-none text-white font-space uppercase">
               <span
                 className="font-extrabold"
-                style={{ WebkitTextStroke: "1px rgba(255, 255, 255, 0.4)", color: "transparent" }}
+                style={{ WebkitTextStroke: "1.5px #FFB81B", color: "transparent" }}
               >
                 PAST
               </span>{" "}

@@ -249,8 +249,14 @@ export default function Faq() {
               style={{ y: faqHeaderY }}
               className="w-full text-center px-4 mb-8"
             >
-              <h2 className="text-2xl sm:text-4xl md:text-5xl font-orbitron font-bold tracking-wider text-white">
-                FREQUENTLY ASKED <span className="text-[#FFB81B]">QUESTIONS</span>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light tracking-tight leading-none text-white font-space uppercase">
+                <span
+                  className="font-extrabold"
+                  style={{ WebkitTextStroke: "1.5px #FFB81B", color: "transparent" }}
+                >
+                  FREQUENTLY ASKED
+                </span>{" "}
+                <span className="font-cormorant italic text-white font-medium lowercase">Questions</span>
               </h2>
             </motion.div>
 

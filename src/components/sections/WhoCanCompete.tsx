@@ -7,9 +7,9 @@ import Image from "next/image";
 const cardsData = [
   {
     image: "/images/david_plain.png",
-    title: "Build a Team (4 - 5 Members)",
+    title: "Build a Team",
     description:
-      "Form a team of 4 to 5 members (including the team leader). Solo participation or teams with fewer than 4 members are strictly not allowed. All team members must represent the same institution.",
+      "Form a crew of 4 to 5 members representing your institution.",
     floatDuration: 5,
     highlight: false,
   },
@@ -17,7 +17,7 @@ const cardsData = [
     image: "/images/david_vr.png",
     title: "Your Idea",
     description:
-      "Present an innovative startup idea, product, service, or solution that addresses a real-world problem or creates meaningful value. Your idea should demonstrate originality and practical potential.",
+      "Pitch an innovative solution addressing real-world challenges with strong practical potential.",
     floatDuration: 6,
     highlight: true,
   },
@@ -25,7 +25,7 @@ const cardsData = [
     image: "/images/david_sunglasses.png",
     title: "Start Your Journey",
     description:
-      "Participation is completely free with no registration fees. Simply form your team of 4 to 5 members, register, and submit your project proposal.",
+      "Participation is completely free with no registration fees. Register your team and submit your project proposal.",
     floatDuration: 5.5,
     highlight: false,
   },
@@ -40,7 +40,7 @@ const importantGuidelines = [
   {
     number: "02",
     title: "Team Size (4-5 Members)",
-    description: "All teams must comprise of 4 to 5 members including the team leader. Solo or smaller entries are strictly prohibited.",
+    description: "All teams must comprise of 4 to 5 members including the team leader.",
   },
   {
     number: "03",

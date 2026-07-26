@@ -477,6 +477,40 @@ body {
 }
 
 /* ─────────────────────────────────────────────
+   Mobile GPU & Power Optimization
+   Replaces heavy shader blurs and continuous box-shadow animations
+   with solid hardware-accelerated fallbacks to prevent mobile overheating.
+   ───────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .glass {
+    background: rgba(0, 20, 55, 0.88);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    animation: none !important;
+    box-shadow: 0 8px 32px rgba(0, 8, 30, 0.5), 0 0 16px rgba(255, 184, 27, 0.1);
+  }
+
+  .glass-dark {
+    background: rgba(0, 14, 38, 0.92);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+
+  .shadow-gold-glow {
+    animation: none !important;
+    box-shadow: 0 8px 32px rgba(0, 8, 30, 0.5), 0 0 16px rgba(255, 184, 27, 0.1);
+  }
+
+  .animate-marquee-left,
+  .animate-marquee-right,
+  .animate-scroll,
+  .cm-marquee-track {
+    will-change: transform;
+    transform: translateZ(0);
+  }
+}
+
+/* ─────────────────────────────────────────────
    Reduced motion — respect the quality floor
    Targeted overrides only (no universal selector)
    ───────────────────────────────────────────── */

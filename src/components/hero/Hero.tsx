@@ -47,7 +47,7 @@ export default function Hero() {
         <motion.div
           style={{
             scale: bgScale,
-            backgroundImage: "url('/images/astronaut_hero_bg.png')",
+            backgroundImage: "url('/images/god_emperor_hero_statue.jpg')",
           }}
           className="absolute inset-0 bg-cover bg-center z-0 origin-center"
         />

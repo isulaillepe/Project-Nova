@@ -39,7 +39,7 @@ const importantGuidelines = [
   },
   {
     number: "02",
-    title: "Team Size (4-5 Members)",
+    title: "Team Size",
     description: "All teams must comprise of 4 to 5 members including the team leader.",
   },
   {

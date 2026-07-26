@@ -107,12 +107,6 @@ export default function Hero() {
           }}
           className="max-w-4xl space-y-6 z-10 text-left pl-2 sm:pl-4"
         >
-          {/* Mission tag */}
-          <div className="flex items-center gap-2 font-space text-[10px] sm:text-xs font-bold uppercase tracking-[0.25em] text-[#cbd5e0]">
-            <span className="w-2 h-2 rounded-full bg-[#FFB81B] shadow-[0_0_8px_#FFB81B]" />
-            PROJECT NOVA — AIESEC IN UNIVERSITY OF SRI JAYEWARDENEPURA
-          </div>
-
           {/* Heading — luxury serif display */}
           <h1 className="display-serif text-3.5xl sm:text-7xl md:text-8xl text-[#f7fafc] leading-[1.1]">
             From <span className="font-bold">Concept</span> <br />

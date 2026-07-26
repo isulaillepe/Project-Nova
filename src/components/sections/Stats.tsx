@@ -132,7 +132,10 @@ export default function Stats() {
             <span className="font-cormorant italic text-[#ffcb47] font-medium lowercase">of Olympus</span>
           </h2>
           <p className="mx-auto max-w-2xl text-sm text-[#cbd5e0]/80 font-space font-light tracking-wide">
-            The spoils of victory — a grand <span className="text-[#FFB81B] font-bold">LKR 180,000</span> total treasury awarded across University &amp; School competition realms.
+            The spoils of victory{" "}
+            —{" "}
+            a grand <span className="text-[#FFB81B] font-bold">LKR 180,000</span>{" "}
+            total treasury awarded across University & School competition realms.
           </p>
         </motion.div>
 
@@ -260,7 +263,7 @@ export default function Stats() {
                 </div>
                 <div className="text-center sm:text-left min-w-0 flex-1">
                   <span className="text-xs font-bold font-space tracking-[0.2em] text-[#FFB81B] uppercase block">
-                    RECOGNITION &amp; CERTIFICATES
+                    RECOGNITION & CERTIFICATES
                   </span>
                   <p className="text-xs text-[#f7fafc] font-space font-medium leading-relaxed mt-1">
                     All finalist teams across both tracks will receive official participation credentials and exclusive performance validation reports.

@@ -18,8 +18,8 @@ export default function Home() {
       <PastEvents />
       <Partners />
       <OrganizingCommittee />
-      <Faq />
       <ContactUs />
+      <Faq />
     </>
   );
 }

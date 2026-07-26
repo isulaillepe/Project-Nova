@@ -138,7 +138,7 @@ export default function WhoCanCompete() {
               </span>{" "}
               <span className="font-cormorant italic text-white font-medium lowercase">Guidelines</span>
             </h2>
-            <div className="w-24 h-[1px] bg-gradient-to-r from-transparent via-[#FFB81B] to-transparent mx-auto mt-2" />
+            <div className="w-20 h-[3px] bg-gradient-to-r from-transparent via-[#FFB81B] to-transparent shadow-[0_0_12px_#FFB81B] rounded-full mx-auto mt-3" />
           </motion.div>
 
           {/* Card Grid with staggered animations */}

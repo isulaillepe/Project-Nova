@@ -120,6 +120,7 @@ export default function PastEvents() {
               </span>{" "}
               <span className="font-cormorant italic text-white font-medium lowercase">Events</span>
             </h2>
+            <div className="w-20 h-[3px] bg-gradient-to-r from-transparent via-[#FFB81B] to-transparent shadow-[0_0_12px_#FFB81B] rounded-full mx-auto mt-3" />
             <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest block font-space">
               MOMENTS FROM PREVIOUS COMPETITIONS & EVENTS
             </span>

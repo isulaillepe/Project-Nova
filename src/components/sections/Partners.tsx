@@ -145,6 +145,7 @@ export default function Partners() {
             </span>{" "}
             <span className="font-cormorant italic text-white font-medium lowercase">Partners</span>
           </h2>
+          <div className="w-20 h-[3px] bg-gradient-to-r from-transparent via-[#FFB81B] to-transparent shadow-[0_0_12px_#FFB81B] rounded-full mx-auto mt-3" />
           <span className="text-[10px] sm:text-[11px] font-bold text-slate-500 uppercase tracking-widest block font-space pt-2">
             THE ORGANIZATIONS POWERING PROJECT NOVA
           </span>

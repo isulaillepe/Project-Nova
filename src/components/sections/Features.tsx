@@ -142,6 +142,7 @@ export function Features() {
             </span>{" "}
             <span className="font-cormorant italic text-white font-medium lowercase">Journey</span>
           </h2>
+          <div className="w-20 h-[3px] bg-gradient-to-r from-transparent via-[#FFB81B] to-transparent shadow-[0_0_12px_#FFB81B] rounded-full mx-auto mt-3" />
           <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest block font-space">
             KEY MILESTONES ON THE ROAD TO THE GRAND FINALE
           </span>
@@ -151,26 +152,26 @@ export function Features() {
         <div className="relative w-full flex-1 flex justify-center overflow-hidden mt-6 sm:mt-10">
 
           {/* Main Static Line Track - vertical, centered (md) / left rail (mobile) */}
-          <div className="absolute top-0 bottom-0 left-4 md:left-1/2 -translate-x-1/2 w-[1.5px] bg-white/10 z-10 pointer-events-none" />
+          <div className="absolute top-0 bottom-0 left-4 md:left-1/2 -translate-x-1/2 w-[2px] bg-[#FFB81B]/25 z-10 pointer-events-none shadow-[0_0_8px_rgba(255,184,27,0.2)]" />
 
-          {/* Scrolling Orange Progress Bar Line */}
-          <div className="absolute top-0 bottom-0 left-4 md:left-1/2 -translate-x-1/2 w-[1.5px] z-10 pointer-events-none overflow-hidden">
+          {/* Scrolling Yellow Progress Bar Line */}
+          <div className="absolute top-0 bottom-0 left-4 md:left-1/2 -translate-x-1/2 w-[2px] z-10 pointer-events-none overflow-hidden">
             <motion.div
               style={{ height: progressHeight }}
-              className="w-full bg-[#FFB81B] shadow-[0_0_8px_#FFB81B]"
+              className="w-full bg-[#FFB81B] shadow-[0_0_12px_#FFB81B,0_0_20px_rgba(255,184,27,0.6)]"
             />
           </div>
 
           {/* Horizontal Finish Line - vertical progress connects into this once complete */}
           <motion.div
             style={{ opacity: finishOpacity, scaleX: finishScale }}
-            className="absolute bottom-0 left-4 md:left-1/2 -translate-x-1/2 w-40 sm:w-64 h-[1.5px] bg-[#FFB81B] shadow-[0_0_10px_#FFB81B] z-20 pointer-events-none origin-center"
+            className="absolute bottom-0 left-4 md:left-1/2 -translate-x-1/2 w-40 sm:w-64 h-[2px] bg-[#FFB81B] shadow-[0_0_14px_#FFB81B] z-20 pointer-events-none origin-center"
           />
 
           {/* Finish label */}
           <motion.span
             style={{ opacity: finishOpacity }}
-            className="absolute bottom-3 left-4 md:left-1/2 -translate-x-1/2 text-[10px] font-bold text-[#FFB81B] uppercase tracking-[0.25em] font-space z-20 pointer-events-none whitespace-nowrap drop-shadow-[0_0_8px_rgba(255,184,27,0.4)]"
+            className="absolute bottom-3 left-4 md:left-1/2 -translate-x-1/2 text-[10px] font-bold text-[#FFB81B] uppercase tracking-[0.25em] font-space z-20 pointer-events-none whitespace-nowrap drop-shadow-[0_0_10px_rgba(255,184,27,0.5)]"
           >
             The Grand Finale
           </motion.span>
@@ -195,11 +196,11 @@ export function Features() {
                     whileInView="visible"
                     viewport={{ once: false, amount: 0.5 }}
                     variants={nodeVariants}
-                    className="absolute top-1/2 -translate-y-1/2 left-4 md:left-1/2 -translate-x-1/2 w-4 h-4 rounded-sm border border-[#FFB81B]/40 bg-black flex items-center justify-center z-30 transition-transform duration-300 group-hover:scale-110 shadow-[0_0_10px_rgba(255,184,27,0.3)]"
+                    className="absolute top-1/2 -translate-y-1/2 left-4 md:left-1/2 -translate-x-1/2 w-4 h-4 rounded-[2px] border border-[#FFB81B] bg-black flex items-center justify-center z-30 transition-all duration-300 group-hover:scale-125 group-hover:shadow-[0_0_16px_rgba(255,184,27,0.8)] shadow-[0_0_10px_rgba(255,184,27,0.4)]"
                   >
                     <motion.div
                       variants={dotVariants}
-                      className="w-1.5 h-1.5 rounded-sm"
+                      className="w-1.5 h-1.5 rounded-[1px] bg-[#FFB81B]"
                     />
                   </motion.div>
 
@@ -209,20 +210,17 @@ export function Features() {
                       isOdd ? "md:pr-10 lg:pr-12 md:justify-end" : "md:ml-auto md:pl-10 lg:pl-12 md:justify-start"
                     }`}
                   >
-                    <div className="relative w-full max-w-[390px] md:max-w-[460px] lg:max-w-[500px] bg-[#001233]/80 border border-white/10 rounded-2xl p-4 sm:p-5 lg:p-6 hover:border-[#FFB81B]/40 transition-all duration-300 text-left border-l-2 border-l-[#FFB81B] shadow-[0_6px_24px_rgba(0,0,0,0.45)]">
-                      {/* Event Step & Date Badge */}
-                      <div className="flex items-center justify-between gap-2 mb-2">
-                        <span className="text-[10px] sm:text-xs font-bold text-[#FFB81B] font-space tracking-widest uppercase">
-                          STEP {step.step}
-                        </span>
-                        <span className="px-2.5 py-1 rounded-full bg-[#FFB81B]/15 border border-[#FFB81B]/40 text-[#FFB81B] text-[10px] sm:text-xs font-bold font-space tracking-wider shadow-[0_0_10px_rgba(255,184,27,0.15)]">
-                          {step.date}
-                        </span>
-                      </div>
-                      <h3 className="text-base sm:text-lg lg:text-xl font-bold text-white mb-1.5 uppercase font-space tracking-tight">
+                    <div className="relative w-full max-w-[390px] md:max-w-[460px] lg:max-w-[500px] bg-[#0a0a0d]/95 border border-[#1f1f26] rounded-lg p-5 sm:p-6 lg:p-7 text-left border-l-2 border-l-[#FFB81B] shadow-[0_10px_30px_rgba(0,0,0,0.6)] transition-all duration-300 ease-out hover:-translate-y-2 hover:scale-[1.02] hover:bg-[#0f0f16] hover:border-[#FFB81B]/60 hover:border-l-[3.5px] hover:border-l-[#FFB81B] hover:shadow-[0_15px_40px_rgba(255,184,27,0.25)] group cursor-pointer">
+                      {/* Date Header matching reference screenshot */}
+                      <span className="text-[11px] sm:text-xs font-bold text-[#FFB81B] font-space tracking-[0.2em] uppercase block mb-2">
+                        {step.date}
+                      </span>
+                      {/* Title matching reference screenshot */}
+                      <h3 className="text-base sm:text-lg lg:text-xl font-extrabold text-white mb-2.5 uppercase font-space tracking-wide group-hover:text-[#FFB81B] transition-colors duration-300">
                         {step.title}
                       </h3>
-                      <p className="text-xs sm:text-sm text-slate-300 font-space leading-relaxed font-light opacity-90">
+                      {/* Description matching reference screenshot */}
+                      <p className="text-xs sm:text-sm text-slate-400 font-space leading-relaxed font-light">
                         {step.description}
                       </p>
                     </div>

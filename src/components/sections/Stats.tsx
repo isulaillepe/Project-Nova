@@ -127,6 +127,7 @@ export default function Stats() {
             </span>{" "}
             <span className="font-cormorant italic text-white font-medium lowercase">of Olympus</span>
           </h2>
+          <div className="w-20 h-[3px] bg-gradient-to-r from-transparent via-[#FFB81B] to-transparent shadow-[0_0_12px_#FFB81B] rounded-full mx-auto mt-3" />
           <p className="mx-auto max-w-2xl text-sm text-[#cbd5e0]/80 font-space font-light tracking-wide">
             The spoils of victory{" "}
             —{" "}

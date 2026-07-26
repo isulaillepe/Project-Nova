@@ -258,6 +258,7 @@ export default function Faq() {
                 </span>{" "}
                 <span className="font-cormorant italic text-white font-medium lowercase">Questions</span>
               </h2>
+              <div className="w-20 h-[3px] bg-gradient-to-r from-transparent via-[#FFB81B] to-transparent shadow-[0_0_12px_#FFB81B] rounded-full mx-auto mt-3" />
             </motion.div>
 
             <div className="w-full max-w-4xl mx-auto px-4">

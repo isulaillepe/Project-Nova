@@ -513,10 +513,6 @@ export default function OrganizingCommittee() {
       <section id="committee" className="cm-section">
         {/* ── Header ───────────────────────────────── */}
         <div className="cm-header">
-          <div className="cm-badge">
-            <span className="cm-badge-dot" />
-            Mission Control
-          </div>
           <h2 className="cm-heading">
             Meet the Team Behind&nbsp;
             <span className="cm-heading-accent">Project Nova</span>

@@ -157,10 +157,6 @@ export function Features() {
 
         {/* Outlined Heading Title with header offset padding */}
         <div className="absolute top-28 sm:top-36 left-0 right-0 text-center space-y-2 z-30">
-          <span className="text-[#FFB81B] text-[10px] font-bold uppercase tracking-[0.25em] flex items-center justify-center gap-1.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#FFB81B] shadow-[0_0_8px_#FFB81B]" />
-            OUR JOURNEY
-          </span>
           <h2 className="text-4xl sm:text-5xl font-light tracking-tight leading-none text-white font-space uppercase">
             <span 
               className="font-extrabold"

@@ -118,10 +118,6 @@ export default function Stats() {
       >
         {/* Outlined Section Header */}
         <motion.div variants={headerVariants} className="space-y-3 text-center">
-          <span className="text-[#FFB81B] text-xs font-bold uppercase tracking-[0.25em] flex items-center justify-center gap-2 font-space">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#FFB81B] shadow-[0_0_8px_#FFB81B]" />
-            THE TREASURY
-          </span>
           <h2 className="display-serif text-4xl sm:text-6xl md:text-7xl text-[#f7fafc]">
             <span
               className="font-bold"

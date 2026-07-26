@@ -302,10 +302,6 @@ export default function Partners() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-16 sm:mb-24">
         {/* Section Heading */}
         <div className="text-center space-y-3 select-none">
-          <span className="text-[#FFB81B] text-[11px] font-bold uppercase tracking-[0.25em] flex items-center justify-center gap-1.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#FFB81B] shadow-[0_0_8px_#FFB81B]" />
-            BACKED BY THE BEST
-          </span>
           <h2 className="text-4xl sm:text-6xl font-light tracking-tight leading-none text-white font-space uppercase">
             <span
               className="font-extrabold"

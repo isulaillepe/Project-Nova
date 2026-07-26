@@ -129,10 +129,6 @@ export default function WhoCanCompete() {
             variants={headerVariants}
             className="text-center mb-16 sm:mb-20 space-y-4"
           >
-            <span className="text-[#FFB81B] text-[10px] font-bold uppercase tracking-[0.25em] flex items-center justify-center gap-1.5 font-space">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#FFB81B] shadow-[0_0_8px_#FFB81B]" />
-              ELIGIBILITY & TEAM FORMATION
-            </span>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-orbitron font-extrabold tracking-[0.1em] text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.1)] uppercase">
               WHO CAN COMPETE
             </h2>

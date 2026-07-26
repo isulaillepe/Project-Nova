@@ -101,10 +101,6 @@ export default function PastEvents() {
           
           {/* Section Heading */}
           <div className="text-center space-y-2 mb-12 sm:mb-20">
-            <span className="text-[#FFB81B] text-[10px] font-bold uppercase tracking-[0.25em] flex items-center justify-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#FFB81B] shadow-[0_0_8px_#FFB81B]" />
-              OUR LEGACY
-            </span>
             <h2 className="text-4xl sm:text-5xl font-light tracking-tight leading-none text-white font-space uppercase">
               <span
                 className="font-extrabold"

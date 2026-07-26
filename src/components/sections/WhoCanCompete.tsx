@@ -221,17 +221,6 @@ export default function WhoCanCompete() {
 
         {/* Important Guidelines Grid from Delegate Booklet */}
         <div className="space-y-8">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={headerVariants}
-            className="text-center space-y-3"
-          >
-            <h3 className="text-2xl sm:text-3xl font-orbitron font-extrabold tracking-wider text-white uppercase">
-              IMPORTANT <span className="text-[#FFB81B]">GUIDELINES</span>
-            </h3>
-          </motion.div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {importantGuidelines.map((item, idx) => (

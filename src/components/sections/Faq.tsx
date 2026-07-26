@@ -213,7 +213,7 @@ export default function Faq() {
           <div className="absolute inset-0 z-0 bg-black">
             <motion.div
               style={{
-                backgroundImage: "url('/images/greek_gods_faq_orange.jpg')",
+                backgroundImage: "url('/images/cosmic_faq_bg.png')",
                 scale: cosmicBgScale,
                 opacity: cosmicBgOpacity,
                 visibility: cosmicBgVisibility,
@@ -223,7 +223,7 @@ export default function Faq() {
             />
             <motion.div
               style={{
-                backgroundImage: "url('/images/greek_gods_ascent_orange.jpg')",
+                backgroundImage: "url('/images/rocket_launch_bg.png')",
                 scale: rocketBgScale,
                 opacity: rocketBgOpacity,
                 filter: "brightness(0.4)",

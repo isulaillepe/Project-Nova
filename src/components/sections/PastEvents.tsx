@@ -36,6 +36,16 @@ const EVENTS_DATA: EventItem[] = [
     image: "https://i.ytimg.com/vi/gci6Yfkr4M4/hqdefault.jpg",
     url: "https://youtu.be/gci6Yfkr4M4?si=lRIlVDwAUKl_Ze8h",
   },
+  {
+    name: "Project Nova Highlight",
+    image: "https://i.ytimg.com/vi/gn-eoraTEGg/hqdefault.jpg",
+    url: "https://youtu.be/gn-eoraTEGg?si=lJ1nvlTl4zYm0Y-H",
+  },
+  {
+    name: "Project Nova Showcase",
+    image: "https://i.ytimg.com/vi/Zy42WfU-tJE/hqdefault.jpg",
+    url: "https://youtu.be/Zy42WfU-tJE?si=XoWqMZsQESdTN9Gw",
+  },
 ];
 
 export default function PastEvents() {

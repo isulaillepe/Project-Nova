@@ -7,64 +7,40 @@ import { Shield } from "lucide-react";
 const timelineSteps = [
   {
     step: "01",
+    date: "26TH – 30TH JULY",
     title: "Team Registration",
-    description: "Assemble your squad of 4 to 5 members representing your school or university and register your team for the competition tracks.",
-    details: [
-      "School & University tracks available",
-      "Teams of 4 to 5 members",
-      "No solo entries permitted"
-    ]
+    description: "Registration opens on 26th July and closes on 30th July. Assemble your squad of 4 to 5 members representing your school or university and register.",
   },
   {
     step: "02",
-    title: "Proposal Submission",
-    description: "Submit your project concept proposal addressing real-world challenges, following the official sample structure provided.",
-    details: [
-      "Solutions for real-world problems",
-      "Official proposal structure provided",
-      "Innovative tech-based concepts"
-    ]
+    date: "01ST – 06TH AUGUST",
+    title: "Proposal & Flash Round Submission",
+    description: "Submissions start on 1st August. Teams submit their formal project concept proposals and flash round entries by 6th–7th August.",
   },
   {
     step: "03",
-    title: "Proposal Evaluation",
-    description: "Submissions undergo rigorous evaluation by an expert judging panel to select the sharpest squads advancing to the next stage.",
-    details: [
-      "Expert judging panel evaluation",
-      "Criteria-based innovation scoring",
-      "Shortlist qualification"
-    ]
+    date: "09TH AUGUST",
+    title: "Workshop & Shortlist Announcement",
+    description: "Shortlisted teams are announced on 9th August and gain exclusive access to a hands-on workshop session with industry mentors.",
   },
   {
     step: "04",
-    title: "UI / UX Workshop & Shortlist",
-    description: "Shortlisted teams are announced and gain exclusive access to a hands-on workshop session to refine their product tradecraft with guidance from industry experts.",
-    details: [
-      "Shortlisted teams announcement",
-      "Hands-on UI/UX tradecraft workshop",
-      "Mentorship from industry leaders"
-    ]
+    date: "12TH AUGUST",
+    title: "UI Submission",
+    description: "Develop and submit the complete high-fidelity UI design of your proposed solution by 12th August.",
   },
   {
     step: "05",
-    title: "UI Submission & Finalist Selection",
-    description: "Develop and submit the complete UI design of your proposed solution, proving your team worthy of a place in the Grand Finale.",
-    details: [
-      "High-fidelity UI design submission",
-      "Finalist team selection",
-      "Grand Finale qualification"
-    ]
+    date: "15TH AUGUST",
+    title: "Finalist Teams Selection",
+    description: "Evaluation of UI submissions and official announcement of the finalist squads qualified for the Grand Finale on 15th August.",
   },
   {
     step: "06",
-    title: "Project Nova Event Day",
-    description: "The ultimate showcase. Eight hours of competition where champions are forged — present your solution live to judges, engage in panel discussions, and compete for the Grand Treasury.",
-    details: [
-      "University of Sri Jayewardenepura",
-      "Live presentations & panel discussion",
-      "Top 3 champion teams crowned"
-    ]
-  }
+    date: "30TH AUGUST",
+    title: "Grand Finale Event Day",
+    description: "The ultimate showcase at the University of Sri Jayewardenepura on 30th August. Present live to judges and compete for the Grand Treasury.",
+  },
 ];
 
 export function Features() {
@@ -140,7 +116,7 @@ export function Features() {
           style={{ 
             opacity: finalBgOpacity,
             scale: finalBgScale,
-            backgroundImage: "url('/images/greek_temple_statue.png')"
+            backgroundImage: "url('/images/stone_journey.png')"
           }}
           className="absolute inset-0 bg-cover bg-center mix-blend-screen filter brightness-[0.7] z-0 pointer-events-none"
         />
@@ -151,7 +127,7 @@ export function Features() {
           className="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-0"
         >
           <span className="text-[14vw] font-black text-white/5 font-space tracking-widest select-none uppercase">
-            29 AUG
+            30 AUG
           </span>
         </motion.div>
 
@@ -234,32 +210,21 @@ export function Features() {
                     }`}
                   >
                     <div className="relative w-full max-w-[390px] md:max-w-[460px] lg:max-w-[500px] bg-[#001233]/80 border border-white/10 rounded-2xl p-4 sm:p-5 lg:p-6 hover:border-[#FFB81B]/40 transition-all duration-300 text-left border-l-2 border-l-[#FFB81B] shadow-[0_6px_24px_rgba(0,0,0,0.45)]">
-                      {/* Event Step & Title */}
-                      <div className="flex items-center justify-between mb-1.5">
+                      {/* Event Step & Date Badge */}
+                      <div className="flex items-center justify-between gap-2 mb-2">
                         <span className="text-[10px] sm:text-xs font-bold text-[#FFB81B] font-space tracking-widest uppercase">
                           STEP {step.step}
                         </span>
-                        <Shield className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#FFB81B]/80" />
+                        <span className="px-2.5 py-1 rounded-full bg-[#FFB81B]/15 border border-[#FFB81B]/40 text-[#FFB81B] text-[10px] sm:text-xs font-bold font-space tracking-wider shadow-[0_0_10px_rgba(255,184,27,0.15)]">
+                          {step.date}
+                        </span>
                       </div>
                       <h3 className="text-base sm:text-lg lg:text-xl font-bold text-white mb-1.5 uppercase font-space tracking-tight">
                         {step.title}
                       </h3>
-                      <p className="text-xs sm:text-sm text-slate-300 font-space leading-relaxed font-light mb-3 opacity-90">
+                      <p className="text-xs sm:text-sm text-slate-300 font-space leading-relaxed font-light opacity-90">
                         {step.description}
                       </p>
-
-                      {/* Bullet Info list */}
-                      <div className="space-y-1.5 pt-2.5 border-t border-white/10">
-                        {step.details.map((detail, idx) => (
-                          <div
-                            key={idx}
-                            className="flex items-center gap-2.5 text-[11px] sm:text-xs lg:text-[13px] text-slate-200 font-space"
-                          >
-                            <span className="w-1.5 h-1.5 rounded-full bg-[#FFB81B] shrink-0 opacity-80 shadow-[0_0_6px_rgba(255,184,27,0.4)]" />
-                            <span className="opacity-90">{detail}</span>
-                          </div>
-                        ))}
-                      </div>
                     </div>
                   </div>
 

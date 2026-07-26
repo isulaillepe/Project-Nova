@@ -4,6 +4,7 @@ import WhoCanCompete from "@/components/sections/WhoCanCompete";
 import { Features } from "@/components/sections/Features";
 import PastEvents from "@/components/sections/PastEvents";
 import OrganizingCommittee from "@/components/sections/OrganizingCommittee";
+import ContactUs from "@/components/sections/ContactUs";
 import Faq from "@/components/sections/Faq";
 import Partners from "@/components/sections/Partners";
 
@@ -18,6 +19,7 @@ export default function Home() {
       <Partners />
       <OrganizingCommittee />
       <Faq />
+      <ContactUs />
     </>
   );
 }

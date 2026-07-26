@@ -99,7 +99,7 @@ export default function Stats() {
         style={{
           scale: bgScale,
           y: bgY,
-          backgroundImage: "url('/images/greek_gods_faq_orange.jpg')",
+          backgroundImage: "url('/images/greek_gods_bg.jpg')",
         }}
         className="absolute inset-0 bg-cover bg-center z-0 origin-center filter brightness-[0.8]"
       />

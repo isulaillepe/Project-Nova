@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useRef } from "react";
 import { ArrowRight, GraduationCap, School } from "lucide-react";
 import { useScroll, useTransform, motion } from "framer-motion";
@@ -77,9 +78,12 @@ export default function Hero() {
               className="cursor-pointer flex items-center justify-center"
               aria-label="Project Nova Home"
             >
-              <img
+              <Image
                 src="/images/project_nova_logo.png"
                 alt="Project Nova"
+                width={180}
+                height={36}
+                priority
                 className="h-8 sm:h-9 w-auto object-contain filter drop-shadow-[0_0_15px_rgba(255,184,27,0.4)] transition-transform hover:scale-105"
               />
             </Link>
@@ -108,7 +112,7 @@ export default function Hero() {
           className="max-w-4xl space-y-4 sm:space-y-6 z-10 text-left pl-1 sm:pl-4"
         >
           {/* Heading — luxury serif display */}
-          <h1 className="display-serif text-3xl sm:text-7xl md:text-8xl text-[#f7fafc] leading-[1.15] sm:leading-[1.1]">
+          <h1 className="display-serif text-4.5xl xs:text-5xl sm:text-7xl md:text-8xl text-[#f7fafc] leading-[1.1] sm:leading-[1.1]">
             From <span className="font-bold">Concept</span> <br />
             to <span className="text-gold-gradient font-semibold">Creation</span>
             <span className="text-[#FFB81B] font-bold">.</span>

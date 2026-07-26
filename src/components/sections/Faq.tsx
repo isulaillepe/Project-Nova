@@ -18,7 +18,7 @@ const socialLinks = [
 const faqItems = [
   {
     question: "What is Project Nova?",
-    answer: "Project Nova is a dynamic tech-based initiative organized by AIESEC in the University of Sri Jayewardenepura, designed to empower school and university students by providing a platform where innovation, creativity, and opportunity come together. Through workshops, proposal submissions, and a final showcase, participants develop practical solutions to real-world challenges.",
+    answer: "Project Nova is a dynamic tech based initiative organized by AIESEC in the University of Sri Jayewardenepura, designed to empower school and university students by providing a platform where innovation, creativity, and opportunity come together. Through workshops, proposal submissions, and a final showcase, participants develop practical solutions to real-world challenges.",
   },
   {
     question: "Who can participate?",

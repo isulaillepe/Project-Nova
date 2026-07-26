@@ -15,7 +15,7 @@ const cardsData = [
   },
   {
     image: "/images/david_vr.png",
-    title: "Start Your Journey",
+    title: "Idea and Proposal",
     description:
       "Brainstorm and formulate an innovative solution addressing real-world challenges with strong practical impact.",
     floatDuration: 6,
@@ -23,7 +23,7 @@ const cardsData = [
   },
   {
     image: "/images/david_sunglasses.png",
-    title: "Submit Your Idea",
+    title: "Final Business Ready Product",
     description:
       "Start building your final product and submit your project proposal for the competition.",
     floatDuration: 5.5,

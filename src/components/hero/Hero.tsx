@@ -116,7 +116,7 @@ export default function Hero() {
 
           {/* Description */}
           <p className="font-space font-medium text-xs sm:text-base max-w-[580px] leading-relaxed text-left text-[#cbd5e0]/90">
-            A dynamic tech-based initiative organized by AIESEC in University of Sri Jayewardenepura, empowering school and university students to transform innovative ideas into practical solutions and drive positive impact through technology.
+            A dynamic tech based initiative organized by AIESEC in University of Sri Jayewardenepura, empowering school and university students to transform innovative ideas into practical solutions and drive positive impact through technology.
           </p>
 
           {/* Actions Row */}

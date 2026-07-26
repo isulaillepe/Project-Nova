@@ -13,13 +13,13 @@ const timelineSteps = [
   {
     step: "02",
     date: "01ST – 06TH AUGUST",
-    title: "Proposal & Flash Round Submission",
-    description: "Submissions start on 1st August. Teams submit their formal project concept proposals and flash round entries by 6th–7th August.",
+    title: "Proposal Submission",
+    description: "Submissions start on 1st August. Teams submit their formal project concept proposals by 6th–7th August.",
   },
   {
     step: "03",
     date: "09TH AUGUST",
-    title: "Workshop & Shortlist Announcement",
+    title: "Workshop & Shortlisted Teams Announcement",
     description: "Shortlisted teams are announced on 9th August and gain exclusive access to a hands-on workshop session with industry mentors.",
   },
   {
@@ -31,7 +31,7 @@ const timelineSteps = [
   {
     step: "05",
     date: "15TH AUGUST",
-    title: "Finalist Teams Selection",
+    title: "UI Prototype Submission and Selection of the Finalist Teams",
     description: "Evaluation of UI submissions and official announcement of the finalist squads qualified for the Grand Finale on 15th August.",
   },
   {

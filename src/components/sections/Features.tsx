@@ -231,35 +231,35 @@ export function Features() {
                     />
                   </motion.div>
 
-                  {/* Alternating Compact Card layout: Odd left, Even right (md+) */}
+                  {/* Alternating Card layout: Odd left, Even right (md+) */}
                   <div
                     className={`w-full pl-10 md:w-1/2 md:pl-0 flex ${
-                      isOdd ? "md:pr-10 md:justify-end" : "md:ml-auto md:pl-10 md:justify-start"
+                      isOdd ? "md:pr-10 lg:pr-12 md:justify-end" : "md:ml-auto md:pl-10 lg:pl-12 md:justify-start"
                     }`}
                   >
-                    <div className="relative w-full max-w-[400px] bg-[#001233]/75 border border-white/10 rounded-xl p-3.5 sm:p-4 hover:border-[#FFB81B]/40 transition-all duration-300 text-left border-l-2 border-l-[#FFB81B] shadow-[0_4px_20px_rgba(0,0,0,0.4)]">
+                    <div className="relative w-full max-w-[390px] md:max-w-[460px] lg:max-w-[500px] bg-[#001233]/80 border border-white/10 rounded-2xl p-4 sm:p-5 lg:p-6 hover:border-[#FFB81B]/40 transition-all duration-300 text-left border-l-2 border-l-[#FFB81B] shadow-[0_6px_24px_rgba(0,0,0,0.45)]">
                       {/* Event Step & Title */}
-                      <div className="flex items-center justify-between mb-1">
-                        <span className="text-[9px] font-bold text-[#FFB81B] font-space tracking-widest uppercase">
+                      <div className="flex items-center justify-between mb-1.5">
+                        <span className="text-[10px] sm:text-xs font-bold text-[#FFB81B] font-space tracking-widest uppercase">
                           STEP {step.step}
                         </span>
-                        <Shield className="w-3 h-3 text-[#FFB81B]/70" />
+                        <Shield className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#FFB81B]/80" />
                       </div>
-                      <h3 className="text-sm sm:text-base font-bold text-white mb-1 uppercase font-space tracking-tight">
+                      <h3 className="text-base sm:text-lg lg:text-xl font-bold text-white mb-1.5 uppercase font-space tracking-tight">
                         {step.title}
                       </h3>
-                      <p className="text-[11px] text-slate-300 font-space leading-relaxed font-light mb-2.5 opacity-90">
+                      <p className="text-xs sm:text-sm text-slate-300 font-space leading-relaxed font-light mb-3 opacity-90">
                         {step.description}
                       </p>
 
                       {/* Bullet Info list */}
-                      <div className="space-y-1 pt-2 border-t border-white/5">
+                      <div className="space-y-1.5 pt-2.5 border-t border-white/10">
                         {step.details.map((detail, idx) => (
                           <div
                             key={idx}
-                            className="flex items-center gap-2 text-[10px] sm:text-[11px] text-slate-300 font-space"
+                            className="flex items-center gap-2.5 text-[11px] sm:text-xs lg:text-[13px] text-slate-200 font-space"
                           >
-                            <span className="w-1 h-1 rounded-full bg-[#FFB81B] shrink-0 opacity-80" />
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#FFB81B] shrink-0 opacity-80 shadow-[0_0_6px_rgba(255,184,27,0.4)]" />
                             <span className="opacity-90">{detail}</span>
                           </div>
                         ))}

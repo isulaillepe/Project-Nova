@@ -130,6 +130,7 @@ export default function Stats() {
           <div className="w-20 h-[3px] bg-gradient-to-r from-transparent via-[#FFB81B] to-transparent shadow-[0_0_12px_#FFB81B] rounded-full mx-auto mt-3" />
           <p className="mx-auto max-w-2xl text-sm text-[#cbd5e0]/80 font-space font-light tracking-wide">
             The spoils of victory{" "}
+            —{" "}
             a grand <span className="text-[#FFB81B] font-bold">LKR 180,000</span>{" "}
             total treasury awarded across University & School competition realms.
           </p>

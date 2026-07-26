@@ -263,6 +263,9 @@ export function RegistrationForm() {
                   Form your dream crew of 4 to 5 members to brainstorm, design and pitch breakthrough innovations before the pantheon.
                 </p>
               </div>
+              <span className="rounded-lg bg-[#FFB81B]/10 border border-[#FFB81B]/20 px-4 py-1.5 text-[10px] font-space font-bold uppercase tracking-widest text-[#FFB81B]">
+                PHASE I
+              </span>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

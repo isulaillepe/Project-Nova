@@ -3,8 +3,8 @@
 import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useState, useRef, useEffect } from "react";
+import { motion, useScroll, useTransform, useMotionValueEvent, MotionValue } from "framer-motion";
 import { Mail } from "lucide-react";
 import { FaLinkedinIn, FaFacebookF, FaYoutube, FaInstagram, FaTiktok, FaWhatsapp } from "react-icons/fa";
 
@@ -50,13 +50,29 @@ interface FaqItemProps {
   index: number;
   openIndex: number | null;
   setOpenIndex: (index: number | null) => void;
+  scrollYProgress: MotionValue<number>;
 }
 
-function FaqItem({ item, index, openIndex, setOpenIndex }: FaqItemProps) {
+function FaqItem({ item, index, openIndex, setOpenIndex, scrollYProgress }: FaqItemProps) {
+  const isLeft = index % 2 === 0;
+
+  const x = useTransform(
+    scrollYProgress,
+    [0.30, 0.50],
+    ["0vw", isLeft ? "-120vw" : "120vw"]
+  );
+
+  const opacity = useTransform(
+    scrollYProgress,
+    [0.30, 0.50],
+    [1, 0]
+  );
+
   const isOpen = openIndex === index;
 
   return (
-    <div
+    <motion.div
+      style={{ x, opacity }}
       className={`group rounded-2xl bg-[#001233]/75 backdrop-blur-md border transition-all duration-300 ${
         isOpen
           ? "border-[#FFB81B] shadow-[0_0_20px_rgba(255,184,27,0.25)]"
@@ -78,7 +94,7 @@ function FaqItem({ item, index, openIndex, setOpenIndex }: FaqItemProps) {
           <motion.span
             animate={{ rotate: isOpen ? 45 : 0 }}
             transition={{ duration: 0.2 }}
-            className={`text-xl font-bold flex h-8 w-8 items-center justify-center rounded-lg bg-white/5 transition-all group-hover:bg-white/10 shrink-0 ${
+            className={`text-xl font-bold flex h-8 w-8 items-center justify-center rounded-lg bg-white/5 transition-all group-hover:bg-white/10 ${
               isOpen ? "text-[#FFB81B]" : "text-slate-400"
             }`}
           >
@@ -97,112 +113,250 @@ function FaqItem({ item, index, openIndex, setOpenIndex }: FaqItemProps) {
           </div>
         </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
 export default function Faq() {
   const pathname = usePathname();
+  const containerRef = useRef<HTMLDivElement>(null);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"],
+  });
+
+  // Track progress via ref for scroll-locking logic using Framer Motion event hook
+  const progressRef = useRef(0);
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    progressRef.current = latest;
+  });
+
+  // Scroll locking: stop scroll down at 0.95 progress to keep footer permanent
+  useEffect(() => {
+    let touchStartY = 0;
+
+    const handleTouchStart = (e: TouchEvent) => {
+      if (e.touches.length > 0) {
+        touchStartY = e.touches[0].clientY;
+      }
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      if (window.innerWidth >= 768 && progressRef.current >= 0.95 && e.touches.length > 0) {
+        const touchY = e.touches[0].clientY;
+        const deltaY = touchStartY - touchY; // positive deltaY = scrolling down
+
+        if (deltaY > 0) {
+          e.preventDefault();
+        }
+      }
+    };
+
+    const handleWheel = (e: WheelEvent) => {
+      if (window.innerWidth >= 768 && progressRef.current >= 0.95 && e.deltaY > 0) {
+        e.preventDefault();
+      }
+    };
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (window.innerWidth >= 768 && progressRef.current >= 0.95) {
+        const keys = ["ArrowDown", "PageDown", " ", "End"];
+        if (keys.includes(e.key)) {
+          e.preventDefault();
+        }
+      }
+    };
+
+    window.addEventListener("touchstart", handleTouchStart, { passive: true });
+    window.addEventListener("touchmove", handleTouchMove, { passive: false });
+    window.addEventListener("wheel", handleWheel, { passive: false });
+    window.addEventListener("keydown", handleKeyDown, { passive: false });
+
+    return () => {
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchmove", handleTouchMove);
+      window.removeEventListener("wheel", handleWheel);
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
+
+  // Background cross-fade: cosmic → rocket → footer
+  const cosmicBgScale = useTransform(scrollYProgress, [0, 0.35], [1.0, 1.08]);
+  const rocketBgScale = useTransform(scrollYProgress, [0.35, 1.0], [1.08, 1.0]);
+  const cosmicBgOpacity = useTransform(scrollYProgress, [0.25, 0.45], [1, 0]);
+  const rocketBgOpacity = useTransform(scrollYProgress, [0.25, 0.45, 0.50, 1.0], [0, 1, 1, 0]);
+
+  // FAQ content fades out first
+  const faqContentOpacity = useTransform(scrollYProgress, [0.20, 0.40], [1, 0]);
+  const faqHeaderY = useTransform(scrollYProgress, [0.20, 0.40], ["0px", "-60px"]);
+  const faqPointerEvents = useTransform(scrollYProgress, (v) => v > 0.40 ? "none" : "auto");
+  const faqVisibility = useTransform(scrollYProgress, (v) => v > 0.42 ? "hidden" : "visible");
+  const cosmicBgVisibility = useTransform(scrollYProgress, (v) => v > 0.42 ? "hidden" : "visible");
+
+  // Register section and footer fade in together between 0.50 and 1.0
+  const registerOpacity = useTransform(scrollYProgress, [0.50, 1.0], [0, 1]);
+  const registerY = useTransform(scrollYProgress, [0.50, 1.0], ["30px", "0px"]);
+  const registerPointerEvents = useTransform(scrollYProgress, (v) => v >= 1.0 ? "auto" : "none");
+
+  const footerScale = useTransform(scrollYProgress, [0.50, 1.0], [0.95, 1.0]);
+
   return (
-    <section id="faq" className="relative z-10 bg-black pt-20 sm:pt-28 pb-12 overflow-hidden">
-      {/* Background graphic */}
-      <div
-        style={{
-          backgroundImage: "url('/images/cosmic_faq_bg.png')",
-          filter: "brightness(0.35)",
-        }}
-        className="absolute inset-0 bg-cover bg-center pointer-events-none z-0"
-      />
+    <section id="faq" className="relative z-10 bg-black">
 
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* FAQ Header */}
-        <div className="w-full text-center mb-12 sm:mb-16">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light tracking-tight leading-none text-white font-space uppercase">
-            <span
-              className="font-extrabold"
-              style={{ WebkitTextStroke: "1.5px #FFB81B", color: "transparent" }}
-            >
-              FREQUENTLY ASKED
-            </span>{" "}
-            <span className="font-cormorant italic text-white font-medium lowercase">Questions</span>
-          </h2>
-          <div className="w-20 h-[3px] bg-gradient-to-r from-transparent via-[#FFB81B] to-transparent shadow-[0_0_12px_#FFB81B] rounded-full mx-auto mt-3" />
-        </div>
+      {/* Pinned scroll container */}
+      <div ref={containerRef} className="relative h-[210vh] z-10 bg-black">
+        <div className="sticky top-0 h-screen w-full overflow-hidden select-none z-10 bg-black">
 
-        {/* FAQ Accordion List */}
-        <div className="w-full max-w-4xl mx-auto space-y-3 sm:space-y-4 mb-20">
-          {faqItems.map((item, index) => (
-            <FaqItem
-              key={index}
-              item={item}
-              index={index}
-              openIndex={openIndex}
-              setOpenIndex={setOpenIndex}
+          {/* Backgrounds */}
+          <div className="absolute inset-0 z-0 bg-black">
+            <motion.div
+              style={{
+                backgroundImage: "url('/images/cosmic_faq_bg.png')",
+                scale: cosmicBgScale,
+                opacity: cosmicBgOpacity,
+                visibility: cosmicBgVisibility,
+                filter: "brightness(0.4)",
+              }}
+              className="absolute inset-0 bg-cover bg-center origin-center z-0"
             />
-          ))}
-        </div>
+            <motion.div
+              style={{
+                backgroundImage: "url('/images/rocket_launch_bg.png')",
+                scale: rocketBgScale,
+                opacity: rocketBgOpacity,
+                filter: "brightness(0.4)",
+              }}
+              className="absolute inset-0 bg-cover bg-center origin-center z-10"
+            />
+            <motion.div
+              style={{
+                backgroundImage: "url('/images/greek_gods_footer.jpg')",
+                opacity: registerOpacity,
+                filter: "brightness(0.4)",
+              }}
+              className="absolute inset-0 bg-cover bg-center origin-center z-20"
+            />
+          </div>
 
-        {/* Footer */}
-        <div className="w-full border-t border-white/10 pt-10">
-          <div className="flex flex-col md:flex-row items-center md:items-end justify-between gap-6 px-2 sm:px-4">
-            
-            {/* Left Column: System Status & Coordinates */}
-            <div className="flex flex-col items-center md:items-start gap-1 select-none text-center md:text-left font-space">
-              <div className="flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#FFB81B] shadow-[0_0_8px_#FFB81B] animate-pulse" />
-                <span className="text-[#FFB81B] font-bold text-[10px] sm:text-xs tracking-widest uppercase">SYS.ONLINE</span>
-              </div>
-              <span className="text-[9px] sm:text-[10px] text-slate-500 font-mono tracking-wider">6.9271° N   79.8612° E</span>
-            </div>
+          {/* FAQ content */}
+          <motion.div
+            style={{ opacity: faqContentOpacity, pointerEvents: faqPointerEvents, visibility: faqVisibility }}
+            className="relative z-10 w-full h-full flex flex-col justify-center py-20"
+          >
+            <motion.div
+              style={{ y: faqHeaderY }}
+              className="w-full text-center px-4 mb-8"
+            >
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light tracking-tight leading-none text-white font-space uppercase">
+                <span
+                  className="font-extrabold"
+                  style={{ WebkitTextStroke: "1.5px #FFB81B", color: "transparent" }}
+                >
+                  FREQUENTLY ASKED
+                </span>{" "}
+                <span className="font-cormorant italic text-white font-medium lowercase">Questions</span>
+              </h2>
+              <div className="w-20 h-[3px] bg-gradient-to-r from-transparent via-[#FFB81B] to-transparent shadow-[0_0_12px_#FFB81B] rounded-full mx-auto mt-3" />
+            </motion.div>
 
-            {/* Middle Column: Comms link & Social icons */}
-            <div className="flex flex-col items-center gap-2">
-              <span className="text-[8px] sm:text-[9px] font-mono font-bold tracking-[0.25em] text-slate-500 uppercase select-none">COMMS_LINK</span>
-              <div className="flex items-center justify-center gap-2 sm:gap-3">
-                {socialLinks.map((social) => (
-                  <a
-                    key={social.label}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex h-9.5 w-9.5 items-center justify-center rounded-md bg-[#001233]/40 border border-white/5 text-slate-400 hover:text-white hover:border-[#FFB81B]/40 hover:bg-[#FFB81B]/10 transition-all duration-300"
-                    aria-label={social.label}
-                  >
-                    <social.icon className="h-4 w-4" />
-                  </a>
+            <div className="w-full max-w-4xl mx-auto px-4">
+              <div className="space-y-3 sm:space-y-4">
+                {faqItems.map((item, index) => (
+                  <FaqItem
+                    key={index}
+                    item={item}
+                    index={index}
+                    openIndex={openIndex}
+                    setOpenIndex={setOpenIndex}
+                    scrollYProgress={scrollYProgress}
+                  />
                 ))}
               </div>
             </div>
+          </motion.div>
 
-            {/* Right Column: Project Nova Logo & Copyright */}
-            <Link
-              href="/"
-              onClick={(e) => {
-                if (pathname === "/") {
-                  e.preventDefault();
-                  window.scrollTo({ top: 0, behavior: "smooth" });
-                }
+          {/* Register CTA / Project Nova Description — fades in concurrently with the footer */}
+          <motion.div
+            style={{ opacity: registerOpacity, y: registerY, pointerEvents: registerPointerEvents }}
+            className="absolute inset-0 z-20 flex flex-col items-center justify-center px-4"
+          >
+            <div className="text-center max-w-3xl flex flex-col items-center justify-center z-10">
+              <p className="text-white text-center text-xs sm:text-sm md:text-[15px] font-medium leading-relaxed max-w-2xl px-6 select-none opacity-85 tracking-wide">
+                Project Nova connects young innovators with industry leaders, mentors, and organizations — inspiring the next generation of school and university students to learn, collaborate, and create meaningful impact through technology.
+              </p>
+            </div>
+
+            {/* Fading In High-Fidelity Footer (fades in together with register now) */}
+            <motion.div
+              style={{
+                opacity: registerOpacity,
+                y: registerY,
+                scale: footerScale,
+                pointerEvents: registerPointerEvents,
               }}
-              className="flex flex-col items-center md:items-end gap-1 text-center md:text-right select-none font-space cursor-pointer hover:opacity-80 transition-opacity"
-              aria-label="Project Nova Home"
+              className="absolute bottom-8 left-0 right-0 z-30 w-full"
             >
-              <div className="font-extrabold text-sm sm:text-base tracking-wider uppercase">
-                <span className="text-white">PROJECT</span>
-                <span className="text-[#FFB81B] ml-1">NOVA</span>
-              </div>
-              <div className="text-[8px] sm:text-[9px] text-slate-500 font-medium tracking-widest uppercase leading-tight">
-                COPYRIGHT © 2026 <br />
-                AIESEC IN USJ // DESIGN UNIT
-              </div>
-            </Link>
+              <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center md:items-end justify-between gap-6 px-6 sm:px-8">
+                
+                {/* Left Column: System Status & Coordinates */}
+                <div className="flex flex-col items-center md:items-start gap-1 select-none text-center md:text-left font-space">
+                  <div className="flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#FFB81B] shadow-[0_0_8px_#FFB81B] animate-pulse" />
+                    <span className="text-[#FFB81B] font-bold text-[10px] sm:text-xs tracking-widest uppercase">SYS.ONLINE</span>
+                  </div>
+                  <span className="text-[9px] sm:text-[10px] text-slate-500 font-mono tracking-wider">6.9271° N   79.8612° E</span>
+                </div>
 
-          </div>
+                {/* Middle Column: Comms link & Social icons */}
+                <div className="flex flex-col items-center gap-2">
+                  <span className="text-[8px] sm:text-[9px] font-mono font-bold tracking-[0.25em] text-slate-500 uppercase select-none">COMMS_LINK</span>
+                  <div className="flex items-center justify-center gap-2 sm:gap-3">
+                    {socialLinks.map((social) => (
+                      <a
+                        key={social.label}
+                        href={social.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex h-9.5 w-9.5 items-center justify-center rounded-md bg-[#001233]/40 border border-white/5 text-slate-400 hover:text-white hover:border-[#FFB81B]/40 hover:bg-[#FFB81B]/10 transition-all duration-300"
+                        aria-label={social.label}
+                      >
+                        <social.icon className="h-4 w-4" />
+                      </a>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Right Column: Project Nova Logo & Copyright */}
+                <Link
+                  href="/"
+                  onClick={(e) => {
+                    if (pathname === "/") {
+                      e.preventDefault();
+                      window.scrollTo({ top: 0, behavior: "smooth" });
+                    }
+                  }}
+                  className="flex flex-col items-center md:items-end gap-1 text-center md:text-right select-none font-space cursor-pointer hover:opacity-80 transition-opacity"
+                  aria-label="Project Nova Home"
+                >
+                  <div className="font-extrabold text-sm sm:text-base tracking-wider uppercase">
+                    <span className="text-white">PROJECT</span>
+                    <span className="text-[#FFB81B] ml-1">NOVA</span>
+                  </div>
+                  <div className="text-[8px] sm:text-[9px] text-slate-500 font-medium tracking-widest uppercase leading-tight">
+                    COPYRIGHT © 2026 <br />
+                    AIESEC IN USJ // DESIGN UNIT
+                  </div>
+                </Link>
+
+              </div>
+            </motion.div>
+          </motion.div>
+
         </div>
-
       </div>
+
     </section>
   );
 }
-

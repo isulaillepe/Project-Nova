@@ -19,7 +19,7 @@ const timelineSteps = [
   {
     step: "03",
     date: "09TH AUGUST",
-    title: "Workshop & Shortlist Announcement",
+    title: "Workshop and Selected Teams Announcement",
     description: "Shortlisted teams are announced on 9th August and gain exclusive access to a hands-on workshop session with industry mentors.",
   },
   {
@@ -163,9 +163,7 @@ export function Features() {
           {/* Grand Finale Finish Marker - Vertical line terminates exactly on top edge of this horizontal line */}
           <div className="relative mt-12 sm:mt-16 z-20">
             <div className="absolute top-0 left-4 sm:left-6 -translate-x-1/2 md:left-1/2 md:-translate-x-1/2 w-44 sm:w-56 md:w-64 h-[2px] bg-[#FFB81B] shadow-[0_0_14px_#FFB81B] pointer-events-none origin-left md:origin-center" />
-            <span className="block pt-4 text-[10px] sm:text-xs font-bold text-[#FFB81B] uppercase tracking-[0.25em] sm:tracking-[0.3em] font-space pointer-events-none drop-shadow-[0_0_10px_rgba(255,184,27,0.5)] pl-9 sm:pl-12 md:pl-0 text-left md:text-center">
-              The Grand Finale
-            </span>
+            
           </div>
 
         </div>

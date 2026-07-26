@@ -127,7 +127,7 @@ const COMMITTEE: {
   {
     id: "CM-11",
     name: "Sanathmi Sanupama",
-    title: "OCVP Event Management",
+    title: "OCVP Events",
     email: "sanathmi.sanupama@aiesec.net",
     avatar: "SS",
     image: "/images/committee/sanathmi.jpg",
@@ -136,7 +136,7 @@ const COMMITTEE: {
   {
     id: "CM-12",
     name: "Imasha Peiris",
-    title: "OCVP Event Management",
+    title: "OCVP Events",
     email: "imashapeiris@aiesec.net",
     avatar: "IP",
     image: "/images/committee/imasha.jpg",

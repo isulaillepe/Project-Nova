@@ -16,7 +16,7 @@ export default function Stats() {
   });
 
   const bgScale = useTransform(scrollYProgress, [0, 1], [1.15, 1.0]);
-  const bgY = useTransform(scrollYProgress, [0, 1], ["-12%", "8%"]);
+  const bgY = useTransform(scrollYProgress, [0, 1], ["8%", "25%"]);
 
   const containerVariants = {
     hidden: {},
@@ -92,21 +92,21 @@ export default function Stats() {
     <section
       ref={sectionRef}
       id="prizes"
-      className="relative min-h-screen bg-[#001233] py-32 px-4 sm:px-8 md:px-16 overflow-hidden flex flex-col justify-between"
+      className="relative min-h-screen bg-black py-32 px-4 sm:px-8 md:px-16 overflow-hidden flex flex-col justify-between"
     >
-      {/* Parallax cosmic backdrop */}
+      {/* Parallax cosmic VR statue backdrop */}
       <motion.div
         style={{
           scale: bgScale,
           y: bgY,
-          backgroundImage: "url('/images/greek_gods_bg.jpg')",
+          backgroundImage: "url('/images/vr_statue_bg.jpg')",
         }}
-        className="absolute inset-0 bg-cover bg-center z-0 origin-center filter brightness-[0.8]"
+        className="absolute inset-0 bg-cover bg-center z-0 origin-center filter brightness-[0.75]"
       />
 
       {/* Vignettes for content legibility and section blending */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#001233] via-[#001233]/55 to-[#001233] z-0 pointer-events-none" />
-      <div className="absolute inset-0 bg-[#001233]/30 backdrop-blur-[1px] z-0 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black via-black/40 to-black z-0 pointer-events-none" />
+      <div className="absolute inset-0 bg-black/20 backdrop-blur-[1px] z-0 pointer-events-none" />
 
       {/* Main Stats Content Container */}
       <motion.div

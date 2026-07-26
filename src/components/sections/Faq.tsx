@@ -9,10 +9,10 @@ import { Mail } from "lucide-react";
 import { FaFacebookF, FaInstagram, FaWhatsapp } from "react-icons/fa";
 
 const socialLinks = [
-  { icon: Mail, href: "mailto:manashafernando@aiesec.net,vinothinivickneshwaran27@gmail.com", label: "Mail" },
-  { icon: FaFacebookF, href: "https://www.facebook.com/AIESECinUSJ", label: "Facebook" },
+  { icon: Mail, href: "mailto:niyomabodinie@aiesec.net", label: "Mail" },
+  { icon: FaFacebookF, href: "https://www.facebook.com/share/19AgfSadu1/?mibextid=wwXIfr", label: "Facebook" },
   { icon: FaInstagram, href: "https://www.instagram.com/lc_usj?igsh=MWJqeXppczg1Nm9wdQ==", label: "Instagram" },
-  { icon: FaWhatsapp, href: "https://chat.whatsapp.com/IxwczRq3afkAKRV6NKozdP?s=sw&p=i&mlu=0&amv=0", label: "WhatsApp" },
+  { icon: FaWhatsapp, href: "https://chat.whatsapp.com/IsT7zFu6AIu0tTvkhY1oRB", label: "WhatsApp" },
 ];
 
 const faqItems = [
@@ -30,7 +30,7 @@ const faqItems = [
   },
   {
     question: "What is the competition format & timeline?",
-    answer: "The event timeline key milestones are: Team Registration (26th-30th July, Flash Round 01st-03rd Aug) → Proposal Submissions (01st-06th Aug) → Workshop & Shortlist Announcement (09th Aug) → UI Submission (12th Aug) → Final Teams Selection (15th Aug) → Grand Finale Event Day (30th Aug at USJ).",
+    answer: "Key stages include Team Registration (26–30 July), Proposal Submissions (1–6 Aug), Workshop (9 Aug), UI Submissions (12 Aug), and Finalist Selection (15 Aug), culminating in the Grand Finale on 30th August.",
   },
   {
     question: "Is participation free?",
@@ -38,7 +38,7 @@ const faqItems = [
   },
   {
     question: "What rewards can winners expect?",
-    answer: "Teams compete for an overall cash prize treasury of LKR 180,000. University Category: LKR 75,000 (Champion), LKR 40,000 (1st Runner-Up), LKR 20,000 (2nd Runner-Up). School Category: LKR 20,000 (1st Place), LKR 15,000 (2nd Place), LKR 10,000 (3rd Place), along with certificates and corporate visibility.",
+    answer: "A total prize pool of LKR 180,000 across University (up to LKR 75,000) and School (up to LKR 20,000) categories, plus certificates and corporate exposure.",
   },
 ];
 
@@ -179,13 +179,7 @@ export default function Faq() {
     };
   }, []);
 
-  // Background cross-fade: cosmic → rocket → footer
-  const cosmicBgScale = useTransform(scrollYProgress, [0, 0.35], [1.0, 1.08]);
-  const rocketBgScale = useTransform(scrollYProgress, [0.35, 1.0], [1.08, 1.0]);
-  const cosmicBgOpacity = useTransform(scrollYProgress, [0.25, 0.45], [1, 0]);
-  const rocketBgOpacity = useTransform(scrollYProgress, [0.25, 0.45, 0.50, 1.0], [0, 1, 1, 0]);
-
-  // Greek Gods image scale: starts small (scale 0.5) at top of FAQ and gradually becomes large (scale 1.15) at bottom of FAQ page
+  // Greek Gods background scale: starts small (scale 0.5) at top of FAQ and gradually becomes large (scale 1.15) at bottom of FAQ page
   const greekGodsScale = useTransform(scrollYProgress, [0, 1.0], [0.5, 1.15]);
 
   // FAQ content fades out first
@@ -324,10 +318,7 @@ export default function Faq() {
                     <span className="text-white">PROJECT</span>
                     <span className="text-[#FFB81B] ml-1">NOVA</span>
                   </div>
-                  <div className="text-[8px] sm:text-[9px] text-slate-500 font-medium tracking-widest uppercase leading-tight">
-                    COPYRIGHT © 2026 <br />
-                    AIESEC IN USJ // DESIGN UNIT
-                  </div>
+                  
                 </Link>
 
               </div>

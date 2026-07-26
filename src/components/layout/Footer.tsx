@@ -33,13 +33,13 @@ const footerLinks = {
 };
 
 const socialLinks = [
-  { icon: FaFacebookF, href: "https://www.facebook.com/AIESECinUSJ", label: "Facebook" },
+  { icon: FaFacebookF, href: "https://www.facebook.com/share/19AgfSadu1/?mibextid=wwXIfr", label: "Facebook" },
   { icon: FaInstagram, href: "https://www.instagram.com/lc_usj?igsh=MWJqeXppczg1Nm9wdQ==", label: "Instagram" },
-  { icon: FaWhatsapp, href: "https://chat.whatsapp.com/IxwczRq3afkAKRV6NKozdP?s=sw&p=i&mlu=0&amv=0", label: "WhatsApp" },
+  { icon: FaWhatsapp, href: "https://chat.whatsapp.com/IsT7zFu6AIu0tTvkhY1oRB", label: "WhatsApp" },
 ];
 
 const contactInfo = [
-  { icon: Mail, label: "manashafernando@aiesec.net", href: "mailto:manashafernando@aiesec.net,vinothinivickneshwaran27@gmail.com" },
+  { icon: Mail, label: "niyomabodinie@aiesec.net", href: "mailto:niyomabodinie@aiesec.net" },
   { icon: MapPin, label: "University of Sri Jayewardenepura, Sri Lanka", href: "#" },
   { icon: Phone, label: "+94 74 119 0028 / +94 71 362 0303", href: "tel:+94741190028" },
 ];

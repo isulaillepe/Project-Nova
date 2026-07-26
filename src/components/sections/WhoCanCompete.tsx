@@ -109,16 +109,23 @@ export default function WhoCanCompete() {
   return (
     <section
       id="rules"
-      className="relative py-24 sm:py-32 bg-[#020512] overflow-hidden border-b border-white/5"
+      className="relative py-24 sm:py-32 bg-black overflow-hidden border-b border-white/5"
     >
+      {/* Background VR Statue Lower Body */}
+      <div
+        style={{
+          backgroundImage: "url('/images/vr_statue_lower_bg.jpg')",
+        }}
+        className="absolute inset-0 bg-cover bg-center origin-center filter brightness-[0.7] pointer-events-none z-0"
+      />
+      <div className="absolute inset-0 bg-gradient-to-b from-black via-black/50 to-black z-0 pointer-events-none" />
+
       {/* Background ambient glows */}
-      <div className="absolute inset-0 pointer-events-none -z-10" aria-hidden="true">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[500px] w-[500px] rounded-full bg-gradient-to-r from-bg-[#FFB81B]/10 to-bg-[#003599]/10 blur-3xl opacity-60" />
-        <div className="absolute top-0 right-1/4 h-[300px] w-[300px] rounded-full bg-cyan-600/5 blur-3xl" />
-        <div className="absolute bottom-0 left-1/4 h-[300px] w-[300px] rounded-full bg-bg-[#FFB81B]/5 blur-3xl" />
+      <div className="absolute inset-0 pointer-events-none z-0" aria-hidden="true">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[500px] w-[500px] rounded-full bg-gradient-to-r from-[#FFB81B]/10 to-[#003599]/10 blur-3xl opacity-40" />
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24 z-10">
         
         {/* Section Heading with animation */}
         <div>

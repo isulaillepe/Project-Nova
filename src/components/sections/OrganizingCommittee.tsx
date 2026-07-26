@@ -248,7 +248,7 @@ export default function OrganizingCommittee() {
         .cm-section {
           position: relative;
           padding: 6rem 0 7rem;
-          background: transparent;
+          background: #000000;
           overflow: hidden;
         }
 

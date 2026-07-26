@@ -203,14 +203,14 @@ export default function Faq() {
   const footerScale = useTransform(scrollYProgress, [0.50, 1.0], [0.95, 1.0]);
 
   return (
-    <section id="faq" className="relative z-10">
+    <section id="faq" className="relative z-10 bg-black">
 
       {/* Pinned scroll container */}
-      <div ref={containerRef} className="relative h-[210vh] z-10">
-        <div className="sticky top-0 h-screen w-full overflow-hidden select-none z-10">
+      <div ref={containerRef} className="relative h-[210vh] z-10 bg-black">
+        <div className="sticky top-0 h-screen w-full overflow-hidden select-none z-10 bg-black">
 
           {/* Backgrounds */}
-          <div className="absolute inset-0 z-0">
+          <div className="absolute inset-0 z-0 bg-black">
             <motion.div
               style={{
                 backgroundImage: "url('/images/greek_gods_faq_orange.jpg')",

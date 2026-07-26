@@ -9,7 +9,7 @@ const cardsData = [
     image: "/images/david_plain.png",
     title: "Build a Team",
     description:
-      "Form a crew of 4 to 5 members representing your institution.",
+      "Team up with 4 to 5 fellow students from your school or university and bring your best ideas to life!",
     floatDuration: 5,
     highlight: false,
   },
@@ -226,10 +226,6 @@ export default function WhoCanCompete() {
             variants={headerVariants}
             className="text-center space-y-3"
           >
-            <span className="text-[#FFB81B] text-[10px] font-bold uppercase tracking-[0.25em] flex items-center justify-center gap-1.5 font-space">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#FFB81B] shadow-[0_0_8px_#FFB81B]" />
-              DELEGATE HANDBOOK
-            </span>
             <h3 className="text-2xl sm:text-3xl font-orbitron font-extrabold tracking-wider text-white uppercase">
               IMPORTANT <span className="text-[#FFB81B]">GUIDELINES</span>
             </h3>

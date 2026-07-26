@@ -207,7 +207,7 @@ export function Features() {
           <motion.div
             ref={trackRef}
             style={{ y: timelineY }}
-            className="absolute left-0 right-0 top-0 flex flex-col gap-16 sm:gap-20 z-20 py-[22vh] px-4 sm:px-8"
+            className="absolute left-0 right-0 top-0 flex flex-col gap-10 sm:gap-14 z-20 py-[20vh] px-4 sm:px-8"
           >
             {timelineSteps.map((step, index) => {
               const isOdd = index % 2 === 0;
@@ -223,7 +223,7 @@ export function Features() {
                     whileInView="visible"
                     viewport={{ once: false, amount: 0.5 }}
                     variants={nodeVariants}
-                    className="absolute top-1/2 -translate-y-1/2 left-4 md:left-1/2 -translate-x-1/2 w-4.5 h-4.5 rounded-sm border bg-black flex items-center justify-center z-30 transition-transform duration-300 group-hover:scale-110"
+                    className="absolute top-1/2 -translate-y-1/2 left-4 md:left-1/2 -translate-x-1/2 w-4 h-4 rounded-sm border border-[#FFB81B]/40 bg-black flex items-center justify-center z-30 transition-transform duration-300 group-hover:scale-110 shadow-[0_0_10px_rgba(255,184,27,0.3)]"
                   >
                     <motion.div
                       variants={dotVariants}
@@ -231,48 +231,39 @@ export function Features() {
                     />
                   </motion.div>
 
-                  {/* Alternating Card layout: Odd cards on the left, Even cards on the right (md+) */}
+                  {/* Alternating Compact Card layout: Odd left, Even right (md+) */}
                   <div
-                    className={`w-full pl-12 md:w-1/2 md:pl-0 ${
-                      isOdd ? "md:pr-14" : "md:ml-auto md:pl-14"
+                    className={`w-full pl-10 md:w-1/2 md:pl-0 flex ${
+                      isOdd ? "md:pr-10 md:justify-end" : "md:ml-auto md:pl-10 md:justify-start"
                     }`}
                   >
-                    <div className="relative bg-[#001233]/65 border border-white/10 rounded-xl p-4 sm:p-5 hover:border-[#FFB81B]/35 transition-all duration-300 text-left border-l-[3px] border-l-[#FFB81B]">
+                    <div className="relative w-full max-w-[400px] bg-[#001233]/75 border border-white/10 rounded-xl p-3.5 sm:p-4 hover:border-[#FFB81B]/40 transition-all duration-300 text-left border-l-2 border-l-[#FFB81B] shadow-[0_4px_20px_rgba(0,0,0,0.4)]">
                       {/* Event Step & Title */}
-                      <div className="flex items-center justify-between mb-1.5">
-                        <span className="text-[10px] font-bold text-slate-500 font-space tracking-widest">
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="text-[9px] font-bold text-[#FFB81B] font-space tracking-widest uppercase">
                           STEP {step.step}
                         </span>
-                        <Shield className="w-3.5 h-3.5 text-[#FFB81B]" />
+                        <Shield className="w-3 h-3 text-[#FFB81B]/70" />
                       </div>
-                      <h3 className="text-base sm:text-lg font-bold text-white mb-1.5 uppercase font-space tracking-tight">
+                      <h3 className="text-sm sm:text-base font-bold text-white mb-1 uppercase font-space tracking-tight">
                         {step.title}
                       </h3>
-                      <p className="text-[11px] sm:text-xs text-slate-300 font-space leading-relaxed font-light mb-3 opacity-90">
+                      <p className="text-[11px] text-slate-300 font-space leading-relaxed font-light mb-2.5 opacity-90">
                         {step.description}
                       </p>
 
                       {/* Bullet Info list */}
-                      <div className="space-y-1.5 pt-3 border-t border-white/5">
+                      <div className="space-y-1 pt-2 border-t border-white/5">
                         {step.details.map((detail, idx) => (
                           <div
                             key={idx}
-                            className="flex items-center gap-2 text-[10.5px] sm:text-xs text-slate-200 font-space"
+                            className="flex items-center gap-2 text-[10px] sm:text-[11px] text-slate-300 font-space"
                           >
-                            <span className="w-1 h-1 rounded-full bg-cyan-400 shrink-0 shadow-[0_0_6px_#22d3ee]" />
-                            <span className="opacity-95">{detail}</span>
+                            <span className="w-1 h-1 rounded-full bg-[#FFB81B] shrink-0 opacity-80" />
+                            <span className="opacity-90">{detail}</span>
                           </div>
                         ))}
                       </div>
-
-                      {/* Date marker for Step 4 and Step 6 */}
-                      {(step.step === "04" || step.step === "06") && (
-                        <div className="mt-3 pt-3 border-t border-white/5 text-center pointer-events-none">
-                          <span className="text-[#FFB81B] font-black text-lg sm:text-xl md:text-2xl uppercase tracking-widest block font-space drop-shadow-[0_0_10px_rgba(255,184,27,0.35)]">
-                            {step.step === "04" ? "09th of August" : "30th of August"}
-                          </span>
-                        </div>
-                      )}
                     </div>
                   </div>
 

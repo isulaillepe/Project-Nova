@@ -49,7 +49,7 @@ export function Footer() {
 
   // Hide the global layout footer on the homepage, since the homepage uses a
   // scroll-driven custom footer within the FAQ sticky register section.
-  if (pathname === "/" || pathname === "/register") {
+  if (pathname === "/" || pathname === "/register" || pathname === "/booklet") {
     return null;
   }
 

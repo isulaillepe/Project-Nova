@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRef } from "react";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, FileText } from "lucide-react";
 import { useScroll, useTransform, motion } from "framer-motion";
 
 const tickerItems = [
@@ -127,6 +127,13 @@ export default function Hero() {
                   REGISTER NOW
                   <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </span>
+              </button>
+            </Link>
+
+            <Link href="/booklet" className="w-full sm:w-auto">
+              <button className="w-full sm:w-auto group relative border border-[#FFB81B]/40 hover:border-[#FFB81B] hover:bg-[#FFB81B]/10 text-white text-[11px] sm:text-xs font-bold uppercase tracking-widest px-8 py-3.5 sm:py-4 rounded-full backdrop-blur-md transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] cursor-pointer justify-center flex items-center gap-2 shadow-[0_0_20px_rgba(0,53,153,0.3)]">
+                <FileText className="h-4 w-4 text-[#FFB81B]" />
+                <span>DELEGATE BOOKLET</span>
               </button>
             </Link>
           </div>

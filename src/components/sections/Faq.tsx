@@ -185,12 +185,14 @@ export default function Faq() {
   const cosmicBgOpacity = useTransform(scrollYProgress, [0.25, 0.45], [1, 0]);
   const rocketBgOpacity = useTransform(scrollYProgress, [0.25, 0.45, 0.50, 1.0], [0, 1, 1, 0]);
 
+  // Greek Gods image scale: starts small (scale 0.5) at top of FAQ and gradually becomes large (scale 1.15) at bottom of FAQ page
+  const greekGodsScale = useTransform(scrollYProgress, [0, 1.0], [0.5, 1.15]);
+
   // FAQ content fades out first
   const faqContentOpacity = useTransform(scrollYProgress, [0.20, 0.40], [1, 0]);
   const faqHeaderY = useTransform(scrollYProgress, [0.20, 0.40], ["0px", "-60px"]);
   const faqPointerEvents = useTransform(scrollYProgress, (v) => v > 0.40 ? "none" : "auto");
   const faqVisibility = useTransform(scrollYProgress, (v) => v > 0.42 ? "hidden" : "visible");
-  const cosmicBgVisibility = useTransform(scrollYProgress, (v) => v > 0.42 ? "hidden" : "visible");
 
   // Register section and footer fade in together between 0.50 and 1.0
   const registerOpacity = useTransform(scrollYProgress, [0.50, 1.0], [0, 1]);
@@ -210,30 +212,11 @@ export default function Faq() {
           <div className="absolute inset-0 z-0 bg-black">
             <motion.div
               style={{
-                backgroundImage: "url('/images/cosmic_faq_bg.png')",
-                scale: cosmicBgScale,
-                opacity: cosmicBgOpacity,
-                visibility: cosmicBgVisibility,
-                filter: "brightness(0.4)",
+                backgroundImage: "url('/images/greek_gods_footer.jpg')",
+                scale: greekGodsScale,
+                filter: "brightness(0.45)",
               }}
               className="absolute inset-0 bg-cover bg-center origin-center z-0"
-            />
-            <motion.div
-              style={{
-                backgroundImage: "url('/images/rocket_launch_bg.png')",
-                scale: rocketBgScale,
-                opacity: rocketBgOpacity,
-                filter: "brightness(0.4)",
-              }}
-              className="absolute inset-0 bg-cover bg-center origin-center z-10"
-            />
-            <motion.div
-              style={{
-                backgroundImage: "url('/images/greek_gods_footer.jpg')",
-                opacity: registerOpacity,
-                filter: "brightness(0.4)",
-              }}
-              className="absolute inset-0 bg-cover bg-center origin-center z-20"
             />
           </div>
 

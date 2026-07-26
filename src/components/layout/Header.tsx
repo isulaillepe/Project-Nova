@@ -38,7 +38,12 @@ export function Header() {
   }, []);
 
   const isHomePage = pathname === "/";
+  const isBookletPage = pathname === "/booklet";
   const shouldShowHeader = isMobile || !isHomePage || scrollY > 300;
+
+  if (isBookletPage) {
+    return null;
+  }
 
   return (
     <header
@@ -106,7 +111,7 @@ export function Header() {
             <div className="h-4 w-[1px] bg-[#003599]/50 mx-1" />
 
             <div className="flex items-center gap-3">
-              <Link href="/#rules">
+              <Link href="/booklet">
                 <button className="border border-[#ffb81b]/25 hover:border-[#ffb81b]/60 hover:bg-[#ffb81b]/5 text-[#f7fafc] text-[10px] font-bold uppercase tracking-widest px-4 py-2 rounded-full transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] cursor-pointer">
                   DELEGATE BOOKLET
                 </button>
@@ -160,7 +165,7 @@ export function Header() {
               </Link>
             ))}
             <div className="flex flex-col gap-2.5 pt-3 border-t border-[#003599]/40">
-              <Link href="/#rules" onClick={() => setIsMobileMenuOpen(false)}>
+              <Link href="/booklet" onClick={() => setIsMobileMenuOpen(false)}>
                 <button className="w-full text-center border border-[#ffb81b]/25 text-[#f7fafc] text-[10px] sm:text-[11px] font-bold uppercase tracking-widest py-2.5 rounded-full cursor-pointer">
                   DELEGATE BOOKLET
                 </button>

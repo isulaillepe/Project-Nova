@@ -115,10 +115,8 @@ export default function Hero() {
           </h1>
 
           {/* Description */}
-          <p className="font-space font-medium text-xs sm:text-base max-w-[540px] leading-relaxed text-left text-[#cbd5e0]/90">
-            Sri Lanka&apos;s premier inter-university innovation trials — student
-            crews forge raw ideas into immortal ventures and pitch them before the
-            pantheon of live investors.
+          <p className="font-space font-medium text-xs sm:text-base max-w-[580px] leading-relaxed text-left text-[#cbd5e0]/90">
+            A dynamic tech-based initiative organized by AIESEC in University of Sri Jayewardenepura, empowering school and university students to transform innovative ideas into practical solutions and drive positive impact through technology.
           </p>
 
           {/* Actions Row */}

@@ -277,7 +277,7 @@ export default function Faq() {
           >
             <div className="text-center max-w-3xl flex flex-col items-center justify-center z-10">
               <p className="text-white text-center text-xs sm:text-sm md:text-[15px] font-medium leading-relaxed max-w-2xl px-6 select-none opacity-85 tracking-wide">
-                Join Project Nova — an inter-university startup competition by AIESEC in USJ. Transform your ideas into real-world ventures and compete for recognition, mentorship, and startup support.
+                Project Nova connects young innovators with industry leaders, mentors, and organizations — inspiring the next generation of school and university students to learn, collaborate, and create meaningful impact through technology.
               </p>
             </div>
 

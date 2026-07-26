@@ -8,61 +8,61 @@ const timelineSteps = [
   {
     step: "01",
     title: "Team Registration",
-    description: "Sign up your crew of 4 to 5 members for the School or University competition track",
+    description: "Assemble your squad of 4 to 5 members representing your school or university and register your team for the competition tracks.",
     details: [
-      "26th July – 30th July (Main Window)",
-      "01st Aug – 03rd Aug (Flash Round)",
-      "Teams of 4-5 members (no solo)"
+      "School & University tracks available",
+      "Teams of 4 to 5 members",
+      "No solo entries permitted"
     ]
   },
   {
     step: "02",
     title: "Proposal Submission",
-    description: "Submit your project concept proposal following the sample structure provided",
+    description: "Submit your project concept proposal addressing real-world challenges, following the official sample structure provided.",
     details: [
-      "01st Aug – 06th Aug",
       "Solutions for real-world problems",
-      "Sample proposal structure"
+      "Official proposal structure provided",
+      "Innovative tech-based concepts"
     ]
   },
   {
     step: "03",
     title: "Proposal Evaluation",
-    description: "Submissions are evaluated by an expert panel to select shortlisted teams for the next stage",
+    description: "Submissions undergo rigorous evaluation by an expert judging panel to select the sharpest squads advancing to the next stage.",
     details: [
-      "06th Aug (Main Deadline)",
-      "07th Aug (Flash Deadline)",
-      "Expert evaluation & scoring"
+      "Expert judging panel evaluation",
+      "Criteria-based innovation scoring",
+      "Shortlist qualification"
     ]
   },
   {
     step: "04",
     title: "UI / UX Workshop & Shortlist",
-    description: "Shortlisted teams announced and participate in a mandatory workshop with industry mentors",
+    description: "Shortlisted teams are announced and gain exclusive access to a hands-on workshop session to refine their product tradecraft with guidance from industry experts.",
     details: [
-      "09th August",
-      "Shortlisted teams announced",
-      "Interactive UI/UX workshop"
+      "Shortlisted teams announcement",
+      "Hands-on UI/UX tradecraft workshop",
+      "Mentorship from industry leaders"
     ]
   },
   {
     step: "05",
     title: "UI Submission & Finalist Selection",
-    description: "Teams develop and submit their UI designs, leading to the final team selection",
+    description: "Develop and submit the complete UI design of your proposed solution, proving your team worthy of a place in the Grand Finale.",
     details: [
-      "12th August (UI Submission Deadline)",
-      "15th August (Final Teams Announcement)",
-      "Final showcase preparation"
+      "High-fidelity UI design submission",
+      "Finalist team selection",
+      "Grand Finale qualification"
     ]
   },
   {
     step: "06",
     title: "Project Nova Event Day",
-    description: "Present your solution live to judges, engage in panel discussions, and compete for the treasury at USJ",
+    description: "The ultimate showcase. Eight hours of competition where champions are forged — present your solution live to judges, engage in panel discussions, and compete for the Grand Treasury.",
     details: [
-      "30th August",
       "University of Sri Jayewardenepura",
-      "Live presentations & awarding top 3"
+      "Live presentations & panel discussion",
+      "Top 3 champion teams crowned"
     ]
   }
 ];

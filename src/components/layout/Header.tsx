@@ -143,15 +143,15 @@ export function Header() {
         <div
           id="mobile-menu"
           className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
-            isMobileMenuOpen ? "max-h-[320px] opacity-100 pb-6" : "max-h-0 opacity-0"
+            isMobileMenuOpen ? "max-h-[500px] opacity-100 pb-4" : "max-h-0 opacity-0"
           }`}
         >
-          <div className="flex flex-col gap-3 pt-3 font-space">
+          <div className="flex flex-col gap-2 pt-2 font-space">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className="text-xs sm:text-sm font-semibold uppercase tracking-wider text-[#cbd5e0] hover:text-[#FFB81B] transition-colors py-1"
+                className="text-xs sm:text-sm font-semibold uppercase tracking-wider text-[#cbd5e0] hover:text-[#FFB81B] transition-colors py-0.5"
                 onClick={(e) => {
                   setIsMobileMenuOpen(false);
                   if (link.href === "/" && pathname === "/") {
@@ -163,19 +163,19 @@ export function Header() {
                 {link.label}
               </Link>
             ))}
-            <div className="flex flex-col gap-2.5 pt-3 border-t border-[#003599]/40">
+            <div className="flex flex-col gap-2 pt-2.5 mt-0.5 border-t border-[#003599]/40">
               <a
                 href="https://drive.google.com/drive/folders/10Yg5WsIpSnFmXDnzNwcMQEpw2uYzn90e?usp=drive_link"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
-                <button className="w-full text-center border border-[#ffb81b]/25 text-[#f7fafc] text-[10px] sm:text-[11px] font-bold uppercase tracking-widest py-2.5 rounded-full cursor-pointer">
+                <button className="w-full text-center border border-[#ffb81b]/25 text-[#f7fafc] text-[10px] sm:text-[11px] font-bold uppercase tracking-widest py-2 rounded-full cursor-pointer">
                   DELEGATE BOOKLET
                 </button>
               </a>
               <Link href="/register" onClick={() => setIsMobileMenuOpen(false)}>
-                <button className="w-full text-center bg-[#FFB81B] text-[#001233] text-[10px] sm:text-[11px] font-bold uppercase tracking-widest py-2.5 rounded-full shadow-[0_0_15px_rgba(255,184,27,0.35)] cursor-pointer">
+                <button className="w-full text-center bg-[#FFB81B] text-[#001233] text-[10px] sm:text-[11px] font-bold uppercase tracking-widest py-2 rounded-full shadow-[0_0_15px_rgba(255,184,27,0.35)] cursor-pointer">
                   REGISTER
                 </button>
               </Link>

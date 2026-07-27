@@ -13,49 +13,45 @@ const PARTNERS_ROW_1 = [
     id: "p1",
     name: "Baurs 125 Years",
     src: "/images/parners/Baurs with 125 logo (361U & Black RGB).png",
-    className: "h-14 sm:h-16 w-auto max-w-[80%] object-contain filter contrast-105 transition-transform duration-300 group-hover:scale-105 shrink-0",
+    className: "h-14 sm:h-16 w-auto max-w-[75%] object-contain filter contrast-105 transition-transform duration-300 group-hover:scale-105 shrink-0",
   },
   {
     id: "p2",
     name: "Emerald",
     src: "/images/parners/Emerald-New-Logo-LBN black.png",
-    className: "h-12 sm:h-14 w-auto max-w-[85%] object-contain filter contrast-105 transition-transform duration-300 group-hover:scale-105 shrink-0",
   },
   {
     id: "p3",
     name: "Official Gift Partner",
     src: "/images/parners/Official Gift Partner.png",
-    className: "h-14 sm:h-16 w-auto max-w-[92%] object-contain filter contrast-105 transition-transform duration-300 group-hover:scale-105 shrink-0 scale-125 sm:scale-135",
+    className: "h-14 sm:h-16 w-auto max-w-[75%] object-contain filter contrast-105 transition-transform duration-300 group-hover:scale-105 shrink-0",
   },
   {
     id: "p4",
     name: "Official Travel Partner",
     src: "/images/parners/Official Travel Partner.png",
-    className: "h-16 sm:h-20 w-auto max-w-[90%] object-contain filter contrast-105 transition-transform duration-300 group-hover:scale-105 shrink-0 scale-[1.8] sm:scale-[2.1]",
+    
   },
   {
     id: "p5",
     name: "Official Partner",
     src: "/images/parners/WhatsApp Image 2025-10-24 at 09.01.50_059e9044.jpg",
-    className: "h-14 sm:h-16 w-auto max-w-[85%] object-contain filter contrast-105 transition-transform duration-300 group-hover:scale-105 shrink-0",
   },
   {
     id: "p6",
     name: "Ceylinco Life",
     src: "/images/parners/ceylife-logo-High-Res.png",
-    className: "h-12 sm:h-14 w-auto max-w-[85%] object-contain filter contrast-105 transition-transform duration-300 group-hover:scale-105 shrink-0",
   },
   {
     id: "p7",
     name: "ReadAmaze",
     src: "/images/parners/readamaze-logo-dark.png",
-    className: "h-12 sm:h-14 w-auto max-w-[85%] object-contain filter contrast-105 transition-transform duration-300 group-hover:scale-105 shrink-0",
-  },
+  }, 
   {
     id: "p8",
     name: "Sweet Ant",
     src: "/images/parners/sweet_ant_logo.jpg",
-    className: "h-14 sm:h-16 w-auto max-w-[85%] object-contain filter contrast-105 transition-transform duration-300 group-hover:scale-105 shrink-0",
+    className: "h-14 sm:h-16 w-auto max-w-[100%] object-contain filter contrast-105 transition-transform duration-300 group-hover:scale-105 shrink-0",
   },
 ];
 

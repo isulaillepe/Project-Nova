@@ -36,6 +36,16 @@ const EVENTS_DATA: EventItem[] = [
     image: "https://i.ytimg.com/vi/gci6Yfkr4M4/hqdefault.jpg",
     url: "https://youtu.be/gci6Yfkr4M4?si=lRIlVDwAUKl_Ze8h",
   },
+  {
+    name: "Project Nova Highlight",
+    image: "https://i.ytimg.com/vi/gn-eoraTEGg/hqdefault.jpg",
+    url: "https://youtu.be/gn-eoraTEGg?si=lJ1nvlTl4zYm0Y-H",
+  },
+  {
+    name: "Project Nova Showcase",
+    image: "https://i.ytimg.com/vi/Zy42WfU-tJE/hqdefault.jpg",
+    url: "https://youtu.be/Zy42WfU-tJE?si=XoWqMZsQESdTN9Gw",
+  },
 ];
 
 export default function PastEvents() {
@@ -101,19 +111,16 @@ export default function PastEvents() {
           
           {/* Section Heading */}
           <div className="text-center space-y-2 mb-12 sm:mb-20">
-            <span className="text-[#FFB81B] text-[10px] font-bold uppercase tracking-[0.25em] flex items-center justify-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#FFB81B] shadow-[0_0_8px_#FFB81B]" />
-              OUR LEGACY
-            </span>
-            <h2 className="text-4xl sm:text-5xl font-light tracking-tight leading-none text-white font-space uppercase">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light tracking-tight leading-none text-white font-space uppercase">
               <span
                 className="font-extrabold"
-                style={{ WebkitTextStroke: "1px rgba(255, 255, 255, 0.4)", color: "transparent" }}
+                style={{ WebkitTextStroke: "1.5px #FFB81B", color: "transparent" }}
               >
                 PAST
               </span>{" "}
               <span className="font-cormorant italic text-white font-medium lowercase">Events</span>
             </h2>
+            <div className="w-20 h-[3px] bg-gradient-to-r from-transparent via-[#FFB81B] to-transparent shadow-[0_0_12px_#FFB81B] rounded-full mx-auto mt-3" />
             <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest block font-space">
               MOMENTS FROM PREVIOUS COMPETITIONS & EVENTS
             </span>

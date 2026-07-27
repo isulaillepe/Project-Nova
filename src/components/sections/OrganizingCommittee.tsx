@@ -127,7 +127,7 @@ const COMMITTEE: {
   {
     id: "CM-11",
     name: "Sanathmi Sanupama",
-    title: "OCVP Event Management",
+    title: "OCVP Events",
     email: "sanathmi.sanupama@aiesec.net",
     avatar: "SS",
     image: "/images/committee/sanathmi.jpg",
@@ -136,7 +136,7 @@ const COMMITTEE: {
   {
     id: "CM-12",
     name: "Imasha Peiris",
-    title: "OCVP Event Management",
+    title: "OCVP Events",
     email: "imashapeiris@aiesec.net",
     avatar: "IP",
     image: "/images/committee/imasha.jpg",
@@ -248,7 +248,7 @@ export default function OrganizingCommittee() {
         .cm-section {
           position: relative;
           padding: 6rem 0 7rem;
-          background: transparent;
+          background: #000000;
           overflow: hidden;
         }
 
@@ -513,17 +513,19 @@ export default function OrganizingCommittee() {
       <section id="committee" className="cm-section">
         {/* ── Header ───────────────────────────────── */}
         <div className="cm-header">
-          <div className="cm-badge">
-            <span className="cm-badge-dot" />
-            Mission Control
-          </div>
-          <h2 className="cm-heading">
-            Meet the Team Behind&nbsp;
-            <span className="cm-heading-accent">Project Nova</span>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light tracking-tight leading-none text-white font-space uppercase mb-4">
+            <span
+              className="font-extrabold"
+              style={{ WebkitTextStroke: "1.5px #FFB81B", color: "transparent" }}
+            >
+              OUR
+            </span>{" "}
+            <span className="font-cormorant italic text-white font-medium lowercase">Team</span>
           </h2>
+          <div className="w-20 h-[3px] bg-gradient-to-r from-transparent via-[#FFB81B] to-transparent shadow-[0_0_12px_#FFB81B] rounded-full mx-auto mt-3" />
           <p className="cm-subtitle">
-            A dedicated team of student leaders driving innovation and creating
-            opportunities for the next generation of tech innovators.
+            The friendly crew working behind the scenes to make
+            Project Nova an unforgettable journey for all of you! ✨
           </p>
         </div>
 
@@ -535,6 +537,8 @@ export default function OrganizingCommittee() {
               style={{ animationPlayState: isPaused ? "paused" : "running" }}
               onMouseEnter={() => setIsPaused(true)}
               onMouseLeave={() => setIsPaused(false)}
+              onTouchStart={() => setIsPaused(true)}
+              onTouchEnd={() => setIsPaused(false)}
             >
               {TRACK.map((member, idx) => (
                 <MemberCard key={`${member.id}-${idx}`} member={member} />

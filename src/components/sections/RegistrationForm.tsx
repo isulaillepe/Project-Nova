@@ -26,11 +26,7 @@ import {
   GraduationCap,
   School,
 } from "lucide-react";
-import { FaWhatsapp } from "react-icons/fa";
 import { registerTeam } from "@/app/actions/register";
-
-const WHATSAPP_GROUP_LINK =
-  "https://www.google.com/search?q=mixkit&oq=mixkit&sourceid=chrome&source=chrome.ob&ie=UTF-8";
 
 const DEFAULT_MEMBER = {
   fullname: "",
@@ -178,19 +174,10 @@ export function RegistrationForm() {
           A confirmation scroll has been dispatched to your team leader.
         </p>
         <div className="flex flex-col items-center gap-4 w-full sm:w-auto">
-          <a
-            href={WHATSAPP_GROUP_LINK}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group inline-flex items-center justify-center gap-2.5 rounded-xl bg-gradient-to-br from-[#25D366] to-[#128C7E] px-8 py-4 text-base font-space font-bold uppercase tracking-wider text-white shadow-[0_0_30px_rgba(37,211,102,0.4)] transition-all duration-300 hover:shadow-[0_0_40px_rgba(37,211,102,0.6)] hover:-translate-y-0.5 w-full sm:w-auto"
-          >
-            <FaWhatsapp className="h-5 w-5" />
-            Join Our WhatsApp Group
-          </a>
           <Button
             variant="gradient"
             size="xl"
-            className="shadow-[0_0_30px_rgba(255,184,27,0.4)] w-full sm:w-auto"
+            className="shadow-[0_0_30px_rgba(255,184,27,0.4)] w-full sm:w-auto cursor-pointer"
             onClick={() => {
               setValue("teamName", "");
               setValue("track", undefined as unknown as "school" | "university");
@@ -276,9 +263,6 @@ export function RegistrationForm() {
                   Form your dream crew of 4 to 5 members to brainstorm, design and pitch breakthrough innovations before the pantheon.
                 </p>
               </div>
-              <span className="rounded-lg bg-[#FFB81B]/10 border border-[#FFB81B]/20 px-4 py-1.5 text-[10px] font-space font-bold uppercase tracking-widest text-[#FFB81B]">
-                PHASE I
-              </span>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

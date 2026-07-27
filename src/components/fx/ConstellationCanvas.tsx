@@ -83,24 +83,25 @@ export function ConstellationCanvas() {
       canvas.style.height = `${height}px`;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-      // density scales with area but stays gentle - reduced cap for performance
-      const count = Math.min(100, Math.floor((width * height) / 15000));
+      const isMobileDevice = width < 768;
+      // Reduced star count on mobile to conserve GPU memory and heat
+      const count = isMobileDevice ? 25 : Math.min(80, Math.floor((width * height) / 18000));
       stars = Array.from({ length: count }, (_, i) => {
         const a = seed(i + 1);
         const b = seed(i + 100.5);
         const c = seed(i + 200.25);
         const d = seed(i + 300.75);
-        const r = 0.5 + seed(i + 400.1) * 1.6;
+        const r = 0.5 + seed(i + 400.1) * 1.5;
         const x = a * width;
         const y = b * height;
         return {
           x,
           y,
-          vx: (c - 0.5) * 0.12,
-          vy: (d - 0.5) * 0.12,
+          vx: (c - 0.5) * 0.08,
+          vy: (d - 0.5) * 0.08,
           r,
           twinklePhase: seed(i + 500.3) * Math.PI * 2,
-          twinkleSpeed: 0.008 + seed(i + 600.9) * 0.02,
+          twinkleSpeed: 0.005 + seed(i + 600.9) * 0.015,
           gridX: Math.floor(x / CELL_SIZE),
           gridY: Math.floor(y / CELL_SIZE),
         };
@@ -109,13 +110,12 @@ export function ConstellationCanvas() {
 
     const drawStar = (star: Star, alpha: number) => {
       const gradient = getOrCreateGradient(star.r);
-      // Translate gradient to star position
       ctx.save();
       ctx.translate(star.x, star.y);
       ctx.fillStyle = gradient;
       ctx.globalAlpha = alpha;
       ctx.beginPath();
-      ctx.arc(0, 0, star.r * 4, 0, Math.PI * 2);
+      ctx.arc(0, 0, star.r * 3.5, 0, Math.PI * 2);
       ctx.fill();
       ctx.restore();
 
@@ -141,19 +141,15 @@ export function ConstellationCanvas() {
       if (!mountedRef.current) return;
       ctx.clearRect(0, 0, width, height);
 
-      // Build spatial grid for efficient neighbor queries
       const grid = buildGrid();
 
-      // faint constellation threads - only check nearby cells
       for (const star of stars) {
-        // Check current cell and 8 neighbors
         for (let gx = star.gridX - 1; gx <= star.gridX + 1; gx++) {
           for (let gy = star.gridY - 1; gy <= star.gridY + 1; gy++) {
             const cell = grid.get(`${gx},${gy}`);
             if (!cell) continue;
             for (const other of cell) {
               if (other === star) continue;
-              // Only draw each pair once (star < other by index)
               if (star.twinklePhase > other.twinklePhase) continue;
 
               const dx = star.x - other.x;
@@ -161,9 +157,9 @@ export function ConstellationCanvas() {
               const distSq = dx * dx + dy * dy;
               if (distSq < LINK_DISTANCE_SQ) {
                 const dist = Math.sqrt(distSq);
-                const a = (1 - dist / LINK_DISTANCE) * 0.12;
+                const a = (1 - dist / LINK_DISTANCE) * 0.1;
                 ctx.strokeStyle = `rgba(${GOLD}, ${a})`;
-                ctx.lineWidth = 0.6;
+                ctx.lineWidth = 0.5;
                 ctx.beginPath();
                 ctx.moveTo(star.x, star.y);
                 ctx.lineTo(other.x, other.y);
@@ -176,37 +172,49 @@ export function ConstellationCanvas() {
 
       for (const star of stars) {
         star.twinklePhase += star.twinkleSpeed;
-        const alpha = 0.35 + (Math.sin(star.twinklePhase) + 1) * 0.28;
+        const alpha = 0.35 + (Math.sin(star.twinklePhase) + 1) * 0.25;
         drawStar(star, alpha);
 
         star.x += star.vx;
         star.y += star.vy;
 
-        // wrap around edges for an endless sky
         if (star.x < -10) star.x = width + 10;
         if (star.x > width + 10) star.x = -10;
         if (star.y < -10) star.y = height + 10;
         if (star.y > height + 10) star.y = -10;
 
-        // Update grid position after wrap
         star.gridX = Math.floor(star.x / CELL_SIZE);
         star.gridY = Math.floor(star.y / CELL_SIZE);
       }
     };
 
+    const isMobile = window.innerWidth < 768;
+
     const loop = () => {
       if (!mountedRef.current) return;
       render();
-      rafRef.current = window.requestAnimationFrame(loop);
+      if (!isMobile && !document.hidden) {
+        rafRef.current = window.requestAnimationFrame(loop);
+      }
     };
 
     build();
 
-    if (prefersReduced) {
-      render();
+    if (prefersReduced || isMobile) {
+      render(); // Single static render on mobile to preserve GPU & battery
     } else {
       loop();
     }
+
+    const handleVisibility = () => {
+      if (document.hidden && rafRef.current !== null) {
+        window.cancelAnimationFrame(rafRef.current);
+        rafRef.current = null;
+      } else if (!document.hidden && !isMobile && !prefersReduced) {
+        loop();
+      }
+    };
+    document.addEventListener("visibilitychange", handleVisibility);
 
     let resizeTimer: number;
     const onResize = () => {
@@ -214,9 +222,11 @@ export function ConstellationCanvas() {
       resizeTimer = window.setTimeout(() => {
         if (mountedRef.current) {
           build();
-          if (prefersReduced) render();
+          if (prefersReduced || window.innerWidth < 768) {
+            render();
+          }
         }
-      }, 150);
+      }, 200);
     };
     window.addEventListener("resize", onResize);
 
@@ -228,6 +238,7 @@ export function ConstellationCanvas() {
       }
       window.clearTimeout(resizeTimer);
       window.removeEventListener("resize", onResize);
+      document.removeEventListener("visibilitychange", handleVisibility);
       gradientCacheRef.current.clear();
     };
   }, []);

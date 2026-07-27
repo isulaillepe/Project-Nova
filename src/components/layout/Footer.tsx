@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Mail, MapPin, Phone } from "lucide-react";
-import { FaLinkedinIn, FaInstagram, FaYoutube, FaFacebookF } from "react-icons/fa";
+import { FaFacebookF, FaInstagram, FaWhatsapp } from "react-icons/fa";
 
 const footerLinks = {
   pantheon: [
@@ -33,16 +33,15 @@ const footerLinks = {
 };
 
 const socialLinks = [
-  { icon: FaLinkedinIn, href: "https://linkedin.com", label: "LinkedIn" },
-  { icon: FaFacebookF, href: "https://facebook.com", label: "Facebook" },
-  { icon: FaInstagram, href: "https://instagram.com", label: "Instagram" },
-  { icon: FaYoutube, href: "https://youtube.com", label: "YouTube" },
+  { icon: FaFacebookF, href: "https://www.facebook.com/share/19AgfSadu1/?mibextid=wwXIfr", label: "Facebook" },
+  { icon: FaInstagram, href: "https://www.instagram.com/lc_usj?igsh=MWJqeXppczg1Nm9wdQ==", label: "Instagram" },
+  { icon: FaWhatsapp, href: "https://chat.whatsapp.com/IsT7zFu6AIu0tTvkhY1oRB", label: "WhatsApp" },
 ];
 
 const contactInfo = [
-  { icon: Mail, label: "codesplash.cssa@gmail.com", href: "mailto:codesplash.cssa@gmail.com" },
-  { icon: MapPin, label: "University of Kelaniya, Sri Lanka", href: "#" },
-  { icon: Phone, label: "+94 77 123 4567", href: "tel:+94771234567" },
+  { icon: Mail, label: "niyomabodinie@aiesec.net", href: "mailto:niyomabodinie@aiesec.net" },
+  { icon: MapPin, label: "University of Sri Jayewardenepura, Sri Lanka", href: "#" },
+  { icon: Phone, label: "+94 74 119 0028 / +94 71 362 0303", href: "tel:+94741190028" },
 ];
 
 export function Footer() {

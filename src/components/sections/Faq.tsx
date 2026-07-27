@@ -6,46 +6,39 @@ import { usePathname } from "next/navigation";
 import { useState, useRef, useEffect } from "react";
 import { motion, useScroll, useTransform, useMotionValueEvent, MotionValue } from "framer-motion";
 import { Mail } from "lucide-react";
-import { FaLinkedinIn, FaFacebookF, FaYoutube, FaInstagram, FaTiktok, FaWhatsapp } from "react-icons/fa";
+import { FaFacebookF, FaInstagram, FaWhatsapp } from "react-icons/fa";
 
 const socialLinks = [
-  { icon: Mail, href: "mailto:projectnova.usj@gmail.com", label: "Mail" },
-  { icon: FaFacebookF, href: "https://facebook.com", label: "Facebook" },
-  { icon: FaInstagram, href: "https://instagram.com", label: "Instagram" },
-  { icon: FaWhatsapp, href: "https://wa.me/94771234567", label: "WhatsApp" },
-  { icon: FaLinkedinIn, href: "https://linkedin.com", label: "LinkedIn" },
-  { icon: FaYoutube, href: "https://youtube.com", label: "YouTube" },
-  { icon: FaTiktok, href: "https://tiktok.com", label: "TikTok" },
+  { icon: Mail, href: "mailto:niyomabodinie@aiesec.net", label: "Mail" },
+  { icon: FaFacebookF, href: "https://www.facebook.com/share/19AgfSadu1/?mibextid=wwXIfr", label: "Facebook" },
+  { icon: FaInstagram, href: "https://www.instagram.com/lc_usj?igsh=MWJqeXppczg1Nm9wdQ==", label: "Instagram" },
+  { icon: FaWhatsapp, href: "https://chat.whatsapp.com/IsT7zFu6AIu0tTvkhY1oRB", label: "WhatsApp" },
 ];
 
 const faqItems = [
   {
     question: "What is Project Nova?",
-    answer: "Project Nova is a dynamic, tech-based ecosystem curated for school and university students, building an active bridge where future innovation meets direct corporate opportunities. Managed alongside a global student-driven non-profit network, it connects young thinkers directly with progressive enterprises.",
+    answer: "Project Nova is a dynamic tech based initiative organized by AIESEC in the University of Sri Jayewardenepura, designed to empower school and university students by providing a platform where innovation, creativity, and opportunity come together. Through workshops, proposal submissions, and a final showcase, participants develop practical solutions to real-world challenges.",
   },
   {
     question: "Who can participate?",
-    answer: "The challenge is tailored broadly for school and university students across Sri Lanka who show a distinct curiosity for technical problem-solving, innovative ideation, and leadership development.",
+    answer: "Undergraduates from any university (University Category) and school students aged 18+ (School Category) across Sri Lanka can participate. All teams must comprise of 4 to 5 members. Solo participation or teams of fewer than 4 members are strictly not permitted.",
   },
   {
-    question: "How can participate in Project Nova?",
-    answer: "Teams can register formally on our page during the initial launch, granting immediate access to the early workshop modules and proposal submission portals.",
+    question: "How many members can join a team?",
+    answer: "All teams must comprise of 4 to 5 members (including the team leader). Solo participation is not allowed. One person can represent only one team, and all team members must represent the same institution.",
   },
   {
-    question: "What is the competition format?",
-    answer: "The event runs over two major phases. First Phase handles conceptual proposal collection and essential skill-building workshops. Second Phase requires qualified teams to submit concrete project completions, leading to live panel presentations.",
-  },
-  {
-    question: "When do registrations open?",
-    answer: "Registrations will open soon! Keep an eye on our social media channels and the registration section of this website for the official announcement.",
+    question: "What is the competition format & timeline?",
+    answer: "Key stages include Team Registration (26–30 July), Proposal Submissions (1–6 Aug), Workshop (9 Aug), UI Submissions (12 Aug), and Finalist Selection (15 Aug), culminating in the Grand Finale on 30th August.",
   },
   {
     question: "Is participation free?",
-    answer: "Yes! Participation in Project Nova is completely free, providing every eligible student with an equal opportunity to compete and innovate.",
+    answer: "Yes! Participation in Project Nova is completely free, with no registration fees or hidden costs.",
   },
   {
     question: "What rewards can winners expect?",
-    answer: "Teams compete for an overall cash prize treasury of LKR 180,000 across two tracks. University Category: LKR 70,000 (1st Place), LKR 45,000 (2nd Place), LKR 20,000 (3rd Place). School Category: LKR 20,000 (1st Place), LKR 15,000 (2nd Place), LKR 10,000 (3rd Place), accompanied by certificates and corporate visibility.",
+    answer: "A total prize pool of LKR 180,000 across University (up to LKR 75,000) and School (up to LKR 20,000) categories, plus certificates and corporate exposure.",
   },
 ];
 
@@ -148,7 +141,7 @@ export default function Faq() {
     };
 
     const handleTouchMove = (e: TouchEvent) => {
-      if (progressRef.current >= 0.95 && e.touches.length > 0) {
+      if (window.innerWidth >= 768 && progressRef.current >= 0.95 && e.touches.length > 0) {
         const touchY = e.touches[0].clientY;
         const deltaY = touchStartY - touchY; // positive deltaY = scrolling down
 
@@ -159,13 +152,13 @@ export default function Faq() {
     };
 
     const handleWheel = (e: WheelEvent) => {
-      if (progressRef.current >= 0.95 && e.deltaY > 0) {
+      if (window.innerWidth >= 768 && progressRef.current >= 0.95 && e.deltaY > 0) {
         e.preventDefault();
       }
     };
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (progressRef.current >= 0.95) {
+      if (window.innerWidth >= 768 && progressRef.current >= 0.95) {
         const keys = ["ArrowDown", "PageDown", " ", "End"];
         if (keys.includes(e.key)) {
           e.preventDefault();
@@ -186,18 +179,14 @@ export default function Faq() {
     };
   }, []);
 
-  // Background cross-fade: cosmic → rocket → footer
-  const cosmicBgScale = useTransform(scrollYProgress, [0, 0.35], [1.0, 1.08]);
-  const rocketBgScale = useTransform(scrollYProgress, [0.35, 1.0], [1.08, 1.0]);
-  const cosmicBgOpacity = useTransform(scrollYProgress, [0.25, 0.45], [1, 0]);
-  const rocketBgOpacity = useTransform(scrollYProgress, [0.25, 0.45, 0.50, 1.0], [0, 1, 1, 0]);
+  // Greek Gods background scale: starts small (scale 0.5) at top of FAQ and gradually becomes large (scale 1.15) at bottom of FAQ page
+  const greekGodsScale = useTransform(scrollYProgress, [0, 1.0], [0.5, 1.15]);
 
   // FAQ content fades out first
   const faqContentOpacity = useTransform(scrollYProgress, [0.20, 0.40], [1, 0]);
   const faqHeaderY = useTransform(scrollYProgress, [0.20, 0.40], ["0px", "-60px"]);
   const faqPointerEvents = useTransform(scrollYProgress, (v) => v > 0.40 ? "none" : "auto");
   const faqVisibility = useTransform(scrollYProgress, (v) => v > 0.42 ? "hidden" : "visible");
-  const cosmicBgVisibility = useTransform(scrollYProgress, (v) => v > 0.42 ? "hidden" : "visible");
 
   // Register section and footer fade in together between 0.50 and 1.0
   const registerOpacity = useTransform(scrollYProgress, [0.50, 1.0], [0, 1]);
@@ -207,40 +196,21 @@ export default function Faq() {
   const footerScale = useTransform(scrollYProgress, [0.50, 1.0], [0.95, 1.0]);
 
   return (
-    <section id="faq" className="relative z-10">
+    <section id="faq" className="relative z-10 bg-black">
 
       {/* Pinned scroll container */}
-      <div ref={containerRef} className="relative h-[210vh] z-10">
-        <div className="sticky top-0 h-screen w-full overflow-hidden select-none z-10">
+      <div ref={containerRef} className="relative h-[210vh] z-10 bg-black">
+        <div className="sticky top-0 h-screen w-full overflow-hidden select-none z-10 bg-black">
 
           {/* Backgrounds */}
-          <div className="absolute inset-0 z-0">
-            <motion.div
-              style={{
-                backgroundImage: "url('/images/greek_gods_faq_orange.jpg')",
-                scale: cosmicBgScale,
-                opacity: cosmicBgOpacity,
-                visibility: cosmicBgVisibility,
-                filter: "brightness(0.4)",
-              }}
-              className="absolute inset-0 bg-cover bg-center origin-center z-0"
-            />
-            <motion.div
-              style={{
-                backgroundImage: "url('/images/greek_gods_ascent_orange.jpg')",
-                scale: rocketBgScale,
-                opacity: rocketBgOpacity,
-                filter: "brightness(0.4)",
-              }}
-              className="absolute inset-0 bg-cover bg-center origin-center z-10"
-            />
+          <div className="absolute inset-0 z-0 bg-black">
             <motion.div
               style={{
                 backgroundImage: "url('/images/greek_gods_footer.jpg')",
-                opacity: registerOpacity,
-                filter: "brightness(0.4)",
+                scale: greekGodsScale,
+                filter: "brightness(0.45)",
               }}
-              className="absolute inset-0 bg-cover bg-center origin-center z-20"
+              className="absolute inset-0 bg-cover bg-center origin-center z-0"
             />
           </div>
 
@@ -253,9 +223,16 @@ export default function Faq() {
               style={{ y: faqHeaderY }}
               className="w-full text-center px-4 mb-8"
             >
-              <h2 className="text-2xl sm:text-4xl md:text-5xl font-orbitron font-bold tracking-wider text-white">
-                FREQUENTLY ASKED <span className="text-[#FFB81B]">QUESTIONS</span>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light tracking-tight leading-none text-white font-space uppercase">
+                <span
+                  className="font-extrabold"
+                  style={{ WebkitTextStroke: "1.5px #FFB81B", color: "transparent" }}
+                >
+                  FREQUENTLY ASKED
+                </span>{" "}
+                <span className="font-cormorant italic text-white font-medium lowercase">Questions</span>
               </h2>
+              <div className="w-20 h-[3px] bg-gradient-to-r from-transparent via-[#FFB81B] to-transparent shadow-[0_0_12px_#FFB81B] rounded-full mx-auto mt-3" />
             </motion.div>
 
             <div className="w-full max-w-4xl mx-auto px-4">
@@ -281,7 +258,7 @@ export default function Faq() {
           >
             <div className="text-center max-w-3xl flex flex-col items-center justify-center z-10">
               <p className="text-white text-center text-xs sm:text-sm md:text-[15px] font-medium leading-relaxed max-w-2xl px-6 select-none opacity-85 tracking-wide">
-                Join Project Nova — an inter-university startup competition by AIESEC in USJ. Transform your ideas into real-world ventures and compete for recognition, mentorship, and startup support.
+                Project Nova connects young innovators with industry leaders, mentors, and organizations — inspiring the next generation of school and university students to learn, collaborate, and create meaningful impact through technology.
               </p>
             </div>
 
@@ -341,10 +318,7 @@ export default function Faq() {
                     <span className="text-white">PROJECT</span>
                     <span className="text-[#FFB81B] ml-1">NOVA</span>
                   </div>
-                  <div className="text-[8px] sm:text-[9px] text-slate-500 font-medium tracking-widest uppercase leading-tight">
-                    COPYRIGHT © 2026 <br />
-                    AIESEC IN USJ // DESIGN UNIT
-                  </div>
+                  
                 </Link>
 
               </div>

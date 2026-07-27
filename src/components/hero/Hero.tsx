@@ -1,15 +1,16 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useRef } from "react";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, GraduationCap, School } from "lucide-react";
 import { useScroll, useTransform, motion } from "framer-motion";
 
 const tickerItems = [
   "ASCEND TO OLYMPUS",
-  "GRAND FINALE · 11 JULY",
-  "DHPL AUDITORIUM — COLOMBO",
-  "THE TREASURY AWAITS",
+  "GRAND FINALE · 30 AUGUST",
+  "UNIVERSITY OF SRI JAYEWARDENEPURA",
+  "TEAMS OF 4 TO 5 MEMBERS",
   "LKR 180,000 PRIZE POOL",
   "INTER-UNIVERSITY & SCHOOL",
   "PROJECT NOVA · AIESEC USJ",
@@ -47,7 +48,7 @@ export default function Hero() {
         <motion.div
           style={{
             scale: bgScale,
-            backgroundImage: "url('/images/astronaut_hero_bg.png')",
+            backgroundImage: "url('/images/god_emperor_hero_statue.jpg')",
           }}
           className="absolute inset-0 bg-cover bg-center z-0 origin-center"
         />
@@ -77,9 +78,12 @@ export default function Hero() {
               className="cursor-pointer flex items-center justify-center"
               aria-label="Project Nova Home"
             >
-              <img
+              <Image
                 src="/images/project_nova_logo.png"
                 alt="Project Nova"
+                width={180}
+                height={36}
+                priority
                 className="h-8 sm:h-9 w-auto object-contain filter drop-shadow-[0_0_15px_rgba(255,184,27,0.4)] transition-transform hover:scale-105"
               />
             </Link>
@@ -105,50 +109,55 @@ export default function Hero() {
             opacity: contentOpacity,
             y: contentY,
           }}
-          className="max-w-4xl space-y-6 z-10 text-left pl-2 sm:pl-4"
+          className="max-w-4xl space-y-4 sm:space-y-6 z-10 text-left pl-1 sm:pl-4"
         >
-          {/* Mission tag */}
-          <div className="flex items-center gap-2 font-space text-[10px] sm:text-xs font-bold uppercase tracking-[0.25em] text-[#cbd5e0]">
-            <span className="w-2 h-2 rounded-full bg-[#FFB81B] shadow-[0_0_8px_#FFB81B]" />
-            PROJECT NOVA — AIESEC IN UNIVERSITY OF SRI JAYEWARDENEPURA
-          </div>
-
           {/* Heading — luxury serif display */}
-          <h1 className="display-serif text-5xl sm:text-7xl md:text-8xl text-[#f7fafc]">
+          <h1 className="display-serif text-4.5xl xs:text-5xl sm:text-7xl md:text-8xl text-[#f7fafc] leading-[1.1] sm:leading-[1.1]">
             From <span className="font-bold">Concept</span> <br />
             to <span className="text-gold-gradient font-semibold">Creation</span>
             <span className="text-[#FFB81B] font-bold">.</span>
           </h1>
 
           {/* Description */}
-          <p className="font-space font-medium text-sm sm:text-base max-w-[540px] leading-relaxed text-left text-[#cbd5e0]/90">
-            Sri Lanka&apos;s premier inter-university innovation trials — student
-            crews forge raw ideas into immortal ventures and pitch them before the
-            pantheon of live investors.
+          <p className="font-space font-medium text-xs sm:text-base max-w-full sm:max-w-[580px] leading-relaxed text-left text-[#cbd5e0]/90">
+            A dynamic tech based initiative organized by AIESEC in University of Sri Jayewardenepura, empowering school and university students to transform innovative ideas into practical solutions and drive positive impact through technology.
           </p>
 
-          {/* Actions Row */}
-          <div className="flex flex-wrap items-center gap-4 sm:gap-6 pt-6">
-            <Link href="/register">
-              <button className="group relative bg-[#FFB81B] hover:brightness-105 text-[#001233] text-[11px] sm:text-xs font-bold uppercase tracking-widest px-8 py-4 rounded-full shadow-[0_4px_24px_rgba(255,184,27,0.3)] transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]">
-                <span className="flex items-center gap-2">
-                  REGISTER NOW
-                  <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
-                </span>
+          {/* Actions Stack */}
+          <div className="flex flex-col gap-2.5 sm:gap-3.5 max-w-full sm:max-w-[520px] w-full pt-2 sm:pt-4">
+            {/* Larger Register Now Button */}
+            <Link href="/register" className="w-full">
+              <button className="w-full group relative bg-[#FFB81B] hover:brightness-105 text-[#001233] text-xs sm:text-base font-extrabold uppercase tracking-wider sm:tracking-widest px-4 sm:px-8 py-3.5 sm:py-4.5 rounded-xl sm:rounded-2xl shadow-[0_4px_30px_rgba(255,184,27,0.4)] hover:shadow-[0_4px_40px_rgba(255,184,27,0.6)] transition-all duration-200 hover:scale-[1.015] active:scale-[0.98] cursor-pointer justify-center flex items-center gap-2">
+                <span>REGISTER NOW</span>
+                <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 group-hover:translate-x-1 transition-transform shrink-0" />
               </button>
             </Link>
 
-            {/* Vertical Separator */}
-            <div className="h-10 w-[1px] bg-[#003599]/60 hidden sm:block" />
+            {/* School & University Booklet Buttons fitting the width of the Register button */}
+            <div className="grid grid-cols-2 gap-2 sm:gap-3 w-full">
+              <a
+                href="https://drive.google.com/drive/folders/1eEpMCg5GNHpYMneB7wL4hC6t1kDYul9E?usp=sharing"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full"
+              >
+                <button className="w-full group relative border border-[#FFB81B]/40 hover:border-[#FFB81B] hover:bg-[#FFB81B]/15 text-white text-[10px] sm:text-xs font-bold uppercase tracking-wider px-2 sm:px-4 py-2.5 sm:py-3.5 rounded-lg sm:rounded-2xl backdrop-blur-md transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] cursor-pointer justify-center flex items-center gap-1 sm:gap-2 shadow-[0_0_20px_rgba(0,53,153,0.3)]">
+                  <School className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-[#FFB81B] shrink-0" />
+                  <span className="truncate">SCHOOL BOOKLET</span>
+                </button>
+              </a>
 
-            {/* Prize pool focus */}
-            <div className="flex flex-col text-left justify-center font-space">
-              <span className="text-[#FFB81B] text-[9px] font-bold tracking-[0.2em] flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#FFB81B]" /> THE TREASURY • PRIZE POOL
-              </span>
-              <span className="font-cinzel text-[#FFB81B] text-lg sm:text-xl font-bold mt-0.5 leading-none tracking-wide">
-                LKR 180,000
-              </span>
+              <a
+                href="https://drive.google.com/drive/folders/16ljC1BnmMQ55fK2PWiEgkKV2-r3TIKb8?usp=sharing"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full"
+              >
+                <button className="w-full group relative border border-[#FFB81B]/40 hover:border-[#FFB81B] hover:bg-[#FFB81B]/15 text-white text-[10px] sm:text-xs font-bold uppercase tracking-wider px-2 sm:px-4 py-2.5 sm:py-3.5 rounded-lg sm:rounded-2xl backdrop-blur-md transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] cursor-pointer justify-center flex items-center gap-1 sm:gap-2 shadow-[0_0_20px_rgba(0,53,153,0.3)]">
+                  <GraduationCap className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-[#FFB81B] shrink-0" />
+                  <span className="truncate">UNIVERSITY BOOKLET</span>
+                </button>
+              </a>
             </div>
           </div>
         </motion.div>

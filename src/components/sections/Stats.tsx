@@ -16,7 +16,7 @@ export default function Stats() {
   });
 
   const bgScale = useTransform(scrollYProgress, [0, 1], [1.15, 1.0]);
-  const bgY = useTransform(scrollYProgress, [0, 1], ["-12%", "8%"]);
+  const bgY = useTransform(scrollYProgress, [0, 1], ["8%", "25%"]);
 
   const containerVariants = {
     hidden: {},
@@ -43,22 +43,22 @@ export default function Stats() {
       pool: "LKR 135,000",
       icon: GraduationCap,
       first: {
-        amount: "LKR 70,000",
+        amount: "LKR 75,000",
         label: "1st Place",
-        title: "Grand Champion",
-        desc: "Awarded for absolute mastery in innovative architecture, engineering & problem solving.",
+        title: "Champion",
+        desc: "Innovative problem solving & technical execution.",
       },
       second: {
-        amount: "LKR 45,000",
+        amount: "LKR 40,000",
         label: "2nd Place",
         title: "1st Runner-Up",
-        desc: "Awarded for high-impact concept designs and a structured developmental vision.",
+        desc: "Concept feasibility & presentation excellence.",
       },
       third: {
         amount: "LKR 20,000",
         label: "3rd Place",
         title: "2nd Runner-Up",
-        desc: "Recognized for clear industrial prototype readiness and engineering stability.",
+        desc: "Creative problem solving & prototype readiness.",
       },
     },
     school: {
@@ -69,19 +69,19 @@ export default function Stats() {
         amount: "LKR 20,000",
         label: "1st Place",
         title: "Grand Champion",
-        desc: "Awarded to top emerging school innovators showcasing brilliant technical talent.",
+        desc: "Top emerging school tech innovation.",
       },
       second: {
         amount: "LKR 15,000",
         label: "2nd Place",
         title: "1st Runner-Up",
-        desc: "Recognized for outstanding creativity and structured execution in technology.",
+        desc: "Outstanding creativity & structured execution.",
       },
       third: {
         amount: "LKR 10,000",
         label: "3rd Place",
         title: "2nd Runner-Up",
-        desc: "Awarded for impressive problem solving and impactful presentation skills.",
+        desc: "Impressive problem solving & presentation.",
       },
     },
   };
@@ -92,21 +92,21 @@ export default function Stats() {
     <section
       ref={sectionRef}
       id="prizes"
-      className="relative min-h-screen bg-[#001233] py-32 px-4 sm:px-8 md:px-16 overflow-hidden flex flex-col justify-between"
+      className="relative min-h-screen bg-black py-32 px-4 sm:px-8 md:px-16 overflow-hidden flex flex-col justify-between"
     >
-      {/* Parallax cosmic backdrop */}
+      {/* Parallax cosmic VR statue backdrop */}
       <motion.div
         style={{
           scale: bgScale,
           y: bgY,
-          backgroundImage: "url('/images/greek_gods_faq_orange.jpg')",
+          backgroundImage: "url('/images/vr_statue_bg.jpg')",
         }}
-        className="absolute inset-0 bg-cover bg-center z-0 origin-center filter brightness-[0.8]"
+        className="absolute inset-0 bg-cover bg-center z-0 origin-center filter brightness-[0.75]"
       />
 
       {/* Vignettes for content legibility and section blending */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#001233] via-[#001233]/55 to-[#001233] z-0 pointer-events-none" />
-      <div className="absolute inset-0 bg-[#001233]/30 backdrop-blur-[1px] z-0 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black via-black/40 to-black z-0 pointer-events-none" />
+      <div className="absolute inset-0 bg-black/20 backdrop-blur-[1px] z-0 pointer-events-none" />
 
       {/* Main Stats Content Container */}
       <motion.div
@@ -118,51 +118,50 @@ export default function Stats() {
       >
         {/* Outlined Section Header */}
         <motion.div variants={headerVariants} className="space-y-3 text-center">
-          <span className="text-[#FFB81B] text-xs font-bold uppercase tracking-[0.25em] flex items-center justify-center gap-2 font-space">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#FFB81B] shadow-[0_0_8px_#FFB81B]" />
-            THE TREASURY
-          </span>
-          <h2 className="display-serif text-4xl sm:text-6xl md:text-7xl text-[#f7fafc]">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light tracking-tight leading-none text-white font-space uppercase">
             <span
-              className="font-bold"
-              style={{ WebkitTextStroke: "1px rgba(255, 184, 27, 0.4)", color: "transparent" }}
+              className="font-extrabold"
+              style={{ WebkitTextStroke: "1.5px #FFB81B", color: "transparent" }}
             >
               REWARDS
             </span>{" "}
-            <span className="font-cormorant italic text-[#ffcb47] font-medium lowercase">of Olympus</span>
+            <span className="font-cormorant italic text-white font-medium lowercase">of Olympus</span>
           </h2>
+          <div className="w-20 h-[3px] bg-gradient-to-r from-transparent via-[#FFB81B] to-transparent shadow-[0_0_12px_#FFB81B] rounded-full mx-auto mt-3" />
           <p className="mx-auto max-w-2xl text-sm text-[#cbd5e0]/80 font-space font-light tracking-wide">
-            The spoils of victory — a grand <span className="text-[#FFB81B] font-bold">LKR 180,000</span> total treasury awarded across University &amp; School competition realms.
+            The spoils of victory{" "}
+            a grand <span className="text-[#FFB81B] font-bold">LKR 180,000</span>{" "}
+            total treasury awarded across University & School competition realms.
           </p>
         </motion.div>
 
         {/* Category Selector Tabs */}
-        <div className="flex justify-center">
-          <div className="inline-flex p-1.5 rounded-2xl bg-[#002066]/60 border border-[#003599]/40 backdrop-blur-md shadow-[0_4px_20px_rgba(0,0,0,0.4)]">
+        <div className="flex justify-center w-full">
+          <div className="inline-grid grid-cols-2 sm:flex p-1.5 rounded-2xl bg-[#002066]/60 border border-[#003599]/40 backdrop-blur-md shadow-[0_4px_20px_rgba(0,0,0,0.4)] w-full sm:w-auto">
             <button
               type="button"
               onClick={() => setActiveTab("university")}
-              className={`flex items-center gap-2 px-6 py-2.5 rounded-xl text-xs font-space font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
+              className={`flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-6 py-2.5 rounded-xl text-[11px] sm:text-xs font-space font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
                 activeTab === "university"
                   ? "bg-[#FFB81B] text-[#001233] shadow-[0_0_20px_rgba(255,184,27,0.4)] scale-105"
                   : "text-[#cbd5e0] hover:text-[#f7fafc] hover:bg-white/5"
               }`}
             >
-              <GraduationCap className="h-4 w-4" />
-              <span>University Track</span>
+              <GraduationCap className="h-4 w-4 shrink-0" />
+              <span>University</span>
             </button>
 
             <button
               type="button"
               onClick={() => setActiveTab("school")}
-              className={`flex items-center gap-2 px-6 py-2.5 rounded-xl text-xs font-space font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
+              className={`flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-6 py-2.5 rounded-xl text-[11px] sm:text-xs font-space font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer ${
                 activeTab === "school"
                   ? "bg-[#FFB81B] text-[#001233] shadow-[0_0_20px_rgba(255,184,27,0.4)] scale-105"
                   : "text-[#cbd5e0] hover:text-[#f7fafc] hover:bg-white/5"
               }`}
             >
-              <School className="h-4 w-4" />
-              <span>School Track</span>
+              <School className="h-4 w-4 shrink-0" />
+              <span>School</span>
             </button>
           </div>
         </div>
@@ -260,7 +259,7 @@ export default function Stats() {
                 </div>
                 <div className="text-center sm:text-left min-w-0 flex-1">
                   <span className="text-xs font-bold font-space tracking-[0.2em] text-[#FFB81B] uppercase block">
-                    RECOGNITION &amp; CERTIFICATES
+                    RECOGNITION & CERTIFICATES
                   </span>
                   <p className="text-xs text-[#f7fafc] font-space font-medium leading-relaxed mt-1">
                     All finalist teams across both tracks will receive official participation credentials and exclusive performance validation reports.

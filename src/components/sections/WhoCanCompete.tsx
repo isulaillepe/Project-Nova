@@ -111,11 +111,17 @@ export default function WhoCanCompete() {
       id="rules"
       className="relative py-24 sm:py-32 bg-black overflow-hidden border-b border-white/5"
     >
-      <div className="absolute inset-0 bg-gradient-to-b from-black via-black/50 to-black z-0 pointer-events-none" />
+      {/* Background Horse Statue Image */}
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-50 z-0 pointer-events-none"
+        style={{ backgroundImage: "url('/images/horse_statue_bg.jpg')" }}
+      />
+
+      <div className="absolute inset-0 bg-gradient-to-b from-black via-black/60 to-black z-0 pointer-events-none" />
 
       {/* Background ambient glows */}
       <div className="absolute inset-0 pointer-events-none z-0" aria-hidden="true">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[500px] w-[500px] rounded-full bg-gradient-to-r from-[#FFB81B]/10 to-[#003599]/10 blur-3xl opacity-40" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[500px] w-[500px] rounded-full bg-gradient-to-r from-[#FFB81B]/10 to-[#003599]/10 blur-3xl opacity-30" />
       </div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24 z-10">

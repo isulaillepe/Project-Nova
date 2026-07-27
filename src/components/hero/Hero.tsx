@@ -48,7 +48,7 @@ export default function Hero() {
         <motion.div
           style={{
             scale: bgScale,
-            backgroundImage: "url('/images/god_emperor_hero_statue.jpg')",
+            backgroundImage: "url('/images/statue_full_body.jpg')",
           }}
           className="absolute inset-0 bg-cover bg-center z-0 origin-center"
         />

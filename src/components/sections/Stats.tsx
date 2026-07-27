@@ -1,22 +1,13 @@
 "use client";
 
-import React, { useRef, useState } from "react";
-import { useScroll, useTransform, motion, AnimatePresence } from "framer-motion";
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Trophy, Medal, Award, GraduationCap, School, Layers } from "lucide-react";
 
 type CategoryTab = "university" | "school";
 
 export default function Stats() {
-  const sectionRef = useRef<HTMLElement>(null);
   const [activeTab, setActiveTab] = useState<CategoryTab>("university");
-
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"],
-  });
-
-  const bgScale = useTransform(scrollYProgress, [0, 1], [1.15, 1.0]);
-  const bgY = useTransform(scrollYProgress, [0, 1], ["8%", "25%"]);
 
   const containerVariants = {
     hidden: {},
@@ -90,21 +81,10 @@ export default function Stats() {
 
   return (
     <section
-      ref={sectionRef}
       id="prizes"
       className="relative min-h-screen bg-black py-32 px-4 sm:px-8 md:px-16 overflow-hidden flex flex-col justify-between"
     >
-      {/* Parallax cosmic VR statue backdrop */}
-      <motion.div
-        style={{
-          scale: bgScale,
-          y: bgY,
-          backgroundImage: "url('/images/vr_statue_bg.jpg')",
-        }}
-        className="absolute inset-0 bg-cover bg-center z-0 origin-center filter brightness-[0.75]"
-      />
-
-      {/* Vignettes for content legibility and section blending */}
+      {/* Vignettes for section depth and content legibility */}
       <div className="absolute inset-0 bg-gradient-to-b from-black via-black/40 to-black z-0 pointer-events-none" />
       <div className="absolute inset-0 bg-black/20 backdrop-blur-[1px] z-0 pointer-events-none" />
 

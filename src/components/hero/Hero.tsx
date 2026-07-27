@@ -24,8 +24,16 @@ export default function Hero() {
     offset: ["start start", "end end"],
   });
 
-  // Background image zoom out: from 4.5x zoom down to 1.0x standard size
-  const bgScale = useTransform(scrollYProgress, [0, 0.45], [4.5, 1.0]);
+  // Background image parallax & zoom transformations matching Stats.tsx:
+  // Starts with smooth focus scale (1.25 -> 1.05) during initial reveal (0 -> 0.45),
+  // then transitions seamlessly into Stats parallax scale (1.05 -> 1.18) and Y offset (2% -> 18%) when scrolling down.
+  const bgScale = useTransform(scrollYProgress, [0, 0.45, 1.0], [1.25, 1.05, 1.18]);
+  const bgY = useTransform(scrollYProgress, [0, 0.45, 1.0], ["-2%", "2%", "18%"]);
+  const bgFilter = useTransform(
+    scrollYProgress,
+    [0, 0.45, 1.0],
+    ["brightness(0.85) contrast(1.05)", "brightness(0.75) contrast(1.0)", "brightness(0.65) contrast(0.95)"]
+  );
 
   // Flying center emblem animation to top-left header position
   const logoY = useTransform(scrollYProgress, [0, 0.45], ["0%", "-42vh"]);
@@ -35,28 +43,33 @@ export default function Hero() {
 
   const scrollIndicatorOpacity = useTransform(scrollYProgress, [0, 0.15], [1.0, 0.0]);
 
-  const contentOpacity = useTransform(scrollYProgress, [0.32, 0.48], [0.0, 1.0]);
-  const contentY = useTransform(scrollYProgress, [0.32, 0.48], [30, 0]);
+  // Hero Content Entrance & Scroll-Down Exit Animation
+  const contentOpacity = useTransform(scrollYProgress, [0.32, 0.48, 0.72, 0.95], [0.0, 1.0, 1.0, 0.0]);
+  const contentY = useTransform(scrollYProgress, [0.32, 0.48, 0.72, 0.95], [30, 0, 0, -40]);
 
-  const tickerOpacity = useTransform(scrollYProgress, [0.38, 0.5], [0.0, 1.0]);
+  // Ticker Entrance & Scroll-Down Exit Animation
+  const tickerOpacity = useTransform(scrollYProgress, [0.38, 0.5, 0.75, 0.95], [0.0, 1.0, 1.0, 0.0]);
+  const tickerY = useTransform(scrollYProgress, [0.75, 0.95], [0, 20]);
 
   return (
     <div ref={containerRef} className="relative h-[180vh] bg-[#001233]">
       {/* Sticky Viewport Container */}
       <div className="sticky top-0 h-screen w-full overflow-hidden flex flex-col justify-center px-4 sm:px-8 md:px-16 lg:px-24 select-none">
-        {/* Zooming Greek temple statue backdrop */}
+        {/* Parallax cosmic VR statue backdrop matching Stats.tsx */}
         <motion.div
           style={{
             scale: bgScale,
-            backgroundImage: "url('/images/statue_full_body.jpg')",
+            y: bgY,
+            filter: bgFilter,
+            backgroundImage: "url('/images/vr_statue_bg.jpg')",
           }}
           className="absolute inset-0 bg-cover bg-center z-0 origin-center"
         />
 
-        {/* Overlays for legibility and Olympus mood */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#001233] via-[#001233]/70 to-transparent z-0 pointer-events-none" />
+        {/* Vignettes for content legibility and section blending — matching Stats.tsx */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black z-0 pointer-events-none" />
+        <div className="absolute inset-0 bg-black/20 backdrop-blur-[1px] z-0 pointer-events-none" />
         <div className="absolute right-0 top-0 w-full md:w-[60%] h-full bg-[radial-gradient(circle_at_75%_25%,rgba(255,184,27,0.16)_0%,transparent_60%)] z-0 pointer-events-none" />
-        <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#001233] to-transparent z-0 pointer-events-none" />
 
         {/* Flying centered logo image keeping small size moving to top title bar */}
         <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-20">
@@ -164,7 +177,7 @@ export default function Hero() {
 
         {/* Infinite Scroll Ticker */}
         <motion.div
-          style={{ opacity: tickerOpacity }}
+          style={{ opacity: tickerOpacity, y: tickerY }}
           className="absolute bottom-0 left-0 right-0 border-y border-[#003599]/30 bg-[#001233]/65 backdrop-blur-md py-3 overflow-hidden font-space select-none z-10"
         >
           <div className="flex w-max items-center animate-scroll whitespace-nowrap">

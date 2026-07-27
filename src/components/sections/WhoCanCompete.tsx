@@ -111,13 +111,6 @@ export default function WhoCanCompete() {
       id="rules"
       className="relative py-24 sm:py-32 bg-black overflow-hidden border-b border-white/5"
     >
-      {/* Background VR Statue Lower Body */}
-      <div
-        style={{
-          backgroundImage: "url('/images/vr_statue_lower_bg.jpg')",
-        }}
-        className="absolute inset-0 bg-cover bg-center origin-center filter brightness-[0.7] pointer-events-none z-0"
-      />
       <div className="absolute inset-0 bg-gradient-to-b from-black via-black/50 to-black z-0 pointer-events-none" />
 
       {/* Background ambient glows */}

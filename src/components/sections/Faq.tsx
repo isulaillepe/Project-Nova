@@ -206,7 +206,7 @@ export default function Faq() {
           <div className="absolute inset-0 z-0 bg-black">
             <motion.div
               style={{
-                backgroundImage: "url('/images/greek_gods_footer.jpg')",
+                backgroundImage: "url('/images/greek_gods_footer.jpeg')",
                 scale: greekGodsScale,
                 filter: "brightness(0.45)",
               }}

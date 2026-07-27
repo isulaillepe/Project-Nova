@@ -25,7 +25,7 @@ const timelineSteps = [
   {
     step: "04",
     date: "12TH AUGUST",
-    title: "UI Submission",
+    title: "UI Prototype Submission",
     description: "Develop and submit the complete high-fidelity UI design of your proposed solution by 12th August.",
   },
   {

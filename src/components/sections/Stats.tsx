@@ -34,13 +34,13 @@ export default function Stats() {
       pool: "LKR 135,000",
       icon: GraduationCap,
       first: {
-        amount: "LKR 75,000",
+        amount: "LKR 70,000",
         label: "1st Place",
         title: "Champion",
         desc: "Innovative problem solving & technical execution.",
       },
       second: {
-        amount: "LKR 40,000",
+        amount: "LKR 45,000",
         label: "2nd Place",
         title: "1st Runner-Up",
         desc: "Concept feasibility & presentation excellence.",

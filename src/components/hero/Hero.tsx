@@ -61,10 +61,21 @@ export default function Hero() {
             scale: bgScale,
             y: bgY,
             filter: bgFilter,
-            backgroundImage: "url('/images/vr_statue_bg.jpg')",
           }}
-          className="absolute inset-0 bg-cover bg-center z-0 origin-center"
-        />
+          className="absolute inset-0 bg-cover bg-center z-0 origin-center overflow-hidden"
+        >
+          <Image
+            src="/images/vr_statue_bg.webp"
+            alt="VR statue background"
+            fill
+            priority
+            className="object-cover"
+            sizes="100vw"
+            quality={85}
+            placeholder="blur"
+            blurDataURL="data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAADwAgCdASoUAAwAP3Ggxli0q6ejsAgCkC4JZwAAQQxNUAD+40ti6ZfOC0QToTiG+3H5o66YZgIhSKlo0OSFi+/n7MsbXefnNsAAAA=="
+          />
+        </motion.div>
 
         {/* Vignettes for content legibility and section blending — matching Stats.tsx */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black z-0 pointer-events-none" />

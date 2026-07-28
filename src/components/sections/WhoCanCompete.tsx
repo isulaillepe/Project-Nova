@@ -112,10 +112,19 @@ export default function WhoCanCompete() {
       className="relative py-24 sm:py-32 bg-black overflow-hidden border-b border-white/5"
     >
       {/* Background Horse Statue Image */}
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-50 z-0 pointer-events-none"
-        style={{ backgroundImage: "url('/images/horse_statue_bg.jpg')" }}
-      />
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        <Image
+          src="/images/horse_statue_bg.webp"
+          alt="Horse statue background"
+          fill
+          priority
+          className="object-cover opacity-50"
+          sizes="100vw"
+          quality={85}
+          placeholder="blur"
+          blurDataURL="data:image/webp;base64,UklGRoQAAABXRUJQVlA4IHgAAABQBQCdASoUACQAP3GszF+0rKilqrgIApAuCWkAAGBITLiIl2PNwO687DF24Jve/B/L5QAA/ui52g4kbyixk0xsme82/GEESRIDPlyl6dzlId7SVwkFJquOJZqUlFxSXYUdcbA69xoazYrZPaBRIYFYl4ibmJu6AAA="
+        />
+      </div>
 
       <div className="absolute inset-0 bg-gradient-to-b from-black via-black/60 to-black z-0 pointer-events-none" />
 

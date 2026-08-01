@@ -6,15 +6,15 @@ import { useScroll, useTransform, motion } from "framer-motion";
 const timelineSteps = [
   {
     step: "01",
-    date: "26TH – 30TH JULY",
+    date: "26TH – 03RD AUGUST",
     title: "Team Registration",
-    description: "Registration opens on 26th July and closes on 30th July. Assemble your squad of 4 to 5 members representing your school or university and register.",
+    description: "Registration opens on 26th July and closes on 03rd August. Assemble your squad of 4 to 5 members representing your school or university and register.",
   },
   {
     step: "02",
-    date: "01ST – 06TH AUGUST",
-    title: "Proposal & Flash Round Submission",
-    description: "Submissions start on 1st August. Teams submit their formal project concept proposals and flash round entries by 6th–7th August.",
+    date: "03RD – 06TH AUGUST",
+    title: "Proposal  Submission",
+    description: "Submissions start on 03rd August. Teams submit their formal project concept proposals.",
   },
   {
     step: "03",

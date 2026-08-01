@@ -100,6 +100,29 @@ export const registrationSchema = z.object({
     });
   }
 
+  // Ensure each member has a unique email address across all team members
+  const emailIndicesMap = new Map<string, number[]>();
+  data.members.forEach((member, index) => {
+    const normalizedEmail = member.email?.trim().toLowerCase();
+    if (normalizedEmail) {
+      const indices = emailIndicesMap.get(normalizedEmail) || [];
+      indices.push(index);
+      emailIndicesMap.set(normalizedEmail, indices);
+    }
+  });
+
+  emailIndicesMap.forEach((indices) => {
+    if (indices.length > 1) {
+      indices.forEach((index) => {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ["members", index, "email"],
+          message: "Each team member must have a unique email address",
+        });
+      });
+    }
+  });
+
   // University-track fields are required only when the University track is selected
   if (data.track === "university") {
     data.members.forEach((member, index) => {

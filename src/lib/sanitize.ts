@@ -128,6 +128,26 @@ export function sanitizeHtml(input: string): string {
 }
 
 /**
+ * Sanitize URL - validate and normalize URL
+ * @param input - URL string
+ * @returns Sanitized URL or empty string if invalid
+ */
+export function sanitizeUrl(input: string): string {
+  if (typeof input !== "string") return "";
+
+  const sanitized = sanitizeText(input, { maxLength: 2048, trim: true });
+
+  // Basic URL validation - must start with http:// or https://
+  try {
+    const url = new URL(sanitized);
+    if (url.protocol !== "http:" && url.protocol !== "https:") return "";
+    return sanitized;
+  } catch {
+    return "";
+  }
+}
+
+/**
  * Sanitize NIC/ID number - keep alphanumeric only
  * @param input - NIC/ID string
  * @returns Sanitized ID

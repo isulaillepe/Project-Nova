@@ -118,17 +118,12 @@ export function TrackSelection({ onSelectTrack }: TrackSelectionProps) {
         </div>
       </div>
 
-      {/* Watermark Text at Bottom Background */}
-      <div className="w-full overflow-hidden flex justify-center pointer-events-none select-none my-4 opacity-10">
-        <span className="font-cinzel font-black text-6xl sm:text-8xl md:text-[11vw] leading-none tracking-widest text-transparent border-text stroke-text text-slate-400">
-          PROJECT NOVA
+      {/* Giant Bottom Watermark Wording "NOVA" matching screenshot layout */}
+      <div className="w-full overflow-hidden flex justify-center pointer-events-none select-none absolute bottom-0 left-0 right-0 z-0 opacity-10">
+        <span className="font-cinzel font-black text-[22vw] leading-none tracking-[0.05em] uppercase text-white/20 select-none">
+          NOVA
         </span>
       </div>
-
-      {/* Footer copyright */}
-      <footer className="w-full text-center py-4 text-[10px] sm:text-xs font-space text-[#8da2bd]/70 tracking-widest uppercase z-10 border-t border-[#003599]/20">
-        © 2026 PROJECT NOVA. ORGANIZED BY AIESEC IN UNIVERSITY OF SRI JAYEWARDENEPURA. ALL RIGHTS RESERVED.
-      </footer>
     </div>
   );
 }

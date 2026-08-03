@@ -172,6 +172,9 @@ export function ProposalPortal({ track, onBackToHub }: ProposalPortalProps) {
       formData.append("proposedSolution", `YouTube Pitch: ${youtubeUrl}`);
       formData.append("demoUrl", youtubeUrl);
       formData.append("confirmed", "true");
+      if (pdfFile) {
+        formData.append("pdfFile", pdfFile);
+      }
 
       const res = await submitProposal(formData);
       if (!res.success || !res.referenceId) {

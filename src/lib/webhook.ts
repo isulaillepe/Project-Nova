@@ -18,10 +18,10 @@ interface RegistrationWebhookPayload {
 export async function triggerRegistrationWebhook(
   payload: RegistrationWebhookPayload
 ): Promise<void> {
-  const webhookUrl = process.env.APPS_SCRIPT_WEBHOOK_URL;
+  const webhookUrl = process.env.REGISTRATION_WEBHOOK_URL || process.env.APPS_SCRIPT_WEBHOOK_URL;
 
   if (!webhookUrl) {
-    console.warn("APPS_SCRIPT_WEBHOOK_URL not configured. Skipping webhook trigger.");
+    console.warn("REGISTRATION_WEBHOOK_URL not configured. Skipping webhook trigger.");
     return;
   }
 
@@ -31,6 +31,7 @@ export async function triggerRegistrationWebhook(
       headers: {
         "Content-Type": "application/json",
       },
+      redirect: "follow",
       body: JSON.stringify({
         ...payload,
         timestamp: new Date().toISOString(),
@@ -46,10 +47,9 @@ export async function triggerRegistrationWebhook(
         { teamName: payload.teamName }
       );
     } else {
-      console.log(`Webhook triggered successfully for team: ${payload.teamName}`);
+      console.log(`Registration webhook triggered successfully for team: ${payload.teamName}`);
     }
   } catch (error) {
-    // Log error but don't throw - this is non-blocking
     if (error instanceof DOMException && error.name === "TimeoutError") {
       console.error("Webhook request timed out after 10s", { teamName: payload.teamName });
     } else {

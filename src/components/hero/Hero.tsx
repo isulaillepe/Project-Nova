@@ -138,13 +138,23 @@ export default function Hero() {
 
           {/* Actions Stack */}
           <div className="flex flex-col gap-2.5 sm:gap-3.5 max-w-full sm:max-w-[520px] w-full pt-2 sm:pt-4">
-            {/* Larger Register Now Button */}
-            <Link href="/register" className="w-full">
-              <button className="w-full group relative bg-[#FFB81B] hover:brightness-105 text-[#001233] text-xs sm:text-base font-extrabold uppercase tracking-wider sm:tracking-widest px-4 sm:px-8 py-3.5 sm:py-4.5 rounded-xl sm:rounded-2xl shadow-[0_4px_30px_rgba(255,184,27,0.4)] hover:shadow-[0_4px_40px_rgba(255,184,27,0.6)] transition-all duration-200 hover:scale-[1.015] active:scale-[0.98] cursor-pointer justify-center flex items-center gap-2">
-                <span>REGISTRATION CLOSING SOON</span>
-                <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 group-hover:translate-x-1 transition-transform shrink-0" />
-              </button>
-            </Link>
+            {/* Primary CTA Row — Registration + Submission */}
+            <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-3 w-full">
+              {/* Larger Register Now Button */}
+              <Link href="/register" className="flex-1 w-full">
+                <button className="w-full group relative bg-[#FFB81B] hover:brightness-105 text-[#001233] text-xs sm:text-base font-extrabold uppercase tracking-wider sm:tracking-widest px-4 sm:px-8 py-3.5 sm:py-4.5 rounded-xl sm:rounded-2xl shadow-[0_4px_30px_rgba(255,184,27,0.4)] hover:shadow-[0_4px_40px_rgba(255,184,27,0.6)] transition-all duration-200 hover:scale-[1.015] active:scale-[0.98] cursor-pointer justify-center flex items-center gap-2">
+                  <span>REGISTRATION CLOSING SOON</span>
+                  <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 group-hover:translate-x-1 transition-transform shrink-0" />
+                </button>
+              </Link>
+
+              {/* Proposal Submission Button */}
+              <Link href="/submit/proposal" className="flex-1 w-full">
+                <button className="w-full group relative border border-[#FFB81B]/40 hover:border-[#FFB81B] hover:bg-[#FFB81B]/15 text-white text-xs sm:text-base font-extrabold uppercase tracking-wider sm:tracking-widest px-4 sm:px-8 py-3.5 sm:py-4.5 rounded-xl sm:rounded-2xl backdrop-blur-md transition-all duration-200 hover:scale-[1.015] active:scale-[0.98] cursor-pointer justify-center flex items-center gap-2 shadow-[0_0_20px_rgba(0,53,153,0.3)]">
+                  <span>SUBMIT PROPOSAL</span>
+                </button>
+              </Link>
+            </div>
 
             {/* School & University Booklet Buttons fitting the width of the Register button */}
             <div className="grid grid-cols-2 gap-2 sm:gap-3 w-full">

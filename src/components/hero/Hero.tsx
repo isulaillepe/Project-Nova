@@ -138,13 +138,13 @@ export default function Hero() {
 
           {/* Actions Stack */}
           <div className="flex flex-col gap-2.5 sm:gap-3.5 max-w-full sm:max-w-[520px] w-full pt-2 sm:pt-4">
-            {/* Larger Register Now Button */}
-            <Link href="/register" className="w-full">
-              <button className="w-full group relative bg-[#FFB81B] hover:brightness-105 text-[#001233] text-xs sm:text-base font-extrabold uppercase tracking-wider sm:tracking-widest px-4 sm:px-8 py-3.5 sm:py-4.5 rounded-xl sm:rounded-2xl shadow-[0_4px_30px_rgba(255,184,27,0.4)] hover:shadow-[0_4px_40px_rgba(255,184,27,0.6)] transition-all duration-200 hover:scale-[1.015] active:scale-[0.98] cursor-pointer justify-center flex items-center gap-2">
-                <span>REGISTRATION CLOSING SOON</span>
-                <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 group-hover:translate-x-1 transition-transform shrink-0" />
-              </button>
-            </Link>
+            {/* Disabled Register Button */}
+            <button
+              disabled
+              className="w-full relative bg-slate-800/80 border border-slate-700/80 text-slate-400 text-xs sm:text-base font-extrabold uppercase tracking-wider sm:tracking-widest px-4 sm:px-8 py-3.5 sm:py-4.5 rounded-xl sm:rounded-2xl shadow-none cursor-not-allowed justify-center flex items-center gap-2 opacity-80"
+            >
+              <span>REGISTRATION CLOSED</span>
+            </button>
 
             {/* School & University Booklet Buttons fitting the width of the Register button */}
             <div className="grid grid-cols-2 gap-2 sm:gap-3 w-full">

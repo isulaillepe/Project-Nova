@@ -115,11 +115,12 @@ export function Header() {
                   DELEGATE BOOKLET
                 </button>
               </a>
-              <Link href="/register">
-                <button className="bg-[#FFB81B] hover:brightness-105 text-[#001233] text-[10px] font-bold uppercase tracking-widest px-5 py-2 rounded-full shadow-[0_0_18px_rgba(255,184,27,0.35)] hover:shadow-[0_0_24px_rgba(255,184,27,0.5)] transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] cursor-pointer">
-                  REGISTER
-                </button>
-              </Link>
+              <button
+                disabled
+                className="bg-slate-700/50 border border-slate-600/50 text-slate-400 text-[10px] font-bold uppercase tracking-widest px-5 py-2 rounded-full cursor-not-allowed opacity-80"
+              >
+                REGISTRATION CLOSED
+              </button>
             </div>
           </div>
 
@@ -174,11 +175,12 @@ export function Header() {
                   DELEGATE BOOKLET
                 </button>
               </a>
-              <Link href="/register" onClick={() => setIsMobileMenuOpen(false)}>
-                <button className="w-full text-center bg-[#FFB81B] text-[#001233] text-[10px] sm:text-[11px] font-bold uppercase tracking-widest py-2 rounded-full shadow-[0_0_15px_rgba(255,184,27,0.35)] cursor-pointer">
-                  REGISTER
-                </button>
-              </Link>
+              <button
+                disabled
+                className="w-full text-center bg-slate-700/50 border border-slate-600/50 text-slate-400 text-[10px] sm:text-[11px] font-bold uppercase tracking-widest py-2 rounded-full cursor-not-allowed opacity-80"
+              >
+                REGISTRATION CLOSED
+              </button>
             </div>
           </div>
         </div>

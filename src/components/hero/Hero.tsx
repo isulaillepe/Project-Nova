@@ -8,7 +8,7 @@ import { useScroll, useTransform, motion } from "framer-motion";
 
 const tickerItems = [
   "ASCEND TO OLYMPUS",
-  "GRAND FINALE · 30 AUGUST",
+  "GRAND FINALE · 05 SEPTEMBER",
   "UNIVERSITY OF SRI JAYEWARDENEPURA",
   "TEAMS OF 4 TO 5 MEMBERS",
   "LKR 180,000 PRIZE POOL",

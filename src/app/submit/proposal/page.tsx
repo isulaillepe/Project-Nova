@@ -4,7 +4,7 @@ import { ProposalWizard } from "./components/ProposalWizard";
 export const metadata: Metadata = {
   title: "Submit Proposal - Project Nova",
   description: "Submit your team proposal for Project Nova inter-university and inter-school technology competition organized by AIESEC in USJ.",
-  keywords: ["Project Nodva", "proposal submission", "AIESEC", "University of Sri Jayewardenepura", "tech competition", "Sri Lanka"],
+  keywords: ["Project Nova", "proposal submission", "AIESEC", "University of Sri Jayewardenepura", "tech competition", "Sri Lanka"],
 };
 
 export default function SubmitProposalPage() {

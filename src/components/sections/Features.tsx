@@ -12,15 +12,15 @@ const timelineSteps = [
   },
   {
     step: "02",
-    date: "03RD – 06TH AUGUST",
-    title: "Proposal  Submission",
-    description: "Submissions start on 03rd August. Teams submit their formal project concept proposals.",
+    date: "07TH AUGUST",
+    title: "Proposal Submission",
+    description: "Submissions start on 07th August. Teams submit their formal project concept proposals.",
   },
   {
     step: "03",
-    date: "09TH AUGUST",
+    date: "08TH AUGUST",
     title: "Workshop and Selected Teams Announcement",
-    description: "Shortlisted teams are announced on 9th August and gain exclusive access to a hands-on workshop session with industry mentors.",
+    description: "Shortlisted teams are announced on 08th August and gain exclusive access to a hands-on workshop session with industry mentors.",
   },
   {
     step: "04",

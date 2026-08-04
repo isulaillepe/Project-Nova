@@ -30,7 +30,7 @@ const faqItems = [
   },
   {
     question: "What is the competition format & timeline?",
-    answer: "Key stages include Team Registration (26–30 July), Proposal Submissions (1–6 Aug), Workshop (9 Aug), UI Submissions (12 Aug), and Finalist Selection (15 Aug), culminating in the Grand Finale on 30th August.",
+    answer: "Key stages include Team Registration (26 July–3 Aug), Proposal Submissions (7 Aug), Workshop (8 Aug), Submission Closing (12 Aug), and Finalist Selection (15 Aug), culminating in the Grand Finale on 30th August.",
   },
   {
     question: "Is participation free?",

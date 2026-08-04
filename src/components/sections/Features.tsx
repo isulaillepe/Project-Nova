@@ -18,9 +18,9 @@ const timelineSteps = [
   },
   {
     step: "03",
-    date: "06TH – 12TH AUGUST",
-    title: "Proposal Submission",
-    description: "Proposal submission starts on 06th August. Teams submit their formal project concept proposals by 12th August.",
+    date: "06TH AUGUST",
+    title: "Proposal Submission Starts",
+    description: "Proposal submission starts on 06th August.",
   },
   {
     step: "04",
@@ -28,30 +28,31 @@ const timelineSteps = [
     title: "Awareness Session",
     description: "Interactive awareness session held on 08th August to guide participating teams through the competition stages.",
   },
-  {
+   {
     step: "05",
-    date: "14TH AUGUST",
-    title: "Flash Round Proposal Submission",
-    description: "Submission deadline for flash round proposals on 14th August.",
+    date: "12TH AUGUST",
+    title: "Proposal Submission Starts Last Date",
+    description: " Teams submit their formal project concept proposals by 12th August.",
   },
   {
     step: "06",
+    date: "14TH AUGUST",
+    title: "Flash Round Proposal Submission Last Date ",
+    description: "Submission deadline for flash round proposals on 14th August.",
+  },
+  {
+    step: "07",
     date: "16TH AUGUST",
     title: "Workshop & Selected Teams Announcement",
     description: "Shortlisted teams are announced on 16th August and gain exclusive access to a hands-on workshop session with industry mentors.",
   },
   {
-    step: "07",
+    step: "08",
     date: "17TH – 21ST AUGUST",
     title: "UI Prototype Submission",
     description: "Develop and submit the complete high-fidelity UI design of your proposed solution by 21st August.",
   },
-  {
-    step: "08",
-    date: "25TH AUGUST",
-    title: "Finalist Teams Selection",
-    description: "Evaluation of UI submissions and official announcement of the finalist squads qualified for the next phase.",
-  },
+ 
   {
     step: "09",
     date: "31ST AUG – 02ND SEPT",

@@ -44,13 +44,13 @@ export function Header() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         shouldShowHeader
-          ? "bg-[#001233]/90 backdrop-blur-xl border-b border-[#003599]/30 shadow-[0_4px_30px_rgba(0,8,30,0.6)] pointer-events-auto"
-          : "bg-transparent pointer-events-none"
+          ? "bg-[#001233]/90 backdrop-blur-xl border-b border-[#003599]/30 shadow-[0_4px_30px_rgba(0,8,30,0.6)]"
+          : "bg-[#001233]/0 backdrop-blur-none border-b border-transparent shadow-none"
       }`}
     >
       <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" aria-label="Main navigation">
         <div className="flex h-16 sm:h-20 items-center justify-between">
-          
+
           {/* Logo with official Project Nova image */}
           <Link
             href="/"
@@ -60,11 +60,7 @@ export function Header() {
                 window.scrollTo({ top: 0, behavior: "smooth" });
               }
             }}
-            className={`flex items-center transition-all duration-500 transform cursor-pointer ${
-              shouldShowHeader
-                ? "opacity-100 translate-y-0 pointer-events-auto"
-                : "opacity-0 -translate-y-4 pointer-events-none"
-            }`}
+            className="flex items-center transition-all duration-500 transform cursor-pointer"
             aria-label="Project Nova Home"
           >
             <img
@@ -76,11 +72,7 @@ export function Header() {
 
           {/* Desktop Navigation & Action Buttons */}
           <div
-            className={`hidden md:flex md:items-center md:gap-6 transition-all duration-500 delay-100 transform ${
-              shouldShowHeader
-                ? "opacity-100 translate-y-0 pointer-events-auto"
-                : "opacity-0 -translate-y-4 pointer-events-none"
-            }`}
+            className="hidden md:flex md:items-center md:gap-6 transition-all duration-500 delay-100 transform"
           >
             <div className="flex items-center gap-4 font-space">
               {navLinks.map((link, index) => (
@@ -125,11 +117,7 @@ export function Header() {
 
           {/* Mobile menu button */}
           <button
-            className={`md:hidden p-2 text-[#cbd5e0] hover:text-[#FFB81B] transition-all duration-500 transform cursor-pointer ${
-              shouldShowHeader
-                ? "opacity-100 translate-y-0 pointer-events-auto"
-                : "opacity-0 -translate-y-4 pointer-events-none"
-            }`}
+            className="md:hidden p-2 text-[#cbd5e0] hover:text-[#FFB81B] transition-all duration-500 cursor-pointer"
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-expanded={isMobileMenuOpen}
             aria-controls="mobile-menu"

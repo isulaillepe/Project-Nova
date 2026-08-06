@@ -185,7 +185,7 @@ export default function Faq() {
   // FAQ content fades out first
   const faqContentOpacity = useTransform(scrollYProgress, [0.20, 0.40], [1, 0]);
   const faqHeaderY = useTransform(scrollYProgress, [0.20, 0.40], ["0px", "-60px"]);
-  const faqPointerEvents = useTransform(scrollYProgress, (v) => v > 0.40 ? "none" : "auto");
+  const faqPointerEvents = useTransform(scrollYProgress, [0.39, 0.41], ["auto", "none"]);
   const faqVisibility = useTransform(scrollYProgress, (v) => v > 0.42 ? "hidden" : "visible");
 
   // Register section and footer fade in together between 0.50 and 1.0

@@ -137,14 +137,23 @@ export default function Hero() {
           </p>
 
           {/* Actions Stack */}
-          <div className="flex flex-col gap-2.5 sm:gap-3.5 max-w-full sm:max-w-[520px] w-full pt-2 sm:pt-4">
-            {/* Register Now Button */}
-            <Link href="/register" className="w-full">
-              <button className="w-full group relative bg-[#FFB81B] hover:brightness-105 text-[#001233] text-xs sm:text-base font-extrabold uppercase tracking-wider sm:tracking-widest px-4 sm:px-8 py-3.5 sm:py-4.5 rounded-xl sm:rounded-2xl shadow-[0_4px_30px_rgba(255,184,27,0.4)] hover:shadow-[0_4px_40px_rgba(255,184,27,0.6)] transition-all duration-200 hover:scale-[1.015] active:scale-[0.98] cursor-pointer justify-center flex items-center gap-2">
-                <span>REGISTRATION CLOSING SOON</span>
-                <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 group-hover:translate-x-1 transition-transform shrink-0" />
-              </button>
-            </Link>
+          <div className="flex flex-col gap-2.5 sm:gap-3.5 max-w-full sm:max-w-[580px] w-full pt-2 sm:pt-4">
+            {/* Primary CTA Row: Register & Submit Proposal */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3 w-full">
+              <Link href="/register" className="w-full">
+                <button className="w-full group relative bg-[#FFB81B] hover:brightness-105 text-[#001233] text-xs sm:text-sm font-extrabold uppercase tracking-wider px-4 sm:px-6 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl shadow-[0_4px_30px_rgba(255,184,27,0.4)] hover:shadow-[0_4px_40px_rgba(255,184,27,0.6)] transition-all duration-200 hover:scale-[1.015] active:scale-[0.98] cursor-pointer justify-center flex items-center gap-2">
+                  <span className="truncate">REGISTER NOW</span>
+                  <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform shrink-0" />
+                </button>
+              </Link>
+
+              <Link href="/submit" className="w-full">
+                <button className="w-full group relative border-2 border-[#00e5ff] bg-[#00e5ff]/15 hover:bg-[#00e5ff]/25 text-[#ffffff] text-xs sm:text-sm font-extrabold uppercase tracking-wider px-4 sm:px-6 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl shadow-[0_0_25px_rgba(0,229,255,0.35)] hover:shadow-[0_0_35px_rgba(0,229,255,0.55)] transition-all duration-200 hover:scale-[1.015] active:scale-[0.98] cursor-pointer justify-center flex items-center gap-2">
+                  <span className="truncate text-[#00e5ff]">SUBMIT PROPOSAL</span>
+                  <ArrowRight className="h-4 w-4 text-[#00e5ff] group-hover:translate-x-1 transition-transform shrink-0" />
+                </button>
+              </Link>
+            </div>
 
             {/* School & University Booklet Buttons fitting the width of the Register button */}
             <div className="grid grid-cols-2 gap-2 sm:gap-3 w-full">

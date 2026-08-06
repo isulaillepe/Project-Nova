@@ -37,6 +37,11 @@ export function Header() {
     };
   }, []);
 
+  // Hide global main header on portal /submit pages
+  if (pathname?.startsWith("/submit")) {
+    return null;
+  }
+
   const isHomePage = pathname === "/";
   const shouldShowHeader = isMobile || !isHomePage || scrollY > 300;
 
@@ -116,8 +121,13 @@ export function Header() {
                 </button>
               </a>
               <Link href="/register">
-                <button className="bg-[#FFB81B] hover:brightness-105 text-[#001233] text-[10px] font-bold uppercase tracking-widest px-5 py-2 rounded-full shadow-[0_0_18px_rgba(255,184,27,0.35)] hover:shadow-[0_0_24px_rgba(255,184,27,0.5)] transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] cursor-pointer">
+                <button className="bg-[#FFB81B] hover:brightness-105 text-[#001233] text-[10px] font-bold uppercase tracking-widest px-4 py-2 rounded-full shadow-[0_0_18px_rgba(255,184,27,0.35)] hover:shadow-[0_0_24px_rgba(255,184,27,0.5)] transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] cursor-pointer">
                   REGISTER
+                </button>
+              </Link>
+              <Link href="/submit">
+                <button className="border border-[#00e5ff]/50 hover:border-[#00e5ff] bg-[#00e5ff]/10 hover:bg-[#00e5ff]/20 text-[#00e5ff] text-[10px] font-bold uppercase tracking-widest px-4 py-2 rounded-full shadow-[0_0_15px_rgba(0,229,255,0.3)] transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] cursor-pointer">
+                  SUBMISSION
                 </button>
               </Link>
             </div>
@@ -174,11 +184,18 @@ export function Header() {
                   DELEGATE BOOKLET
                 </button>
               </a>
-              <Link href="/register" onClick={() => setIsMobileMenuOpen(false)}>
-                <button className="w-full text-center bg-[#FFB81B] text-[#001233] text-[10px] sm:text-[11px] font-bold uppercase tracking-widest py-2 rounded-full shadow-[0_0_15px_rgba(255,184,27,0.35)] cursor-pointer">
-                  REGISTER
-                </button>
-              </Link>
+              <div className="grid grid-cols-2 gap-2">
+                <Link href="/register" onClick={() => setIsMobileMenuOpen(false)}>
+                  <button className="w-full text-center bg-[#FFB81B] text-[#001233] text-[10px] sm:text-[11px] font-bold uppercase tracking-widest py-2 rounded-full shadow-[0_0_15px_rgba(255,184,27,0.35)] cursor-pointer">
+                    REGISTER
+                  </button>
+                </Link>
+                <Link href="/submit" onClick={() => setIsMobileMenuOpen(false)}>
+                  <button className="w-full text-center border border-[#00e5ff]/50 bg-[#00e5ff]/10 text-[#00e5ff] text-[10px] sm:text-[11px] font-bold uppercase tracking-widest py-2 rounded-full cursor-pointer">
+                    SUBMISSION
+                  </button>
+                </Link>
+              </div>
             </div>
           </div>
         </div>

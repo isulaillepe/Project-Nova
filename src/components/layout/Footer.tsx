@@ -47,9 +47,8 @@ const contactInfo = [
 export function Footer() {
   const pathname = usePathname();
 
-  // Hide the global layout footer on the homepage, since the homepage uses a
-  // scroll-driven custom footer within the FAQ sticky register section.
-  if (pathname === "/" || pathname === "/register") {
+  // Hide the global layout footer on homepage, register, and submit portal pages
+  if (pathname === "/" || pathname === "/register" || pathname.startsWith("/submit")) {
     return null;
   }
 

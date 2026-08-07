@@ -25,20 +25,21 @@ import {
 export function ProposalPortal() {
   const searchParams = useSearchParams();
   const categoryParam = searchParams.get("category") || "university";
-  const tierName = categoryParam === "school" ? "Project Nova Jr. 1.0" : "Project Nova 1.0";
+  const tierName = categoryParam === "school" ? "Project Nova Jr." : "Project Nova";
 
   // Step State: 1 = IDENTIFY, 2 = VERIFY, 3 = UPLOAD, 4 = SUCCESS
   const [currentStep, setCurrentStep] = React.useState<number>(1);
 
   // Form State
   const [email, setEmail] = React.useState("");
-  const [teamName, setTeamName] = React.useState("Team Isula");
-  const [leaderName, setLeaderName] = React.useState("Isula Illeperuma");
+  const [teamName, setTeamName] = React.useState("");
+  const [leaderName, setLeaderName] = React.useState("");
 
-  // OTP State
-  const [otp, setOtp] = React.useState<string[]>(["", "", "", "", "", ""]);
+  // OTP State - single string instead of array for better performance
+  const [otp, setOtp] = React.useState("");
   const otpInputsRef = React.useRef<(HTMLInputElement | null)[]>([]);
-  const [timerSeconds, setTimerSeconds] = React.useState<number>(55);
+  const [timerSeconds, setTimerSeconds] = React.useState<number>(60);
+  const timerIntervalRef = React.useRef<NodeJS.Timeout | null>(null);
 
   // Upload State
   const [youtubeUrl, setYoutubeUrl] = React.useState("");
@@ -51,72 +52,84 @@ export function ProposalPortal() {
   const [errorMessage, setErrorMessage] = React.useState("");
   const [submissionId, setSubmissionId] = React.useState("");
   const [submissionTimestamp, setSubmissionTimestamp] = React.useState("");
+  const [driveFileUrl, setDriveFileUrl] = React.useState("");
 
-  // OTP Resend Countdown Timer
+  // OTP Resend Countdown Timer - fixed stale closure bug
   React.useEffect(() => {
-    let interval: NodeJS.Timeout;
     if (currentStep === 2 && timerSeconds > 0) {
-      interval = setInterval(() => {
-        setTimerSeconds((prev) => prev - 1);
+      timerIntervalRef.current = setInterval(() => {
+        setTimerSeconds((prev) => {
+          if (prev <= 1) {
+            if (timerIntervalRef.current) {
+              clearInterval(timerIntervalRef.current);
+              timerIntervalRef.current = null;
+            }
+            return 0;
+          }
+          return prev - 1;
+        });
       }, 1000);
+    } else if (timerIntervalRef.current) {
+      clearInterval(timerIntervalRef.current);
+      timerIntervalRef.current = null;
     }
-    return () => clearInterval(interval);
-  }, [currentStep, timerSeconds]);
+    return () => {
+      if (timerIntervalRef.current) {
+        clearInterval(timerIntervalRef.current);
+        timerIntervalRef.current = null;
+      }
+    };
+  }, [currentStep]);
 
-  // Handle Step 1: Send Verification Code
-  const handleSendCode = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setErrorMessage("");
-
-    if (!email || !email.includes("@")) {
+  // Core verification code sending logic (extracted from handleSendCode for reuse)
+  const sendVerificationCode = async (emailToVerify: string) => {
+    const cleanEmail = emailToVerify.trim().toLowerCase();
+    if (!cleanEmail || !cleanEmail.includes("@")) {
       setErrorMessage("Please enter a valid registered email address.");
-      return;
+      return false;
     }
 
     setIsLoading(true);
+    setErrorMessage("");
 
     try {
-      const appsScriptUrl = process.env.NEXT_PUBLIC_APPS_SCRIPT_URL;
-      
-      if (appsScriptUrl) {
-        const response = await fetch(appsScriptUrl, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ action: "VERIFY_EMAIL", email: email }),
-        });
-        const resData = await response.json();
-        
-        if (resData.success) {
-          if (resData.teamName) setTeamName(resData.teamName);
-          if (resData.leaderName) setLeaderName(resData.leaderName);
-          setCurrentStep(2);
-          setTimerSeconds(55);
-        } else {
-          setErrorMessage(resData.error || "Email not found in registered teams list.");
-        }
-      } else {
-        // Fallback for demonstration / local testing without backend configured yet
-        await new Promise((r) => setTimeout(r, 800));
-        const extractedName = email.split("@")[0].replace(/[^a-zA-Z]/g, "");
-        const formattedName = extractedName ? extractedName.charAt(0).toUpperCase() + extractedName.slice(1) : "Isula";
-        setTeamName(`Team ${formattedName}`);
-        setLeaderName(`${formattedName} Illeperuma`);
+      const response = await fetch("/api/proposal", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "VERIFY_EMAIL", email: cleanEmail }),
+      });
+
+      const resData = await response.json();
+
+      if (resData.success) {
+        if (resData.teamName) setTeamName(resData.teamName);
+        if (resData.leaderName) setLeaderName(resData.leaderName);
         setCurrentStep(2);
-        setTimerSeconds(55);
+        setTimerSeconds(60);
+        return true;
+      } else {
+        setErrorMessage(resData.error || "Email address not found in registered teams list.");
+        return false;
       }
     } catch (err) {
-      setErrorMessage("Failed to send verification code. Please try again.");
+      console.error("Verification code dispatch failed:", err);
+      setErrorMessage("Failed to send verification code. Please check your connection and try again.");
+      return false;
     } finally {
       setIsLoading(false);
     }
   };
 
+  // Handle Step 1: Send Verification Code
+  const handleSendCode = async (e: React.FormEvent) => {
+    e.preventDefault();
+    await sendVerificationCode(email);
+  };
+
   // Handle OTP Inputs
   const handleOtpChange = (index: number, value: string) => {
     if (/[^0-9]/.test(value)) return;
-    const newOtp = [...otp];
-    newOtp[index] = value;
-    setOtp(newOtp);
+    setOtp((prev) => prev.slice(0, index) + value + prev.slice(index + 1));
 
     // Auto-focus next box
     if (value && index < 5) {
@@ -134,8 +147,7 @@ export function ProposalPortal() {
     e.preventDefault();
     const pastedData = e.clipboardData.getData("text").trim();
     if (/^\d{6}$/.test(pastedData)) {
-      const digits = pastedData.split("");
-      setOtp(digits);
+      setOtp(pastedData);
       otpInputsRef.current[5]?.focus();
     }
   };
@@ -145,7 +157,7 @@ export function ProposalPortal() {
     e.preventDefault();
     setErrorMessage("");
 
-    const fullOtp = otp.join("");
+    const fullOtp = otp.trim();
     if (fullOtp.length < 6) {
       setErrorMessage("Please enter the complete 6-digit OTP code.");
       return;
@@ -154,28 +166,24 @@ export function ProposalPortal() {
     setIsLoading(true);
 
     try {
-      const appsScriptUrl = process.env.NEXT_PUBLIC_APPS_SCRIPT_URL;
+      const response = await fetch("/api/proposal", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "VERIFY_OTP", email: email.trim().toLowerCase(), otp: fullOtp }),
+      });
 
-      if (appsScriptUrl) {
-        const response = await fetch(appsScriptUrl, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ action: "VERIFY_OTP", email: email, otp: fullOtp }),
-        });
-        const resData = await response.json();
+      const resData = await response.json();
 
-        if (resData.success) {
-          setCurrentStep(3);
-        } else {
-          setErrorMessage(resData.error || "Invalid OTP code.");
-        }
-      } else {
-        // Fallback demo
-        await new Promise((r) => setTimeout(r, 600));
+      if (resData.success) {
+        if (resData.teamName) setTeamName(resData.teamName);
+        if (resData.leaderName) setLeaderName(resData.leaderName);
         setCurrentStep(3);
+      } else {
+        setErrorMessage(resData.error || "Invalid OTP code.");
       }
     } catch (err) {
-      setErrorMessage("Verification failed. Please try again.");
+      console.error("OTP verification failed:", err);
+      setErrorMessage("Verification failed. Please check your connection and try again.");
     } finally {
       setIsLoading(false);
     }
@@ -187,8 +195,8 @@ export function ProposalPortal() {
       setErrorMessage("Only PDF format files are allowed.");
       return;
     }
-    if (file.size > 50 * 1024 * 1024) {
-      setErrorMessage("File capacity should not exceed 50 MB.");
+    if (file.size > 15 * 1024 * 1024) {
+      setErrorMessage("File capacity should not exceed 15 MB.");
       return;
     }
 
@@ -198,7 +206,14 @@ export function ProposalPortal() {
     const reader = new FileReader();
     reader.onload = () => {
       const result = reader.result as string;
-      const base64Str = result.split(",")[1];
+      // Robust base64 extraction - handles both data URLs and raw base64
+      let base64Str = result;
+      if (result.startsWith("data:")) {
+        const commaIndex = result.indexOf(",");
+        if (commaIndex !== -1) {
+          base64Str = result.slice(commaIndex + 1);
+        }
+      }
       setPdfBase64(base64Str);
     };
     reader.readAsDataURL(file);
@@ -228,12 +243,14 @@ export function ProposalPortal() {
     e.preventDefault();
     setErrorMessage("");
 
-    if (!youtubeUrl || !youtubeUrl.includes("youtube.com") && !youtubeUrl.includes("youtu.be")) {
+    const cleanYoutubeUrl = youtubeUrl.trim();
+    const youtubeRegex = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/.+/;
+    if (!cleanYoutubeUrl || !youtubeRegex.test(cleanYoutubeUrl)) {
       setErrorMessage("Please enter a valid YouTube video link (e.g. https://www.youtube.com/watch?v=...).");
       return;
     }
 
-    if (!pdfFile) {
+    if (!pdfFile || !pdfBase64) {
       setErrorMessage("Please select or upload your proposal PDF document.");
       return;
     }
@@ -241,37 +258,31 @@ export function ProposalPortal() {
     setIsLoading(true);
 
     try {
-      const appsScriptUrl = process.env.NEXT_PUBLIC_APPS_SCRIPT_URL;
+      const response = await fetch("/api/proposal", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          action: "SUBMIT_PROPOSAL",
+          email: email.trim().toLowerCase(),
+          youtubeUrl: youtubeUrl.trim(),
+          fileBase64: pdfBase64,
+          fileName: pdfFile.name,
+        }),
+      });
 
-      if (appsScriptUrl && pdfBase64) {
-        const response = await fetch(appsScriptUrl, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            action: "SUBMIT_PROPOSAL",
-            email: email,
-            youtubeUrl: youtubeUrl,
-            fileBase64: pdfBase64,
-          }),
-        });
-        const resData = await response.json();
+      const resData = await response.json();
 
-        if (resData.success) {
-          setSubmissionId(resData.submissionId || `NOVA-SUB-${Math.floor(100000 + Math.random() * 900000)}`);
-          setSubmissionTimestamp(resData.timestamp || new Date().toLocaleString());
-          setCurrentStep(4);
-        } else {
-          setErrorMessage(resData.error || "Submission failed.");
-        }
-      } else {
-        // Fallback demo submission
-        await new Promise((r) => setTimeout(r, 1200));
-        setSubmissionId(`NOVA-SUB-${Math.floor(100000 + Math.random() * 900000)}`);
-        setSubmissionTimestamp(new Date().toLocaleString());
+      if (resData.success) {
+        setSubmissionId(resData.submissionId || `NOVA-SUB-${Math.floor(100000 + Math.random() * 900000)}`);
+        setSubmissionTimestamp(resData.timestamp || new Date().toLocaleString());
+        if (resData.fileUrl) setDriveFileUrl(resData.fileUrl);
         setCurrentStep(4);
+      } else {
+        setErrorMessage(resData.error || "Submission failed.");
       }
     } catch (err) {
-      setErrorMessage("Submission failed. Please try again.");
+      console.error("Submission failed:", err);
+      setErrorMessage("Submission failed due to a network error. Please try again.");
     } finally {
       setIsLoading(false);
     }
@@ -447,7 +458,7 @@ export function ProposalPortal() {
 
                   {/* 6 Digit Inputs matching screenshot 3 */}
                   <div className="flex items-center justify-center gap-2 sm:gap-3 py-4">
-                    {otp.map((digit, index) => (
+                    {Array.from({ length: 6 }, (_, index) => (
                       <input
                         key={index}
                         ref={(el) => {
@@ -455,7 +466,7 @@ export function ProposalPortal() {
                         }}
                         type="text"
                         maxLength={1}
-                        value={digit}
+                        value={otp[index] || ""}
                         onChange={(e) => handleOtpChange(index, e.target.value)}
                         onKeyDown={(e) => handleOtpKeyDown(index, e)}
                         onPaste={handleOtpPaste}
@@ -497,8 +508,8 @@ export function ProposalPortal() {
                         <button
                           type="button"
                           onClick={() => {
-                            setTimerSeconds(55);
-                            handleSendCode({ preventDefault: () => {} } as any);
+                            setTimerSeconds(60);
+                            sendVerificationCode(email);
                           }}
                           className="text-[#00e5ff] underline font-bold uppercase cursor-pointer"
                         >
@@ -534,7 +545,6 @@ export function ProposalPortal() {
                     </label>
                     <input
                       type="url"
-                      required
                       value={youtubeUrl}
                       onChange={(e) => setYoutubeUrl(e.target.value)}
                       placeholder="https://www.youtube.com/watch?v=..."
@@ -584,7 +594,7 @@ export function ProposalPortal() {
                         <div className="flex flex-col items-center gap-2">
                           <FileUp className="h-10 w-10 text-[#00e5ff]" />
                           <span className="text-xs font-bold text-white">Click or drag PDF file here</span>
-                          <span className="text-[10px] text-[#a0aec0]">Maximum size 50MB</span>
+                          <span className="text-[10px] text-[#a0aec0]">Maximum size 15MB</span>
                         </div>
                       )}
                     </div>
@@ -651,10 +661,33 @@ export function ProposalPortal() {
                       <span className="text-[#a0aec0]">TEAM LEADER:</span>
                       <span className="font-bold text-white">{leaderName}</span>
                     </div>
+                    {youtubeUrl && (
+                      <div className="flex items-center justify-between border-b border-[#003885]/60 pb-3">
+                        <span className="text-[#a0aec0]">YOUTUBE LINK:</span>
+                        <a href={youtubeUrl} target="_blank" rel="noreferrer" className="text-[#00e5ff] underline truncate max-w-[200px]">
+                          {youtubeUrl}
+                        </a>
+                      </div>
+                    )}
+                    {driveFileUrl && (
+                      <div className="flex items-center justify-between border-b border-[#003885]/60 pb-3">
+                        <span className="text-[#a0aec0]">DRIVE PROPOSAL PDF:</span>
+                        <a href={driveFileUrl} target="_blank" rel="noreferrer" className="text-[#00e5ff] underline flex items-center gap-1 font-bold">
+                          <span>View in Drive</span>
+                          <ExternalLink className="h-3 w-3" />
+                        </a>
+                      </div>
+                    )}
                     <div className="flex items-center justify-between border-b border-[#003885]/60 pb-3">
-                      <span className="text-[#a0aec0]">YOUTUBE LINK:</span>
-                      <a href={youtubeUrl} target="_blank" rel="noreferrer" className="text-[#00e5ff] underline truncate max-w-[200px]">
-                        {youtubeUrl}
+                      <span className="text-[#a0aec0]">SUBMISSION DESTINATION FOLDER:</span>
+                      <a
+                        href="https://drive.google.com/drive/folders/1QVNh76dTlw4PcV7ZLpZyNxfAzZ3XBi0w?usp=sharing"
+                        target="_blank"
+                        rel="noreferrer"
+                        className="text-[#00e5ff] underline flex items-center gap-1 font-bold"
+                      >
+                        <span>Open Drive Folder</span>
+                        <ExternalLink className="h-3 w-3" />
                       </a>
                     </div>
                     <div className="flex items-center justify-between">
@@ -663,9 +696,19 @@ export function ProposalPortal() {
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-center gap-4 pt-4">
-                    <Link href="/submit">
-                      <button className="border border-[#003885] hover:border-[#00e5ff] bg-[#00173d] text-white text-xs font-bold uppercase tracking-widest px-6 py-3.5 rounded-xl transition-all cursor-pointer">
+                  <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+                    <a
+                      href="https://drive.google.com/drive/folders/1QVNh76dTlw4PcV7ZLpZyNxfAzZ3XBi0w?usp=sharing"
+                      target="_blank"
+                      rel="noreferrer"
+                      className="w-full sm:w-auto border border-[#00e5ff]/60 hover:border-[#00e5ff] bg-[#00e5ff]/10 hover:bg-[#00e5ff]/20 text-[#00e5ff] text-xs font-bold uppercase tracking-widest px-6 py-3.5 rounded-xl transition-all cursor-pointer flex items-center justify-center gap-2"
+                    >
+                      <span>VIEW GOOGLE DRIVE FOLDER</span>
+                      <ExternalLink className="h-4 w-4" />
+                    </a>
+
+                    <Link href="/submit" className="w-full sm:w-auto">
+                      <button className="w-full sm:w-auto border border-[#003885] hover:border-[#00e5ff] bg-[#00173d] text-white text-xs font-bold uppercase tracking-widest px-6 py-3.5 rounded-xl transition-all cursor-pointer">
                         RETURN TO HUB
                       </button>
                     </Link>
@@ -745,12 +788,13 @@ export function ProposalPortal() {
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-[#00e5ff] font-bold">•</span>
-                  <span>File capacity should not exceed <strong className="text-white">50 MB</strong>.</span>
+                  <span>File capacity should not exceed <strong className="text-white">15 MB</strong>.</span>
                 </li>
-                <li className="flex items-start gap-2">
+
+                {/* <li className="flex items-start gap-2">
                   <span className="text-[#00e5ff] font-bold">•</span>
                   <span>YouTube URLs must be valid and viewable (<strong className="text-white">Public or Unlisted</strong>).</span>
-                </li>
+                </li> */}
                 <li className="flex items-start gap-2">
                   <span className="text-[#00e5ff] font-bold">•</span>
                   <span>Submissions can be updated/overwritten if submitted again before the deadline.</span>

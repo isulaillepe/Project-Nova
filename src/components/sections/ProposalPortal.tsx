@@ -7,6 +7,7 @@ import { useSearchParams } from "next/navigation";
 import {
   ArrowLeft,
   ArrowRight,
+  Home,
   CheckCircle2,
   Upload,
   UserCheck,
@@ -290,13 +291,20 @@ export function ProposalPortal() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
         
         {/* Top Header Row */}
-        <div className="mb-6 flex items-center justify-between">
+        <div className="mb-6 flex items-center justify-between flex-wrap gap-3">
           <Link
             href="/submit"
             className="inline-flex items-center gap-2 border border-[#003885]/60 hover:border-[#00e5ff]/60 bg-[#00173d]/60 hover:bg-[#002259] text-xs font-bold uppercase tracking-widest text-[#cbd5e0] hover:text-[#00e5ff] px-4 py-2 rounded-full backdrop-blur-md transition-all cursor-pointer shadow-[0_0_15px_rgba(0,0,0,0.4)]"
           >
             <ArrowLeft className="h-4 w-4" />
             <span>BACK TO HUB</span>
+          </Link>
+          <Link
+            href="/"
+            className="inline-flex items-center gap-2 border border-[#003885]/60 hover:border-[#00e5ff]/60 bg-[#00173d]/60 hover:bg-[#002259] text-xs font-bold uppercase tracking-widest text-[#cbd5e0] hover:text-[#00e5ff] px-4 py-2 rounded-full backdrop-blur-md transition-all cursor-pointer shadow-[0_0_15px_rgba(0,0,0,0.4)]"
+          >
+            <Home className="h-4 w-4" />
+            <span>GO TO HOMEPAGE</span>
           </Link>
         </div>
 

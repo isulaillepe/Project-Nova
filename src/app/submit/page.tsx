@@ -20,6 +20,24 @@ const ArrowRightIcon = () => (
   </svg>
 );
 
+const HomeIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="16"
+    height="16"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className="h-4 w-4"
+  >
+    <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+    <polyline points="9 22 9 12 15 12 15 22" />
+  </svg>
+);
+
 export default function CategorySelectionPage() {
   return (
     <div className="relative min-h-screen bg-[#000d21] text-[#f7fafc] flex flex-col justify-between overflow-x-hidden font-space select-none">
@@ -28,6 +46,30 @@ export default function CategorySelectionPage() {
         className="absolute inset-0 bg-[linear-gradient(to_right,#0a254015_1px,transparent_1px),linear-gradient(to_bottom,#0a254015_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none"
       />
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-[radial-gradient(circle_at_center,rgba(0,229,255,0.08)_0%,rgba(0,53,153,0.05)_50%,transparent_70%)] blur-3xl pointer-events-none" />
+
+      {/* Top Header Navigation */}
+      <header className="w-full z-20 px-4 sm:px-8 py-6 flex items-center justify-between max-w-7xl mx-auto">
+        <Link
+          href="/"
+          aria-label="Project Nova Home"
+          className="flex items-center gap-3 group cursor-pointer"
+        >
+          <Image
+            src="/images/project_nova_logo.png"
+            alt="Project Nova"
+            width={160}
+            height={32}
+            className="h-8 w-auto object-contain filter drop-shadow-[0_0_12px_rgba(255,184,27,0.4)] group-hover:scale-105 transition-transform"
+          />
+        </Link>
+        <Link
+          href="/"
+          className="inline-flex items-center gap-2 border border-[#003885]/60 hover:border-[#00e5ff]/60 bg-[#00173d]/60 hover:bg-[#002259] text-xs font-bold uppercase tracking-widest text-[#cbd5e0] hover:text-[#00e5ff] px-4 py-2 rounded-full backdrop-blur-md transition-all cursor-pointer shadow-[0_0_15px_rgba(0,0,0,0.4)] group"
+        >
+          <HomeIcon />
+          <span>GO TO HOMEPAGE</span>
+        </Link>
+      </header>
 
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col items-center justify-center px-4 py-16 sm:px-6 lg:px-8 z-10">

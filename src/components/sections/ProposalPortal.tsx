@@ -738,7 +738,7 @@ export function ProposalPortal() {
                 Submission Portal
               </h2>
               <p className="text-xs text-[#a0aec0] leading-relaxed font-sans">
-                Welcome to the {tierName} Proposal Submission panel. Ensure that you upload the complete, finalized project blueprint document in PDF format along with your YouTube pitch video link.
+                Welcome to the {tierName} Proposal Submission panel. Ensure that you upload the complete, finalized project blueprint document in PDF.
               </p>
             </div>
 
@@ -755,13 +755,13 @@ export function ProposalPortal() {
                   <span>📌 Important Note:</span>
                 </div>
                 <p className="text-[11px] leading-normal text-red-300/90">
-                  This proposal template is a view-only Google Doc. Please make a copy to your own Google Account (<span className="font-bold">File → Make a copy</span>) to edit your document.
+                  This proposal template is hosted on Canva. You can view and use the design preview as a guide for your proposal.
                 </p>
               </div>
 
               {/* Download/View Template Button */}
               <a
-                href="https://drive.google.com/drive/folders/1QVNh76dTlw4PcV7ZLpZyNxfAzZ3XBi0w?usp=sharing"
+                href="https://www.canva.com/design/DAHRQVe6Z6s/hxuD8RdqyIJhidSDu_42Nw/view?mode=preview&utm_campaign=designshare&utm_content=DAHRQVe6Z6s&utm_medium=link&utm_source=publishsharelink"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full group bg-gradient-to-r from-[#00a8ff] to-[#0070f3] hover:brightness-110 text-white font-bold text-xs uppercase tracking-wider py-3.5 px-5 rounded-2xl shadow-[0_0_20px_rgba(0,168,255,0.3)] transition-all cursor-pointer flex items-center justify-between font-space"

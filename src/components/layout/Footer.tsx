@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Mail, MapPin, Phone } from "lucide-react";
 import { FaFacebookF, FaInstagram, FaWhatsapp } from "react-icons/fa";
@@ -57,13 +58,14 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 xl:px-10">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-6">
           <div className="lg:col-span-2">
-            <Link href="/" className="flex items-center gap-3 font-bold text-xl text-[#f7fafc]">
-              <div className="flex items-center gap-2 select-none">
-                <svg className="h-7 w-auto text-[#ffb81b]" viewBox="0 0 24 36" fill="currentColor">
-                  <path d="M12 0C7.58 0 4 3.58 4 8c0 3.31 2.03 6.14 4.9 7.37L8 16.5c0 .28.22.5.5.5h2v6H6.5c-.28 0-.5.22-.5.5v2c0 .28.22.5.5.5H10.5v10c0 .28.22.5.5.5h2c.28 0 .5-.22.5-.5V26h4c.28 0 .5-.22.5-.5v-2c0-.28-.22-.5-.5-.5H13.5v-6h2c.28 0 .5-.22.5-.5l-.9-1.13C17.97 14.14 20 11.31 20 8c0-4.42-3.58-8-8-8zm0 13c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z" />
-                </svg>
-                <span className="font-cinzel font-bold text-xl tracking-[0.18em]">NOVA</span>
-              </div>
+            <Link href="/" className="flex items-center font-bold text-xl text-[#f7fafc]">
+              <Image
+                src="/images/project_nova_logo.png"
+                alt="Project Nova"
+                width={160}
+                height={32}
+                className="h-8 w-auto object-contain filter drop-shadow-[0_0_12px_rgba(255,184,27,0.4)]"
+              />
             </Link>
             <p className="mt-4 max-w-xs text-[#cbd5e0] text-sm leading-relaxed">
               A dynamic tech-based event designed for school and university students, creating a platform

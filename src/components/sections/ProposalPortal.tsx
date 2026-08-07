@@ -13,7 +13,6 @@ import {
   ShieldCheck,
   FileText,
   ExternalLink,
-  Video,
   FileUp,
   AlertCircle,
   Loader2,
@@ -42,7 +41,7 @@ export function ProposalPortal() {
   const timerIntervalRef = React.useRef<NodeJS.Timeout | null>(null);
 
   // Upload State
-  const [youtubeUrl, setYoutubeUrl] = React.useState("");
+  // const [youtubeUrl, setYoutubeUrl] = React.useState(""); // Commented out - YouTube not needed
   const [pdfFile, setPdfFile] = React.useState<File | null>(null);
   const [pdfBase64, setPdfBase64] = React.useState<string>("");
   const [dragActive, setDragActive] = React.useState(false);
@@ -243,13 +242,6 @@ export function ProposalPortal() {
     e.preventDefault();
     setErrorMessage("");
 
-    const cleanYoutubeUrl = youtubeUrl.trim();
-    const youtubeRegex = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/.+/;
-    if (!cleanYoutubeUrl || !youtubeRegex.test(cleanYoutubeUrl)) {
-      setErrorMessage("Please enter a valid YouTube video link (e.g. https://www.youtube.com/watch?v=...).");
-      return;
-    }
-
     if (!pdfFile || !pdfBase64) {
       setErrorMessage("Please select or upload your proposal PDF document.");
       return;
@@ -264,7 +256,7 @@ export function ProposalPortal() {
         body: JSON.stringify({
           action: "SUBMIT_PROPOSAL",
           email: email.trim().toLowerCase(),
-          youtubeUrl: youtubeUrl.trim(),
+          youtubeUrl: "",
           fileBase64: pdfBase64,
           fileName: pdfFile.name,
         }),
@@ -537,8 +529,8 @@ export function ProposalPortal() {
                     </p>
                   </div>
 
-                  {/* YouTube Video Link Input */}
-                  <div className="space-y-2">
+                  {/* YouTube Video Link Input (Commented Out) */}
+                  {/* <div className="space-y-2">
                     <label className="text-[11px] font-bold uppercase tracking-widest text-[#a0aec0] block font-space flex items-center gap-2">
                       <Video className="h-4 w-4 text-[#00e5ff]" />
                       <span>YOUTUBE VIDEO LINK</span>
@@ -553,7 +545,7 @@ export function ProposalPortal() {
                     <p className="text-[10px] text-[#a0aec0]">
                       Provide the link to your project demonstration video. Ensure it is set to Public or Unlisted.
                     </p>
-                  </div>
+                  </div> */}
 
                   {/* Proposal PDF Drag & Drop Zone matching screenshot 4 */}
                   <div className="space-y-2">
@@ -661,14 +653,14 @@ export function ProposalPortal() {
                       <span className="text-[#a0aec0]">TEAM LEADER:</span>
                       <span className="font-bold text-white">{leaderName}</span>
                     </div>
-                    {youtubeUrl && (
+                    {/* {youtubeUrl && (
                       <div className="flex items-center justify-between border-b border-[#003885]/60 pb-3">
                         <span className="text-[#a0aec0]">YOUTUBE LINK:</span>
                         <a href={youtubeUrl} target="_blank" rel="noreferrer" className="text-[#00e5ff] underline truncate max-w-[200px]">
                           {youtubeUrl}
                         </a>
                       </div>
-                    )}
+                    )} */}
                     {driveFileUrl && (
                       <div className="flex items-center justify-between border-b border-[#003885]/60 pb-3">
                         <span className="text-[#a0aec0]">DRIVE PROPOSAL PDF:</span>

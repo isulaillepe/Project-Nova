@@ -532,9 +532,11 @@ export function ProposalPortal() {
                     <h3 className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-[#00e5ff] to-white font-space">
                       {teamName}
                     </h3>
-                    {/* <p className="text-xs text-[#a0aec0]">
-                      Submitter: <span className="text-white font-semibold">{leaderName} (Leader)</span>
-                    </p> */}
+                    {email && (
+                      <p className="text-xs text-[#a0aec0]">
+                        Submitter Email: <span className="text-white font-semibold">{email}</span>
+                      </p>
+                    )}
                   </div>
 
                   {/* YouTube Video Link Input (Commented Out) */}

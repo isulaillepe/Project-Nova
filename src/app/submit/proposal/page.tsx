@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Proposal Submission - Project Nova",
-  description: "Upload your finalized project blueprint PDF document for Project Nova.",
+  description: "Submit your finalized Canva proposal design link for Project Nova.",
 };
 
 export default function ProposalPage() {

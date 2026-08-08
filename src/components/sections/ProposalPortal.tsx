@@ -42,10 +42,13 @@ export function ProposalPortal() {
   const timerIntervalRef = React.useRef<NodeJS.Timeout | null>(null);
 
   // Upload State
-  // const [youtubeUrl, setYoutubeUrl] = React.useState(""); // Commented out - YouTube not needed
-  const [pdfFile, setPdfFile] = React.useState<File | null>(null);
-  const [pdfBase64, setPdfBase64] = React.useState<string>("");
-  const [dragActive, setDragActive] = React.useState(false);
+  // const [youtubeUrl, setYoutubeUrl] = React.useState(""); // Commented out - YouTube link not needed
+  // Google Drive PDF Upload State (Commented out - changed to Canva link submission)
+  // const [pdfFile, setPdfFile] = React.useState<File | null>(null);
+  // const [pdfBase64, setPdfBase64] = React.useState<string>("");
+  // const [dragActive, setDragActive] = React.useState(false);
+  const [canvaUrl, setCanvaUrl] = React.useState("");
+  const [submittedCanvaUrl, setSubmittedCanvaUrl] = React.useState("");
 
   // Status & API State
   const [isLoading, setIsLoading] = React.useState(false);
@@ -189,7 +192,22 @@ export function ProposalPortal() {
     }
   };
 
-  // Handle File Drag & Drop & Base64 Encoding
+  // Canva URL validation helper (supports standard canva.com/design/... & short links canva.link/...)
+  const isValidCanvaUrl = (url: string) => {
+    const clean = url.trim().toLowerCase();
+    if (!clean) return false;
+    return (
+      clean.includes("canva.com/") ||
+      clean.includes("canva.link/") ||
+      clean.startsWith("https://www.canva.com") ||
+      clean.startsWith("https://canva.com") ||
+      clean.startsWith("https://canva.link") ||
+      clean.startsWith("http://canva.link")
+    );
+  };
+
+  /*
+  // Handle File Drag & Drop & Base64 Encoding (Commented out - PDF submission disabled in favor of Canva link)
   const handleFile = (file: File) => {
     if (file.type !== "application/pdf") {
       setErrorMessage("Only PDF format files are allowed.");
@@ -206,7 +224,6 @@ export function ProposalPortal() {
     const reader = new FileReader();
     reader.onload = () => {
       const result = reader.result as string;
-      // Robust base64 extraction - handles both data URLs and raw base64
       let base64Str = result;
       if (result.startsWith("data:")) {
         const commaIndex = result.indexOf(",");
@@ -237,14 +254,21 @@ export function ProposalPortal() {
       handleFile(e.dataTransfer.files[0]);
     }
   };
+  */
 
-  // Handle Step 3: Final Upload & Submission
+  // Handle Step 3: Final Upload & Submission (Canva Design Link)
   const handleSubmitProposal = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMessage("");
 
-    if (!pdfFile || !pdfBase64) {
-      setErrorMessage("Please select or upload your proposal PDF document.");
+    const cleanCanvaUrl = canvaUrl.trim();
+    if (!cleanCanvaUrl) {
+      setErrorMessage("Please enter your Canva proposal design link.");
+      return;
+    }
+
+    if (!isValidCanvaUrl(cleanCanvaUrl)) {
+      setErrorMessage("Invalid Canva link format. Please provide a valid Canva URL (e.g. https://www.canva.com/design/... or https://canva.link/...).");
       return;
     }
 
@@ -257,9 +281,11 @@ export function ProposalPortal() {
         body: JSON.stringify({
           action: "SUBMIT_PROPOSAL",
           email: email.trim().toLowerCase(),
-          youtubeUrl: "",
-          fileBase64: pdfBase64,
-          fileName: pdfFile.name,
+          canvaUrl: cleanCanvaUrl,
+          youtubeUrl: cleanCanvaUrl, // Passed for backward compatibility
+          fileUrl: cleanCanvaUrl,    // Passed for backward compatibility
+          fileBase64: "",
+          fileName: "Canva_Proposal_Link",
         }),
       });
 
@@ -268,6 +294,7 @@ export function ProposalPortal() {
       if (resData.success) {
         setSubmissionId(resData.submissionId || `NOVA-SUB-${Math.floor(100000 + Math.random() * 900000)}`);
         setSubmissionTimestamp(resData.timestamp || new Date().toLocaleString());
+        setSubmittedCanvaUrl(cleanCanvaUrl);
         if (resData.fileUrl) setDriveFileUrl(resData.fileUrl);
         setCurrentStep(4);
       } else {
@@ -312,14 +339,14 @@ export function ProposalPortal() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
           
           {/* LEFT PANEL: Multi-step Form (7 Cols on desktop) */}
-          <div className="lg:col-span-7 bg-[#001433]/80 border border-[#003885]/50 rounded-3xl p-6 sm:p-10 backdrop-blur-xl shadow-[0_10px_40px_rgba(0,0,0,0.6)] flex flex-col justify-between min-h-[620px]">
+          <div className="lg:col-span-7 bg-white border border-gray-200 rounded-3xl p-6 sm:p-10 backdrop-blur-xl shadow-xl flex flex-col justify-between min-h-[620px]">
             <div>
               {/* Title & Category Subtitle */}
               <div className="text-center mb-8">
-                <h1 className="text-2xl sm:text-4xl font-black text-white uppercase tracking-wider font-space">
+                <h1 className="text-2xl sm:text-4xl font-black text-black uppercase tracking-wider font-space">
                   {tierName} Proposal
                 </h1>
-                <p className="text-xs sm:text-sm uppercase tracking-[0.25em] text-[#00e5ff] font-bold font-space mt-1">
+                <p className="text-xs sm:text-sm uppercase tracking-[0.25em] text-black font-bold font-space mt-1">
                   PROPOSAL SUBMISSION PORTAL
                 </p>
               </div>
@@ -330,64 +357,60 @@ export function ProposalPortal() {
                 <div className="flex items-center gap-2">
                   <div
                     className={`w-9 h-9 rounded-full flex items-center justify-center text-xs font-black transition-all ${
-                      currentStep > 1
-                        ? "bg-[#00e5ff] text-[#001233] shadow-[0_0_15px_rgba(0,229,255,0.6)]"
-                        : currentStep === 1
-                        ? "bg-[#00e5ff] text-[#001233] shadow-[0_0_20px_rgba(0,229,255,0.8)] ring-4 ring-[#00e5ff]/20"
-                        : "bg-[#002452] text-[#718096] border border-[#003885]"
+                      currentStep >= 1
+                        ? "bg-black text-white shadow-md"
+                        : "bg-gray-100 text-gray-400 border border-gray-300"
                     }`}
                   >
-                    {currentStep > 1 ? <CheckCircle2 className="h-5 w-5" /> : "1"}
+                    {currentStep > 1 ? <CheckCircle2 className="h-5 w-5 text-white" /> : "1"}
                   </div>
                   <span
                     className={`text-[10px] sm:text-xs font-bold uppercase tracking-wider ${
-                      currentStep >= 1 ? "text-[#00e5ff]" : "text-[#718096]"
+                      currentStep >= 1 ? "text-black" : "text-gray-400"
                     }`}
                   >
                     IDENTIFY
                   </span>
                 </div>
 
-                <div className={`h-[1px] w-8 sm:w-16 transition-colors ${currentStep > 1 ? "bg-[#00e5ff]" : "bg-[#003885]"}`} />
+                <div className={`h-[1px] w-8 sm:w-16 transition-colors ${currentStep > 1 ? "bg-black" : "bg-gray-200"}`} />
 
                 {/* Step 2 Indicator */}
                 <div className="flex items-center gap-2">
                   <div
                     className={`w-9 h-9 rounded-full flex items-center justify-center text-xs font-black transition-all ${
-                      currentStep > 2
-                        ? "bg-[#00e5ff] text-[#001233] shadow-[0_0_15px_rgba(0,229,255,0.6)]"
-                        : currentStep === 2
-                        ? "bg-[#00e5ff] text-[#001233] shadow-[0_0_20px_rgba(0,229,255,0.8)] ring-4 ring-[#00e5ff]/20"
-                        : "bg-[#002452] text-[#718096] border border-[#003885]"
+                      currentStep >= 2
+                        ? "bg-black text-white shadow-md"
+                        : "bg-gray-100 text-gray-400 border border-gray-300"
                     }`}
                   >
-                    {currentStep > 2 ? <CheckCircle2 className="h-5 w-5" /> : "2"}
+                    {currentStep > 2 ? <CheckCircle2 className="h-5 w-5 text-white" /> : "2"}
                   </div>
                   <span
                     className={`text-[10px] sm:text-xs font-bold uppercase tracking-wider ${
-                      currentStep >= 2 ? "text-[#00e5ff]" : "text-[#718096]"
+                      currentStep >= 2 ? "text-black" : "text-gray-400"
                     }`}
                   >
                     VERIFY
                   </span>
                 </div>
 
-                <div className={`h-[1px] w-8 sm:w-16 transition-colors ${currentStep > 2 ? "bg-[#00e5ff]" : "bg-[#003885]"}`} />
+                <div className={`h-[1px] w-8 sm:w-16 transition-colors ${currentStep > 2 ? "bg-black" : "bg-gray-200"}`} />
 
                 {/* Step 3 Indicator */}
                 <div className="flex items-center gap-2">
                   <div
                     className={`w-9 h-9 rounded-full flex items-center justify-center text-xs font-black transition-all ${
                       currentStep >= 3
-                        ? "bg-[#00e5ff] text-[#001233] shadow-[0_0_20px_rgba(0,229,255,0.8)] ring-4 ring-[#00e5ff]/20"
-                        : "bg-[#002452] text-[#718096] border border-[#003885]"
+                        ? "bg-black text-white shadow-md"
+                        : "bg-gray-100 text-gray-400 border border-gray-300"
                     }`}
                   >
-                    {currentStep === 4 ? <CheckCircle2 className="h-5 w-5" /> : "3"}
+                    {currentStep === 4 ? <CheckCircle2 className="h-5 w-5 text-white" /> : "3"}
                   </div>
                   <span
                     className={`text-[10px] sm:text-xs font-bold uppercase tracking-wider ${
-                      currentStep >= 3 ? "text-[#00e5ff]" : "text-[#718096]"
+                      currentStep >= 3 ? "text-black" : "text-gray-400"
                     }`}
                   >
                     UPLOAD
@@ -397,8 +420,8 @@ export function ProposalPortal() {
 
               {/* Display Error Message Banner */}
               {errorMessage && (
-                <div className="mb-6 p-4 rounded-2xl bg-red-950/60 border border-red-500/40 text-red-300 text-xs flex items-center gap-3 animate-shake">
-                  <AlertCircle className="h-5 w-5 text-red-400 shrink-0" />
+                <div className="mb-6 p-4 rounded-2xl bg-red-50 border border-red-200 text-black text-xs flex items-center gap-3 animate-shake">
+                  <AlertCircle className="h-5 w-5 text-black shrink-0" />
                   <span>{errorMessage}</span>
                 </div>
               )}
@@ -406,13 +429,13 @@ export function ProposalPortal() {
               {/* STEP 1: EMAIL IDENTIFICATION */}
               {currentStep === 1 && (
                 <form onSubmit={handleSendCode} className="space-y-6">
-                  <div className="flex items-center justify-center gap-2 text-sm font-bold uppercase tracking-wider text-[#cbd5e0] mb-4">
-                    <UserCheck className="h-4 w-4 text-[#00e5ff]" />
+                  <div className="flex items-center justify-center gap-2 text-sm font-bold uppercase tracking-wider text-black mb-4">
+                    <UserCheck className="h-4 w-4 text-black" />
                     <span>Email Verification</span>
                   </div>
 
                   <div className="space-y-2">
-                    <label className="text-[11px] font-bold uppercase tracking-widest text-[#a0aec0] block font-space">
+                    <label className="text-[11px] font-bold uppercase tracking-widest text-black block font-space">
                       TEAM LEADER EMAIL ADDRESS
                     </label>
                     <input
@@ -421,9 +444,9 @@ export function ProposalPortal() {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="Enter team leader's registered email address"
-                      className="w-full bg-[#000d21]/80 border border-[#003885]/80 focus:border-[#00e5ff] rounded-2xl px-5 py-4 text-sm text-white placeholder-[#4a5568] outline-none transition-all focus:ring-2 focus:ring-[#00e5ff]/20"
+                      className="w-full bg-gray-50 border border-gray-300 focus:border-black rounded-2xl px-5 py-4 text-sm text-black placeholder-gray-400 outline-none transition-all focus:ring-2 focus:ring-black/10"
                     />
-                    <p className="text-[10px] text-[#a0aec0] mt-1.5 font-sans">
+                    <p className="text-[10px] text-black mt-1.5 font-sans">
                       Only team leaders are authorized to submit proposals on behalf of their team.
                     </p>
                   </div>
@@ -432,10 +455,10 @@ export function ProposalPortal() {
                   <button
                     type="submit"
                     disabled={isLoading}
-                    className="w-full group bg-gradient-to-r from-[#00b0ff] to-[#0080ff] hover:brightness-110 text-white font-black text-sm uppercase tracking-widest py-4 px-6 rounded-2xl shadow-[0_4px_25px_rgba(0,176,255,0.4)] transition-all cursor-pointer flex items-center justify-center gap-2 disabled:opacity-50"
+                    className="w-full group bg-black hover:bg-gray-800 text-white font-black text-sm uppercase tracking-widest py-4 px-6 rounded-2xl shadow-md transition-all cursor-pointer flex items-center justify-center gap-2 disabled:opacity-50"
                   >
                     {isLoading ? (
-                      <Loader2 className="h-5 w-5 animate-spin" />
+                      <Loader2 className="h-5 w-5 animate-spin text-white" />
                     ) : (
                       <>
                         <span>SEND VERIFICATION CODE</span>
@@ -450,12 +473,12 @@ export function ProposalPortal() {
               {currentStep === 2 && (
                 <form onSubmit={handleVerifyCode} className="space-y-6 text-center">
                   <div className="space-y-2">
-                    <h2 className="text-xl font-bold uppercase tracking-wider text-white font-space">
+                    <h2 className="text-xl font-bold uppercase tracking-wider text-black font-space">
                       Verify Your Email
                     </h2>
-                    <p className="text-xs text-[#a0aec0]">
+                    <p className="text-xs text-black">
                       A 6-digit OTP code has been sent to{" "}
-                      <span className="font-bold text-white">{email}</span>.
+                      <span className="font-bold text-black">{email}</span>.
                     </p>
                   </div>
 
@@ -473,7 +496,7 @@ export function ProposalPortal() {
                         onChange={(e) => handleOtpChange(index, e.target.value)}
                         onKeyDown={(e) => handleOtpKeyDown(index, e)}
                         onPaste={handleOtpPaste}
-                        className="w-10 h-12 sm:w-12 sm:h-14 bg-[#000d21]/90 border border-[#003885] focus:border-[#00e5ff] rounded-xl text-center text-xl font-black text-[#00e5ff] outline-none transition-all focus:ring-2 focus:ring-[#00e5ff]/30"
+                        className="w-10 h-12 sm:w-12 sm:h-14 bg-gray-50 border border-gray-300 focus:border-black rounded-xl text-center text-xl font-black text-black outline-none transition-all focus:ring-2 focus:ring-black/20"
                       />
                     ))}
                   </div>
@@ -482,14 +505,14 @@ export function ProposalPortal() {
                   <button
                     type="submit"
                     disabled={isLoading}
-                    className="w-full bg-gradient-to-r from-[#00b0ff] to-[#0080ff] hover:brightness-110 text-white font-black text-sm uppercase tracking-widest py-4 px-6 rounded-2xl shadow-[0_4px_25px_rgba(0,176,255,0.4)] transition-all cursor-pointer flex items-center justify-center gap-2 disabled:opacity-50"
+                    className="w-full bg-black hover:bg-gray-800 text-white font-black text-sm uppercase tracking-widest py-4 px-6 rounded-2xl shadow-md transition-all cursor-pointer flex items-center justify-center gap-2 disabled:opacity-50"
                   >
                     {isLoading ? (
-                      <Loader2 className="h-5 w-5 animate-spin" />
+                      <Loader2 className="h-5 w-5 animate-spin text-white" />
                     ) : (
                       <>
                         <span>VERIFY CODE</span>
-                        <CheckCircle2 className="h-4 w-4" />
+                        <CheckCircle2 className="h-4 w-4 text-white" />
                       </>
                     )}
                   </button>
@@ -499,12 +522,12 @@ export function ProposalPortal() {
                     <button
                       type="button"
                       onClick={() => setCurrentStep(1)}
-                      className="border border-[#003885] hover:border-[#00e5ff]/50 bg-[#001d4a]/50 text-[#cbd5e0] hover:text-white px-4 py-2 rounded-xl uppercase tracking-wider font-bold transition-all"
+                      className="border border-gray-300 hover:border-black bg-gray-100 text-black px-4 py-2 rounded-xl uppercase tracking-wider font-bold transition-all"
                     >
                       EDIT DETAILS
                     </button>
 
-                    <span className="text-[#a0aec0]">
+                    <span className="text-black">
                       {timerSeconds > 0 ? (
                         `Resend OTP in ${timerSeconds}s`
                       ) : (
@@ -514,7 +537,7 @@ export function ProposalPortal() {
                             setTimerSeconds(60);
                             sendVerificationCode(email);
                           }}
-                          className="text-[#00e5ff] underline font-bold uppercase cursor-pointer"
+                          className="text-black underline font-bold uppercase cursor-pointer"
                         >
                           Resend OTP Code
                         </button>
@@ -524,85 +547,44 @@ export function ProposalPortal() {
                 </form>
               )}
 
-              {/* STEP 3: PROPOSAL UPLOAD */}
+              {/* STEP 3: PROPOSAL SUBMISSION (CANVA LINK) */}
               {currentStep === 3 && (
                 <form onSubmit={handleSubmitProposal} className="space-y-6">
-                  {/* Submitter Team Banner matching screenshot 4 */}
-                  <div className="text-center space-y-1 py-2 border-b border-[#003885]/50 pb-4">
-                    <h2 className="text-xs uppercase tracking-widest text-[#a0aec0] font-bold font-space">
-                      Proposal Upload
+                  {/* Submitter Team Banner */}
+                  <div className="text-center space-y-1 py-2 border-b border-gray-200 pb-4">
+                    <h2 className="text-xs uppercase tracking-widest text-black font-bold font-space">
+                      Proposal Submission
                     </h2>
-                    <h3 className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-[#00e5ff] to-white font-space">
+                    <h3 className="text-3xl font-black text-black font-space">
                       {teamName}
                     </h3>
                     {email && (
-                      <p className="text-xs text-[#a0aec0]">
-                        Submitter Email: <span className="text-white font-semibold">{email}</span>
+                      <p className="text-xs text-black">
+                        Submitter Email: <span className="text-black font-semibold">{email}</span>
                       </p>
                     )}
                   </div>
 
-                  {/* YouTube Video Link Input (Commented Out) */}
-                  {/* <div className="space-y-2">
-                    <label className="text-[11px] font-bold uppercase tracking-widest text-[#a0aec0] block font-space flex items-center gap-2">
-                      <Video className="h-4 w-4 text-[#00e5ff]" />
-                      <span>YOUTUBE VIDEO LINK</span>
+                  {/* Canva Proposal Design Link Input */}
+                  <div className="space-y-2">
+                    <label className="text-[11px] font-bold uppercase tracking-widest text-black block font-space flex items-center gap-2">
+                      <ExternalLink className="h-4 w-4 text-black" />
+                      <span>CANVA PROPOSAL DESIGN LINK</span>
                     </label>
                     <input
                       type="url"
-                      value={youtubeUrl}
-                      onChange={(e) => setYoutubeUrl(e.target.value)}
-                      placeholder="https://www.youtube.com/watch?v=..."
-                      className="w-full bg-[#000d21]/80 border border-[#003885]/80 focus:border-[#00e5ff] rounded-2xl px-5 py-3.5 text-sm text-white placeholder-[#4a5568] outline-none transition-all focus:ring-2 focus:ring-[#00e5ff]/20"
+                      required
+                      value={canvaUrl}
+                      onChange={(e) => {
+                        setCanvaUrl(e.target.value);
+                        if (errorMessage) setErrorMessage("");
+                      }}
+                      placeholder="https://www.canva.com/design/... or https://canva.link/..."
+                      className="w-full bg-gray-50 border border-gray-300 focus:border-black rounded-2xl px-5 py-4 text-sm text-black placeholder-gray-400 outline-none transition-all focus:ring-2 focus:ring-black/10 font-sans"
                     />
-                    <p className="text-[10px] text-[#a0aec0]">
-                      Provide the link to your project demonstration video. Ensure it is set to Public or Unlisted.
+                    <p className="text-[10px] text-black font-sans">
+                      Provide the view or edit link to your finalized proposal design on Canva. Ensure sharing permissions allow viewing.
                     </p>
-                  </div> */}
-
-                  {/* Proposal PDF Drag & Drop Zone matching screenshot 4 */}
-                  <div className="space-y-2">
-                    <label className="text-[11px] font-bold uppercase tracking-widest text-[#a0aec0] block font-space flex items-center gap-2">
-                      <FileText className="h-4 w-4 text-[#00e5ff]" />
-                      <span>PROPOSAL DOCUMENT (PDF)</span>
-                    </label>
-
-                    <div
-                      onDragEnter={handleDrag}
-                      onDragLeave={handleDrag}
-                      onDragOver={handleDrag}
-                      onDrop={handleDrop}
-                      className={`relative border-2 border-dashed rounded-2xl p-8 text-center transition-all cursor-pointer flex flex-col items-center justify-center min-h-[160px] ${
-                        dragActive
-                          ? "border-[#00e5ff] bg-[#00e5ff]/10"
-                          : pdfFile
-                          ? "border-[#22c55e] bg-[#22c55e]/10"
-                          : "border-[#003885] bg-[#000d21]/60 hover:border-[#00e5ff]/60"
-                      }`}
-                    >
-                      <input
-                        type="file"
-                        accept="application/pdf"
-                        onChange={(e) => e.target.files && e.target.files[0] && handleFile(e.target.files[0])}
-                        className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
-                      />
-
-                      {pdfFile ? (
-                        <div className="flex flex-col items-center gap-2">
-                          <CheckCircle2 className="h-10 w-10 text-[#22c55e]" />
-                          <span className="text-sm font-bold text-white truncate max-w-xs">{pdfFile.name}</span>
-                          <span className="text-xs text-[#a0aec0]">
-                            {(pdfFile.size / (1024 * 1024)).toFixed(2)} MB · Ready to submit
-                          </span>
-                        </div>
-                      ) : (
-                        <div className="flex flex-col items-center gap-2">
-                          <FileUp className="h-10 w-10 text-[#00e5ff]" />
-                          <span className="text-xs font-bold text-white">Click or drag PDF file here</span>
-                          <span className="text-[10px] text-[#a0aec0]">Maximum size 4.5MB</span>
-                        </div>
-                      )}
-                    </div>
                   </div>
 
                   {/* Buttons Row */}
@@ -610,7 +592,7 @@ export function ProposalPortal() {
                     <button
                       type="button"
                       onClick={() => setCurrentStep(2)}
-                      className="border border-[#003885] hover:border-[#00e5ff]/50 bg-[#001d4a]/50 text-[#cbd5e0] hover:text-white px-5 py-3 rounded-xl uppercase tracking-wider font-bold text-xs transition-all cursor-pointer"
+                      className="border border-gray-300 hover:border-black bg-gray-100 text-black px-5 py-3 rounded-xl uppercase tracking-wider font-bold text-xs transition-all cursor-pointer"
                     >
                       GO BACK
                     </button>
@@ -618,14 +600,14 @@ export function ProposalPortal() {
                     <button
                       type="submit"
                       disabled={isLoading}
-                      className="bg-gradient-to-r from-[#00b0ff] to-[#0080ff] hover:brightness-110 text-white font-black text-xs uppercase tracking-widest py-3.5 px-8 rounded-xl shadow-[0_4px_25px_rgba(0,176,255,0.4)] transition-all cursor-pointer flex items-center gap-2 disabled:opacity-50"
+                      className="bg-black hover:bg-gray-800 text-white font-black text-xs uppercase tracking-widest py-3.5 px-8 rounded-xl shadow-md transition-all cursor-pointer flex items-center gap-2 disabled:opacity-50"
                     >
                       {isLoading ? (
-                        <Loader2 className="h-5 w-5 animate-spin" />
+                        <Loader2 className="h-5 w-5 animate-spin text-white" />
                       ) : (
                         <>
-                          <span>UPLOAD & SUBMIT</span>
-                          <Upload className="h-4 w-4" />
+                          <span>SUBMIT PROPOSAL</span>
+                          <ArrowRight className="h-4 w-4" />
                         </>
                       )}
                     </button>
@@ -637,54 +619,66 @@ export function ProposalPortal() {
               {currentStep === 4 && (
                 <div className="text-center space-y-6 py-6 font-space animate-fade-in">
                   <div className="relative inline-flex items-center justify-center">
-                    <div className="absolute inset-0 bg-[#00e5ff]/20 rounded-full blur-2xl animate-pulse" />
-                    <div className="w-20 h-20 bg-gradient-to-tr from-[#00e5ff] to-[#0080ff] rounded-full flex items-center justify-center text-[#001233] shadow-[0_0_30px_rgba(0,229,255,0.8)]">
-                      <PartyPopper className="h-10 w-10" />
+                    <div className="w-20 h-20 bg-black rounded-full flex items-center justify-center text-white shadow-lg">
+                      <PartyPopper className="h-10 w-10 text-white" />
                     </div>
                   </div>
 
                   <div className="space-y-2">
-                    <h2 className="text-3xl sm:text-4xl font-black text-white uppercase tracking-wider">
+                    <h2 className="text-3xl sm:text-4xl font-black text-black uppercase tracking-wider">
                       SUBMISSION SUCCESSFUL!
                     </h2>
-                    <p className="text-xs text-[#00e5ff] uppercase tracking-widest font-bold">
+                    <p className="text-xs text-black uppercase tracking-widest font-bold">
                       Your proposal has been officially registered
                     </p>
                   </div>
 
                   {/* Submission Receipt Box */}
-                  <div className="bg-[#000d21]/90 border border-[#003885] rounded-2xl p-6 text-left space-y-3 font-sans text-xs">
-                    <div className="flex items-center justify-between border-b border-[#003885]/60 pb-3">
-                      <span className="text-[#a0aec0]">SUBMISSION REFERENCE:</span>
-                      <span className="font-mono font-bold text-[#00e5ff] text-sm">{submissionId}</span>
+                  <div className="bg-gray-50 border border-gray-200 rounded-2xl p-6 text-left space-y-3 font-sans text-xs">
+                    <div className="flex items-center justify-between border-b border-gray-200 pb-3">
+                      <span className="text-black">SUBMISSION REFERENCE:</span>
+                      <span className="font-mono font-bold text-black text-sm">{submissionId}</span>
                     </div>
-                    <div className="flex items-center justify-between border-b border-[#003885]/60 pb-3">
-                      <span className="text-[#a0aec0]">TEAM NAME:</span>
-                      <span className="font-bold text-white">{teamName}</span>
+                    <div className="flex items-center justify-between border-b border-gray-200 pb-3">
+                      <span className="text-black">TEAM NAME:</span>
+                      <span className="font-bold text-black">{teamName}</span>
                     </div>
-                    <div className="flex items-center justify-between border-b border-[#003885]/60 pb-3">
-                      <span className="text-[#a0aec0]">TEAM LEADER:</span>
-                      <span className="font-bold text-white">{leaderName}</span>
+                    <div className="flex items-center justify-between border-b border-gray-200 pb-3">
+                      <span className="text-black">TEAM LEADER:</span>
+                      <span className="font-bold text-black">{leaderName}</span>
                     </div>
+                    {(submittedCanvaUrl || driveFileUrl) && (
+                      <div className="flex items-center justify-between border-b border-gray-200 pb-3">
+                        <span className="text-black">CANVA PROPOSAL LINK:</span>
+                        <a
+                          href={submittedCanvaUrl || driveFileUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="font-bold text-black underline truncate max-w-[200px] sm:max-w-[280px]"
+                        >
+                          {submittedCanvaUrl || driveFileUrl}
+                        </a>
+                      </div>
+                    )}
                     <div className="flex items-center justify-between">
-                      <span className="text-[#a0aec0]">SUBMISSION TIME:</span>
-                      <span className="text-[#cbd5e0] font-mono">{submissionTimestamp}</span>
+                      <span className="text-black">SUBMISSION TIME:</span>
+                      <span className="text-black font-mono">{submissionTimestamp}</span>
                     </div>
                   </div>
 
                   <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
                     <a
-                      href={driveFileUrl || "#"}
+                      href={submittedCanvaUrl || driveFileUrl || "#"}
                       target="_blank"
                       rel="noreferrer"
-                      className="w-full sm:w-auto border border-[#00e5ff]/60 hover:border-[#00e5ff] bg-[#00e5ff]/10 hover:bg-[#00e5ff]/20 text-[#00e5ff] text-xs font-bold uppercase tracking-widest px-6 py-3.5 rounded-xl transition-all cursor-pointer flex items-center justify-center gap-2"
+                      className="w-full sm:w-auto border border-black bg-black text-white text-xs font-bold uppercase tracking-widest px-6 py-3.5 rounded-xl transition-all cursor-pointer flex items-center justify-center gap-2"
                     >
-                      <span>VIEW IN DRIVE</span>
-                      <ExternalLink className="h-4 w-4" />
+                      <span>VIEW CANVA PROPOSAL</span>
+                      <ExternalLink className="h-4 w-4 text-white" />
                     </a>
 
                     <Link href="/submit" className="w-full sm:w-auto">
-                      <button className="w-full sm:w-auto border border-[#003885] hover:border-[#00e5ff] bg-[#00173d] text-white text-xs font-bold uppercase tracking-widest px-6 py-3.5 rounded-xl transition-all cursor-pointer">
+                      <button className="w-full sm:w-auto border border-gray-300 hover:border-black bg-gray-100 text-black text-xs font-bold uppercase tracking-widest px-6 py-3.5 rounded-xl transition-all cursor-pointer">
                         RETURN TO HUB
                       </button>
                     </Link>
@@ -714,7 +708,7 @@ export function ProposalPortal() {
                 Submission Portal
               </h2>
               <p className="text-xs text-[#a0aec0] leading-relaxed font-sans">
-                Welcome to the {tierName} Proposal Submission panel. Ensure that you upload the complete, finalized project blueprint document in PDF.
+                Welcome to the {tierName} Proposal Submission panel. Submit your finalized project blueprint via a valid Canva link.
               </p>
             </div>
 
@@ -754,23 +748,18 @@ export function ProposalPortal() {
             <div className="space-y-3 pt-4 border-t border-[#002866]/60">
               <h3 className="text-[11px] font-bold uppercase tracking-widest text-white font-space flex items-center gap-2">
                 <ShieldCheck className="h-4 w-4 text-[#00e5ff]" />
-                <span>UPLOAD REQUIREMENTS:</span>
+                <span>SUBMISSION REQUIREMENTS:</span>
               </h3>
 
               <ul className="space-y-2.5 text-xs text-[#cbd5e0] font-sans">
                 <li className="flex items-start gap-2">
                   <span className="text-[#00e5ff] font-bold">•</span>
-                  <span>Blueprint format must be in <strong className="text-white">PDF format</strong>.</span>
+                  <span>Proposal must be submitted as a valid <strong className="text-white">Canva Link</strong> (<code className="text-[#00e5ff] text-[10px]">canva.com/design/...</code> or <code className="text-[#00e5ff] text-[10px]">canva.link/...</code>).</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-[#00e5ff] font-bold">•</span>
-                  <span>File capacity should not exceed <strong className="text-white">4.5 MB</strong>.</span>
+                  <span>Ensure your Canva design access setting is set to <strong className="text-white">Anyone with the link can view</strong>.</span>
                 </li>
-
-                {/* <li className="flex items-start gap-2">
-                  <span className="text-[#00e5ff] font-bold">•</span>
-                  <span>YouTube URLs must be valid and viewable (<strong className="text-white">Public or Unlisted</strong>).</span>
-                </li> */}
                 <li className="flex items-start gap-2">
                   <span className="text-[#00e5ff] font-bold">•</span>
                   <span>Submissions can be updated/overwritten if submitted again before the deadline.</span>

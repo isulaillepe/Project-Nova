@@ -15,9 +15,9 @@ const footerLinks = {
     { label: "Partners", href: "/#partners" },
   ],
   trials: [
-    { label: "School Track", href: "/register?track=school" },
-    { label: "University Track", href: "/register?track=university" },
-    { label: "Register", href: "/register" },
+    { label: "School Track", href: "/submit?category=school" },
+    { label: "University Track", href: "/submit?category=university" },
+    { label: "Submit Proposal", href: "/submit" },
     { label: "FAQ", href: "/#faq" },
     { label: "Rules & Guidelines", href: "/#rules" },
   ],

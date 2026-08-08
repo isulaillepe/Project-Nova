@@ -413,16 +413,19 @@ export function ProposalPortal() {
 
                   <div className="space-y-2">
                     <label className="text-[11px] font-bold uppercase tracking-widest text-[#a0aec0] block font-space">
-                      EMAIL ADDRESS
+                      TEAM LEADER EMAIL ADDRESS
                     </label>
                     <input
                       type="email"
                       required
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      placeholder="Enter your registered email address"
+                      placeholder="Enter team leader's registered email address"
                       className="w-full bg-[#000d21]/80 border border-[#003885]/80 focus:border-[#00e5ff] rounded-2xl px-5 py-4 text-sm text-white placeholder-[#4a5568] outline-none transition-all focus:ring-2 focus:ring-[#00e5ff]/20"
                     />
+                    <p className="text-[10px] text-[#a0aec0] mt-1.5 font-sans">
+                      Only team leaders are authorized to submit proposals on behalf of their team.
+                    </p>
                   </div>
 
                   {/* Send Code Button */}

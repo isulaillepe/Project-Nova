@@ -4,13 +4,13 @@ import { NextRequest, NextResponse } from "next/server";
 const rateLimitStore = new Map<string, { count: number; resetTime: number }>();
 
 const RATE_LIMITS: Record<string, { max: number; windowMs: number }> = {
-  VERIFY_EMAIL: { max: 3, windowMs: 60_000 },      // 3 per minute
-  VERIFY_OTP: { max: 10, windowMs: 60_000 },        // 10 per minute
-  SUBMIT_PROPOSAL: { max: 2, windowMs: 60_000 },    // 2 per minute
+  VERIFY_EMAIL: { max: 5, windowMs: 60_000 },       // 5 per minute
+  VERIFY_OTP: { max: 5, windowMs: 60_000 },         // 5 per minute
+  SUBMIT_PROPOSAL: { max: 5, windowMs: 60_000 },    // 5 per minute
 };
 
 function checkRateLimit(ip: string, action: string): { allowed: boolean; retryAfter?: number } {
-  const limit = RATE_LIMITS[action] || { max: 10, windowMs: 60_000 };
+  const limit = RATE_LIMITS[action] || { max: 5, windowMs: 60_000 };
   const key = `${ip}:${action}`;
   const now = Date.now();
   const record = rateLimitStore.get(key);
@@ -44,8 +44,9 @@ export async function POST(req: NextRequest) {
     // Rate limiting
     const rateLimit = checkRateLimit(clientIp, action);
     if (!rateLimit.allowed) {
+      const waitMsg = rateLimit.retryAfter ? ` Please wait ${rateLimit.retryAfter} seconds before trying again.` : " Please try again in a minute.";
       return NextResponse.json(
-        { success: false, error: "Too many requests. Please try again later." },
+        { success: false, error: `Too many requests.${waitMsg}` },
         { status: 429, headers: { "Retry-After": String(rateLimit.retryAfter) } }
       );
     }

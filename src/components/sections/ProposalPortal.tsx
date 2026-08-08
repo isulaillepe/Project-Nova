@@ -761,7 +761,7 @@ export function ProposalPortal() {
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-[#00e5ff] font-bold">•</span>
-                  <span>File capacity should not exceed <strong className="text-white">15 MB</strong>.</span>
+                  <span>File capacity should not exceed <strong className="text-white">4.5 MB</strong>.</span>
                 </li>
 
                 {/* <li className="flex items-start gap-2">

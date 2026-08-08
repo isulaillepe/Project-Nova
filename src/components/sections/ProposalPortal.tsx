@@ -38,7 +38,7 @@ export function ProposalPortal() {
   // OTP State - single string instead of array for better performance
   const [otp, setOtp] = React.useState("");
   const otpInputsRef = React.useRef<(HTMLInputElement | null)[]>([]);
-  const [timerSeconds, setTimerSeconds] = React.useState<number>(60);
+  const [timerSeconds, setTimerSeconds] = React.useState<number>(300);
   const timerIntervalRef = React.useRef<NodeJS.Timeout | null>(null);
 
   // Upload State
@@ -108,7 +108,7 @@ export function ProposalPortal() {
         if (resData.teamName) setTeamName(resData.teamName);
         if (resData.leaderName) setLeaderName(resData.leaderName);
         setCurrentStep(2);
-        setTimerSeconds(60);
+        setTimerSeconds(300);
         return true;
       } else {
         setErrorMessage(resData.error || "Email address not found in registered teams list.");
@@ -529,12 +529,12 @@ export function ProposalPortal() {
 
                     <span className="text-black">
                       {timerSeconds > 0 ? (
-                        `Resend OTP in ${timerSeconds}s`
+                        `Resend OTP in ${Math.floor(timerSeconds / 60)}:${String(timerSeconds % 60).padStart(2, "0")}`
                       ) : (
                         <button
                           type="button"
                           onClick={() => {
-                            setTimerSeconds(60);
+                            setTimerSeconds(300);
                             sendVerificationCode(email);
                           }}
                           className="text-black underline font-bold uppercase cursor-pointer"

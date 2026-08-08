@@ -195,8 +195,8 @@ export function ProposalPortal() {
       setErrorMessage("Only PDF format files are allowed.");
       return;
     }
-    if (file.size > 15 * 1024 * 1024) {
-      setErrorMessage("File capacity should not exceed 15 MB.");
+    if (file.size > 4.5 * 1024 * 1024) {
+      setErrorMessage("File capacity should not exceed 4.5 MB.");
       return;
     }
 
@@ -594,7 +594,7 @@ export function ProposalPortal() {
                         <div className="flex flex-col items-center gap-2">
                           <FileUp className="h-10 w-10 text-[#00e5ff]" />
                           <span className="text-xs font-bold text-white">Click or drag PDF file here</span>
-                          <span className="text-[10px] text-[#a0aec0]">Maximum size 15MB</span>
+                          <span className="text-[10px] text-[#a0aec0]">Maximum size 4.5MB</span>
                         </div>
                       )}
                     </div>

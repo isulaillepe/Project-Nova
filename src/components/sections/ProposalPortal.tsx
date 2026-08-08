@@ -661,35 +661,6 @@ export function ProposalPortal() {
                       <span className="text-[#a0aec0]">TEAM LEADER:</span>
                       <span className="font-bold text-white">{leaderName}</span>
                     </div>
-                    {/* {youtubeUrl && (
-                      <div className="flex items-center justify-between border-b border-[#003885]/60 pb-3">
-                        <span className="text-[#a0aec0]">YOUTUBE LINK:</span>
-                        <a href={youtubeUrl} target="_blank" rel="noreferrer" className="text-[#00e5ff] underline truncate max-w-[200px]">
-                          {youtubeUrl}
-                        </a>
-                      </div>
-                    )} */}
-                    {driveFileUrl && (
-                      <div className="flex items-center justify-between border-b border-[#003885]/60 pb-3">
-                        <span className="text-[#a0aec0]">DRIVE PROPOSAL PDF:</span>
-                        <a href={driveFileUrl} target="_blank" rel="noreferrer" className="text-[#00e5ff] underline flex items-center gap-1 font-bold">
-                          <span>View in Drive</span>
-                          <ExternalLink className="h-3 w-3" />
-                        </a>
-                      </div>
-                    )}
-                    <div className="flex items-center justify-between border-b border-[#003885]/60 pb-3">
-                      <span className="text-[#a0aec0]">SUBMISSION DESTINATION FOLDER:</span>
-                      <a
-                        href="https://drive.google.com/drive/folders/1QVNh76dTlw4PcV7ZLpZyNxfAzZ3XBi0w?usp=sharing"
-                        target="_blank"
-                        rel="noreferrer"
-                        className="text-[#00e5ff] underline flex items-center gap-1 font-bold"
-                      >
-                        <span>Open Drive Folder</span>
-                        <ExternalLink className="h-3 w-3" />
-                      </a>
-                    </div>
                     <div className="flex items-center justify-between">
                       <span className="text-[#a0aec0]">SUBMISSION TIME:</span>
                       <span className="text-[#cbd5e0] font-mono">{submissionTimestamp}</span>
@@ -698,12 +669,12 @@ export function ProposalPortal() {
 
                   <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
                     <a
-                      href="https://drive.google.com/drive/folders/1QVNh76dTlw4PcV7ZLpZyNxfAzZ3XBi0w?usp=sharing"
+                      href={driveFileUrl || "#"}
                       target="_blank"
                       rel="noreferrer"
                       className="w-full sm:w-auto border border-[#00e5ff]/60 hover:border-[#00e5ff] bg-[#00e5ff]/10 hover:bg-[#00e5ff]/20 text-[#00e5ff] text-xs font-bold uppercase tracking-widest px-6 py-3.5 rounded-xl transition-all cursor-pointer flex items-center justify-center gap-2"
                     >
-                      <span>VIEW GOOGLE DRIVE FOLDER</span>
+                      <span>VIEW IN DRIVE</span>
                       <ExternalLink className="h-4 w-4" />
                     </a>
 

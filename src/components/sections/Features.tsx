@@ -18,13 +18,13 @@ const timelineSteps = [
   },
   {
     step: "03",
-    date: "06TH AUGUST",
+    date: "08TH AUGUST",
     title: "Proposal Submission Starts",
     description: "Proposal submission starts on 06th August.",
   },
   {
     step: "04",
-    date: "08TH AUGUST",
+    date: "09TH AUGUST",
     title: "Awareness Session",
     description: "Interactive awareness session held on 08th August to guide participating teams through the competition stages.",
   },

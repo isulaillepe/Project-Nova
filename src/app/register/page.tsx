@@ -4,26 +4,8 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Registration Closed - Project Nova",
-  description: "Team registration for Project Nova has officially concluded. Registered teams can access the proposal submission portal.",
+  description: "Team registration and proposal submission for Project Nova have officially concluded.",
 };
-
-const ArrowRightIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="16"
-    height="16"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className="h-4 w-4"
-  >
-    <path d="M5 12h14" />
-    <path d="m12 5 7 7-7 7" />
-  </svg>
-);
 
 const HomeIcon = () => (
   <svg
@@ -40,6 +22,26 @@ const HomeIcon = () => (
   >
     <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
     <polyline points="9 22 9 12 15 12 15 22" />
+  </svg>
+);
+
+const CalendarIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="16"
+    height="16"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className="h-4 w-4"
+  >
+    <rect width="18" height="18" x="3" y="4" rx="2" ry="2" />
+    <line x1="16" x2="16" y1="2" y2="6" />
+    <line x1="8" x2="8" y1="2" y2="6" />
+    <line x1="3" x2="21" y1="10" y2="10" />
   </svg>
 );
 
@@ -65,7 +67,7 @@ export default function RegisterPage() {
         </Link>
         <Link
           href="/"
-          className="inline-flex items-center gap-2 border border-[#003885]/60 hover:border-[#00e5ff]/60 bg-[#00173d]/60 hover:bg-[#002259] text-xs font-bold uppercase tracking-widest text-[#cbd5e0] hover:text-[#00e5ff] px-4 py-2 rounded-full backdrop-blur-md transition-all cursor-pointer"
+          className="inline-flex items-center gap-2 border border-[#003885]/60 hover:border-[#00e5ff]/60 bg-[#00173d]/60 hover:bg-[#002259] text-xs font-bold uppercase tracking-widest text-[#cbd5e0] hover:text-[#00e5ff] px-4 py-2 rounded-full backdrop-blur-md transition-all cursor-pointer shadow-[0_0_15px_rgba(0,0,0,0.4)]"
         >
           <HomeIcon />
           <span>GO TO HOMEPAGE</span>
@@ -85,15 +87,22 @@ export default function RegisterPage() {
               REGISTRATION IS CLOSED
             </h1>
             <p className="text-xs sm:text-sm text-[#cbd5e0]/80 leading-relaxed font-sans max-w-lg mx-auto">
-              Team registration for Project Nova has officially concluded. Registered teams can now access the proposal portal to submit their project blueprints.
+              Team registration and proposal submission for Project Nova have officially concluded. Stay tuned for shortlisted team announcements and upcoming competition phases.
             </p>
           </div>
 
-          <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link href="/submit" className="w-full sm:w-auto">
-              <button className="w-full sm:w-auto group bg-gradient-to-r from-[#FFB81B] via-[#ffaa00] to-[#FFB81B] hover:brightness-110 text-[#001233] font-black text-xs uppercase tracking-widest py-4 px-8 rounded-2xl shadow-[0_0_25px_rgba(255,184,27,0.4)] transition-all cursor-pointer flex items-center justify-center gap-2">
-                <span>SUBMIT YOUR PROPOSAL</span>
-                <ArrowRightIcon />
+          <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
+            <Link href="/" className="w-full sm:w-auto">
+              <button className="w-full sm:w-auto group bg-gradient-to-r from-[#FFB81B] via-[#ffaa00] to-[#FFB81B] hover:brightness-110 text-[#001233] font-black text-xs uppercase tracking-widest py-3.5 px-6 rounded-2xl shadow-[0_0_25px_rgba(255,184,27,0.4)] transition-all cursor-pointer flex items-center justify-center gap-2">
+                <HomeIcon />
+                <span>GO TO HOMEPAGE</span>
+              </button>
+            </Link>
+
+            <Link href="/#timeline" className="w-full sm:w-auto">
+              <button className="w-full sm:w-auto border border-[#003885]/80 hover:border-[#00e5ff]/80 bg-[#00173d]/80 hover:bg-[#002259] text-xs font-bold uppercase tracking-widest text-[#cbd5e0] hover:text-[#00e5ff] py-3.5 px-6 rounded-2xl backdrop-blur-md transition-all cursor-pointer flex items-center justify-center gap-2">
+                <CalendarIcon />
+                <span>VIEW TIMELINE</span>
               </button>
             </Link>
           </div>

@@ -121,8 +121,8 @@ export function Header() {
                 </button>
               </a>
               <Link href="/submit">
-                <button className="bg-gradient-to-r from-[#FFB81B] to-[#ff9100] hover:brightness-110 text-[#001233] text-[10px] font-extrabold uppercase tracking-widest px-5 py-2 rounded-full shadow-[0_0_20px_rgba(255,184,27,0.4)] hover:shadow-[0_0_28px_rgba(255,184,27,0.6)] transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] cursor-pointer">
-                  SUBMIT PROPOSAL
+                <button className="border border-slate-700 hover:border-slate-500 bg-slate-800/80 hover:bg-slate-800 text-slate-300 text-[10px] font-extrabold uppercase tracking-widest px-4 py-2 rounded-full transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] cursor-pointer shadow-[0_0_15px_rgba(0,0,0,0.3)]">
+                  SUBMISSIONS CLOSED
                 </button>
               </Link>
             </div>
@@ -181,8 +181,8 @@ export function Header() {
               </a>
               <div className="flex flex-col gap-2">
                 <Link href="/submit" onClick={() => setIsMobileMenuOpen(false)}>
-                  <button className="w-full text-center bg-[#FFB81B] text-[#001233] text-[10px] sm:text-[11px] font-bold uppercase tracking-widest py-2 rounded-full shadow-[0_0_15px_rgba(255,184,27,0.35)] cursor-pointer">
-                    SUBMIT PROPOSAL
+                  <button className="w-full text-center border border-slate-700 bg-slate-800/80 text-slate-300 text-[10px] sm:text-[11px] font-bold uppercase tracking-widest py-2 rounded-full cursor-pointer">
+                    SUBMISSIONS CLOSED
                   </button>
                 </Link>
               </div>

@@ -81,16 +81,16 @@ export default function CategorySelectionPage() {
               READY TO BEGIN?
             </h1>
             <p className="text-xs sm:text-sm text-[#cbd5e0]/70 uppercase tracking-[0.25em]">
-              Select your competition tier to access the proposal portal
+              Select your competition tier to access the UI/UX prototype portal
             </p>
           </div>
 
           {/* Category Selection Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-3xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 max-w-5xl mx-auto">
 
-            {/* University Tier Card */}
+            {/* University Tier Card - UI/UX */}
             <Link
-              href="/submit/proposal?category=university"
+              href="/submit/ui-ux?category=university"
               className="group relative bg-[#00173d]/60 backdrop-blur-xl border border-[#003885]/60 hover:border-[#00e5ff]/80 rounded-3xl p-8 sm:p-10 flex flex-col items-center justify-between text-center transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_40px_rgba(0,229,255,0.25)] cursor-pointer overflow-hidden"
             >
               <div className="absolute top-0 right-0 w-32 h-32 bg-[radial-gradient(circle_at_top_right,rgba(0,229,255,0.15),transparent_70%)] pointer-events-none" />
@@ -111,6 +111,9 @@ export default function CategorySelectionPage() {
                     height={40}
                     className="h-10 w-auto object-contain filter drop-shadow-[0_0_15px_rgba(255,184,27,0.4)] group-hover:scale-105 transition-transform duration-300"
                   />
+                  <span className="text-xs sm:text-sm font-bold text-[#00e5ff] tracking-widest mt-2">
+                    UI/UX Prototype
+                  </span>
                 </div>
               </div>
 
@@ -120,7 +123,7 @@ export default function CategorySelectionPage() {
                   Project Nova
                 </h2>
                 <p className="text-xs text-[#a0aec0] leading-relaxed max-w-xs font-sans">
-                  Sri Lanka&apos;s premier inter-university startup and technology challenge
+                  Submit your Figma prototype for the UI/UX track
                 </p>
               </div>
 
@@ -131,9 +134,9 @@ export default function CategorySelectionPage() {
               </div>
             </Link>
 
-            {/* School Tier Card */}
+            {/* School Tier Card - UI/UX */}
             <Link
-              href="/submit/proposal?category=school"
+              href="/submit/ui-ux?category=school"
               className="group relative bg-[#00173d]/60 backdrop-blur-xl border border-[#003885]/60 hover:border-[#FFB81B]/80 rounded-3xl p-8 sm:p-10 flex flex-col items-center justify-between text-center transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_40px_rgba(255,184,27,0.25)] cursor-pointer overflow-hidden"
             >
               <div className="absolute top-0 right-0 w-32 h-32 bg-[radial-gradient(circle_at_top_right,rgba(255,184,27,0.15),transparent_70%)] pointer-events-none" />
@@ -157,6 +160,9 @@ export default function CategorySelectionPage() {
                   <span className="text-xl sm:text-2xl font-black text-[#FFB81B] tracking-widest mt-2">
                     Jr.
                   </span>
+                  <span className="text-xs sm:text-sm font-bold text-[#FFB81B] tracking-widest mt-1">
+                    UI/UX Prototype
+                  </span>
                 </div>
               </div>
 
@@ -166,7 +172,7 @@ export default function CategorySelectionPage() {
                   Project Nova Jr.
                 </h2>
                 <p className="text-xs text-[#a0aec0] leading-relaxed max-w-xs font-sans">
-                  The ultimate inter-school tech & innovation competition
+                  Submit your Figma prototype for the UI/UX track
                 </p>
               </div>
 
@@ -176,6 +182,56 @@ export default function CategorySelectionPage() {
                 <ArrowRightIcon />
               </div>
             </Link>
+
+            {/* Proposal Submission Card - Greyed Out / Disabled */}
+            <div className="relative bg-[#00112a]/60 backdrop-blur-xl border border-[#001f45]/60 rounded-3xl p-8 sm:p-10 flex flex-col items-center justify-between text-center opacity-50 cursor-not-allowed overflow-hidden">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-[radial-gradient(circle_at_top_right,rgba(100,100,100,0.1),transparent_70%)] pointer-events-none" />
+
+              {/* Disabled Badge */}
+              <div className="bg-[#1a1a2e]/80 border border-[#333]/40 text-[#666] text-[10px] sm:text-xs font-bold uppercase tracking-[0.25em] px-4 py-1.5 rounded-full mb-8">
+                PROPOSAL SUBMISSION
+              </div>
+              <div className="bg-red-900/30 border border-red-800/50 text-red-400 text-[10px] sm:text-xs font-bold uppercase tracking-[0.25em] px-4 py-1.5 rounded-full mb-4 shadow-[0_0_12px_rgba(255,0,0,0.1)]">
+                SUBMISSIONS CLOSED
+              </div>
+
+              {/* Logo / Graphic */}
+              <div className="my-4 relative flex items-center justify-center h-28 w-full">
+                <div className="absolute inset-0 bg-[#444]/10 rounded-full blur-2xl" />
+                <div className="relative flex flex-col items-center opacity-60">
+                  <Image
+                    src="/images/project_nova_logo.png"
+                    alt="Project Nova Proposal"
+                    width={200}
+                    height={40}
+                    className="h-10 w-auto object-contain filter grayscale"
+                  />
+                  <span className="text-xs sm:text-sm font-bold text-[#666] tracking-widest mt-2">
+                    Canva Proposal
+                  </span>
+                </div>
+              </div>
+
+              {/* Text Info */}
+              <div className="space-y-2 mt-4">
+                <h2 className="text-xl sm:text-2xl font-black uppercase text-[#666] tracking-wider">
+                  Project Nova
+                </h2>
+                <p className="text-xs text-[#555] leading-relaxed max-w-xs font-sans">
+                  Proposal submissions are currently closed
+                </p>
+              </div>
+
+              {/* Disabled Action Prompt */}
+              <div className="mt-8 flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-[#444]">
+                <span>Not Available</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="15" y1="9" x2="9" y2="15" />
+                  <line x1="9" y1="9" x2="15" y2="15" />
+                </svg>
+              </div>
+            </div>
 
           </div>
         </div>

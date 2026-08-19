@@ -7,6 +7,7 @@ const RATE_LIMITS: Record<string, { max: number; windowMs: number }> = {
   VERIFY_EMAIL: { max: 5, windowMs: 60_000 },       // 5 per minute
   VERIFY_OTP: { max: 5, windowMs: 60_000 },         // 5 per minute
   SUBMIT_PROPOSAL: { max: 5, windowMs: 60_000 },    // 5 per minute
+  SUBMIT_FIGMA: { max: 5, windowMs: 60_000 },       // 5 per minute
 };
 
 function checkRateLimit(ip: string, action: string): { allowed: boolean; retryAfter?: number } {
@@ -51,7 +52,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    let rawUrl =
+    const rawUrl =
       process.env.NEXT_PUBLIC_APPS_SCRIPT_URL ||
       process.env.PROPOSAL_WEBHOOK_URL ||
       process.env.APPS_SCRIPT_WEBHOOK_URL;
@@ -66,8 +67,8 @@ export async function POST(req: NextRequest) {
     // Convert workspace URL (with /a/macros/domain/) to public Web App URL format (/macros/) if present
     const publicUrl = rawUrl.replace(/\/a\/macros\/[^\/]+\//, "/macros/");
 
-    // Only try canonical action names - Google Apps Script only handles these three
-    const validActions = ["VERIFY_EMAIL", "VERIFY_OTP", "SUBMIT_PROPOSAL"] as const;
+    // Only try canonical action names - Google Apps Script handles these four
+    const validActions = ["VERIFY_EMAIL", "VERIFY_OTP", "SUBMIT_PROPOSAL", "SUBMIT_FIGMA"] as const;
     type ValidAction = typeof validActions[number];
     const primaryAction = validActions.includes(action as ValidAction) ? (action as ValidAction) : null;
 
@@ -82,7 +83,7 @@ export async function POST(req: NextRequest) {
 
     let isHtmlResponse = false;
     let lastError = "Server request failed";
-    let lastData: Record<string, unknown> | null = null;
+    const lastData: Record<string, unknown> | null = null;
 
     // Single request with canonical action name - no alias loops
     const payload: Record<string, unknown> = {

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useRef } from "react";
-import { GraduationCap, School } from "lucide-react";
+import { ArrowRight, GraduationCap, School } from "lucide-react";
 import { useScroll, useTransform, motion } from "framer-motion";
 
 const tickerItems = [
@@ -138,7 +138,7 @@ export default function Hero() {
 
           {/* Actions Stack */}
           <div className="flex flex-col gap-2.5 sm:gap-3.5 max-w-full sm:max-w-[580px] w-full pt-2 sm:pt-4">
-            {/* Primary CTA Row: Greyed-out Registration & Submissions Closed */}
+            {/* Primary CTA Row: Greyed-out Registration & Submit Proposal */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3 w-full">
               <div className="w-full">
                 <button
@@ -149,14 +149,12 @@ export default function Hero() {
                 </button>
               </div>
 
-              <div className="w-full">
-                <button
-                  disabled
-                  className="w-full group relative bg-slate-800/80 border border-slate-700/80 text-slate-400 text-xs sm:text-sm font-extrabold uppercase tracking-wider px-4 sm:px-6 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl cursor-not-allowed justify-center flex items-center gap-2 opacity-75 shadow-[0_2px_10px_rgba(0,0,0,0.3)]"
-                >
-                  <span className="truncate">SUBMISSIONS CLOSED</span>
+              <Link href="/submit" className="w-full">
+                <button className="w-full group relative bg-[#FFB81B] hover:brightness-105 text-[#001233] text-xs sm:text-sm font-extrabold uppercase tracking-wider px-4 sm:px-6 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl shadow-[0_4px_30px_rgba(255,184,27,0.4)] hover:shadow-[0_4px_40px_rgba(255,184,27,0.6)] transition-all duration-200 hover:scale-[1.015] active:scale-[0.98] cursor-pointer justify-center flex items-center gap-2">
+                  <span className="truncate">SUBMIT UI/UX PROTOTYPE</span>
+                  <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform shrink-0" />
                 </button>
-              </div>
+              </Link>
             </div>
 
             {/* School & University Booklet Buttons fitting the width of the Register button */}

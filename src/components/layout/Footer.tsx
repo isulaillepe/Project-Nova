@@ -17,7 +17,7 @@ const footerLinks = {
   trials: [
     { label: "School Track", href: "/submit?category=school" },
     { label: "University Track", href: "/submit?category=university" },
-    { label: "Submit Proposal", href: "/submit" },
+    { label: "Submit UI/UX Prototype", href: "/submit" },
     { label: "FAQ", href: "/#faq" },
     { label: "Rules & Guidelines", href: "/#rules" },
   ],

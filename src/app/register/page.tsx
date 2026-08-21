@@ -3,8 +3,8 @@ import Image from "next/image";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Registration Closed - Project Nova",
-  description: "Team registration for Project Nova has officially concluded. Registered teams can access the proposal submission portal.",
+  title: "Registration Closed | Project Nova",
+  description: "Team registration for Project Nova has officially concluded. Registered teams can access the UI/UX prototype submission portal.",
 };
 
 const ArrowRightIcon = () => (
@@ -85,14 +85,14 @@ export default function RegisterPage() {
               REGISTRATION IS CLOSED
             </h1>
             <p className="text-xs sm:text-sm text-[#cbd5e0]/80 leading-relaxed font-sans max-w-lg mx-auto">
-              Team registration for Project Nova has officially concluded. Registered teams can now access the proposal portal to submit their project blueprints.
+              Team registration for Project Nova has officially concluded. Registered teams can now access the submission portal to submit their UI/UX prototypes.
             </p>
           </div>
 
           <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link href="/submit" className="w-full sm:w-auto">
               <button className="w-full sm:w-auto group bg-gradient-to-r from-[#FFB81B] via-[#ffaa00] to-[#FFB81B] hover:brightness-110 text-[#001233] font-black text-xs uppercase tracking-widest py-4 px-8 rounded-2xl shadow-[0_0_25px_rgba(255,184,27,0.4)] transition-all cursor-pointer flex items-center justify-center gap-2">
-                <span>SUBMIT YOUR PROPOSAL</span>
+                <span>SUBMIT UI/UX PROTOTYPE</span>
                 <ArrowRightIcon />
               </button>
             </Link>

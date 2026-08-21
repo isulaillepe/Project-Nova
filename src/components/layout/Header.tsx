@@ -122,7 +122,7 @@ export function Header() {
               </a>
               <Link href="/submit">
                 <button className="bg-gradient-to-r from-[#FFB81B] to-[#ff9100] hover:brightness-110 text-[#001233] text-[10px] font-extrabold uppercase tracking-widest px-5 py-2 rounded-full shadow-[0_0_20px_rgba(255,184,27,0.4)] hover:shadow-[0_0_28px_rgba(255,184,27,0.6)] transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] cursor-pointer">
-                  SUBMIT PROPOSAL
+                  SUBMIT UI/UX PROTOTYPE
                 </button>
               </Link>
             </div>
@@ -182,7 +182,7 @@ export function Header() {
               <div className="flex flex-col gap-2">
                 <Link href="/submit" onClick={() => setIsMobileMenuOpen(false)}>
                   <button className="w-full text-center bg-[#FFB81B] text-[#001233] text-[10px] sm:text-[11px] font-bold uppercase tracking-widest py-2 rounded-full shadow-[0_0_15px_rgba(255,184,27,0.35)] cursor-pointer">
-                    SUBMIT PROPOSAL
+                    SUBMIT UI/UX PROTOTYPE
                   </button>
                 </Link>
               </div>

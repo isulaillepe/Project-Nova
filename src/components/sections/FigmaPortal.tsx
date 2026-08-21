@@ -640,6 +640,9 @@ export function FigmaPortal() {
 
             {/* Section Heading & Intro */}
             <div className="space-y-2">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#ffb81c]/10 border border-[#ffb81c]/30 text-[#ffb81c] text-[10px] font-bold tracking-wider font-space">
+                <span>DEADLINE: 24TH AUGUST · 11:59 PM</span>
+              </div>
               <h2 className="text-xl font-black text-white uppercase tracking-wider font-space">
                 Submission Portal
               </h2>
@@ -667,6 +670,10 @@ export function FigmaPortal() {
                 <li className="flex items-start gap-2">
                   <span className="text-[#ffb81c] font-bold">•</span>
                   <span>Both prototype links (<code className="text-[#00d4ff] text-[10px]">/proto/</code>) and design file links (<code className="text-[#00d4ff] text-[10px]">/file/</code> or <code className="text-[#00d4ff] text-[10px]">/design/</code>) are accepted.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-[#ffb81c] font-bold">•</span>
+                  <span>Deadline: <strong className="text-[#ffb81c]">24th August at 11:59 PM</strong>.</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-[#ffb81c] font-bold">•</span>

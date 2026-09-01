@@ -8,6 +8,8 @@ const RATE_LIMITS: Record<string, { max: number; windowMs: number }> = {
   VERIFY_OTP: { max: 5, windowMs: 60_000 },         // 5 per minute
   SUBMIT_PROPOSAL: { max: 5, windowMs: 60_000 },    // 5 per minute
   SUBMIT_FIGMA: { max: 5, windowMs: 60_000 },       // 5 per minute
+  SUBMIT_DEMO_VIDEO: { max: 5, windowMs: 60_000 },  // 5 per minute
+  SUBMIT_YOUTUBE: { max: 5, windowMs: 60_000 },     // 5 per minute
 };
 
 function checkRateLimit(ip: string, action: string): { allowed: boolean; retryAfter?: number } {
@@ -67,8 +69,15 @@ export async function POST(req: NextRequest) {
     // Convert workspace URL (with /a/macros/domain/) to public Web App URL format (/macros/) if present
     const publicUrl = rawUrl.replace(/\/a\/macros\/[^\/]+\//, "/macros/");
 
-    // Only try canonical action names - Google Apps Script handles these four
-    const validActions = ["VERIFY_EMAIL", "VERIFY_OTP", "SUBMIT_PROPOSAL", "SUBMIT_FIGMA"] as const;
+    // Supported actions
+    const validActions = [
+      "VERIFY_EMAIL",
+      "VERIFY_OTP",
+      "SUBMIT_PROPOSAL",
+      "SUBMIT_FIGMA",
+      "SUBMIT_DEMO_VIDEO",
+      "SUBMIT_YOUTUBE",
+    ] as const;
     type ValidAction = typeof validActions[number];
     const primaryAction = validActions.includes(action as ValidAction) ? (action as ValidAction) : null;
 
@@ -85,11 +94,21 @@ export async function POST(req: NextRequest) {
     let lastError = "Server request failed";
     const lastData: Record<string, unknown> | null = null;
 
-    // Single request with canonical action name - no alias loops
     const payload: Record<string, unknown> = {
       ...body,
       action: primaryAction,
     };
+
+    // YouTube link compatibility aliases
+    if (body.youtubeUrl || body.videoUrl || body.demoUrl || body.youtubeLink || body.videoLink) {
+      const videoLink = body.youtubeUrl || body.videoUrl || body.demoUrl || body.youtubeLink || body.videoLink;
+      payload.youtubeUrl = videoLink;
+      payload.youtubeLink = videoLink;
+      payload.videoUrl = videoLink;
+      payload.videoLink = videoLink;
+      payload.demoUrl = videoLink;
+      payload.fileUrl = videoLink;
+    }
 
     // Map OTP parameter aliases if applicable
     if (body.otp || body.code) {

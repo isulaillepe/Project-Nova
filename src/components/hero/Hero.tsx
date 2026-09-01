@@ -151,7 +151,7 @@ export default function Hero() {
 
               <Link href="/submit" className="w-full">
                 <button className="w-full group relative bg-[#FFB81B] hover:brightness-105 text-[#001233] text-xs sm:text-sm font-extrabold uppercase tracking-wider px-4 sm:px-6 py-3.5 sm:py-4 rounded-xl sm:rounded-2xl shadow-[0_4px_30px_rgba(255,184,27,0.4)] hover:shadow-[0_4px_40px_rgba(255,184,27,0.6)] transition-all duration-200 hover:scale-[1.015] active:scale-[0.98] cursor-pointer justify-center flex items-center gap-2">
-                  <span className="truncate">SUBMIT UI/UX PROTOTYPE</span>
+                  <span className="truncate">SUBMIT DEMO VIDEO</span>
                   <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform shrink-0" />
                 </button>
               </Link>

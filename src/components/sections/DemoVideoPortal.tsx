@@ -197,16 +197,18 @@ export function DemoVideoPortal() {
     }
   };
 
-  // YouTube URL validation helper
+  // YouTube URL validation helper (supports watch, youtu.be, shorts, live, embed)
   const isValidYoutubeUrl = (url: string) => {
     const clean = url.trim();
     if (!clean) return false;
-    const youtubePattern = /^(https?:\/\/)?(www\.|m\.)?(youtube\.com\/(watch\?v=|embed\/|v\/|shorts\/)|youtu\.be\/)[\w-]{11}(\S*)?$/i;
+    const youtubePattern = /^(https?:\/\/)?(www\.|m\.)?(youtube\.com\/(watch\?v=|embed\/|v\/|shorts\/|live\/)|youtu\.be\/)[\w-]{11}(\S*)?$/i;
     return (
       youtubePattern.test(clean) ||
       clean.includes("youtube.com/watch") ||
       clean.includes("youtu.be/") ||
-      clean.includes("youtube.com/shorts/")
+      clean.includes("youtube.com/shorts/") ||
+      clean.includes("youtube.com/live/") ||
+      clean.includes("youtube.com/embed/")
     );
   };
 
@@ -219,7 +221,7 @@ export function DemoVideoPortal() {
 
   // Extract video ID for embed preview if valid
   const extractYoutubeId = (url: string): string | null => {
-    const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|shorts\/))([\w-]{11})/);
+    const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|shorts\/|live\/))([\w-]{11})/);
     return match ? match[1] : null;
   };
 
@@ -235,7 +237,7 @@ export function DemoVideoPortal() {
     }
 
     if (!isValidYoutubeUrl(cleanYoutubeUrl)) {
-      setErrorMessage("Invalid YouTube link format. Please provide a valid YouTube URL (e.g. https://www.youtube.com/watch?v=..., https://youtu.be/..., or https://www.youtube.com/shorts/...).");
+      setErrorMessage("Invalid YouTube link format. Please provide a valid YouTube URL (e.g. https://www.youtube.com/watch?v=..., https://youtu.be/..., https://www.youtube.com/live/..., or https://www.youtube.com/shorts/...).");
       return;
     }
 

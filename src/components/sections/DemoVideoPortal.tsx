@@ -20,7 +20,10 @@ import {
   Tv,
   HelpCircle,
   Sparkles,
+  Users,
+  Share2,
 } from "lucide-react";
+import { FaLinkedinIn } from "react-icons/fa";
 
 export function DemoVideoPortal() {
   const searchParams = useSearchParams();
@@ -41,9 +44,17 @@ export function DemoVideoPortal() {
   const [timerSeconds, setTimerSeconds] = React.useState<number>(300);
   const timerIntervalRef = React.useRef<NodeJS.Timeout | null>(null);
 
-  // Video Link State
+  // Video & LinkedIn Links State
   const [youtubeUrl, setYoutubeUrl] = React.useState("");
+  const [linkedin1, setLinkedin1] = React.useState("");
+  const [linkedin2, setLinkedin2] = React.useState("");
+  const [linkedin3, setLinkedin3] = React.useState("");
+  const [linkedin4, setLinkedin4] = React.useState("");
+  const [linkedin5, setLinkedin5] = React.useState("");
+
+  // Submitted State for Success Receipt
   const [submittedYoutubeUrl, setSubmittedYoutubeUrl] = React.useState("");
+  const [submittedLinkedinLinks, setSubmittedLinkedinLinks] = React.useState<string[]>([]);
 
   // Status & API State
   const [isLoading, setIsLoading] = React.useState(false);
@@ -186,26 +197,35 @@ export function DemoVideoPortal() {
     }
   };
 
-  // YouTube URL validation helper
+  // YouTube URL validation helper (supports watch, youtu.be, shorts, live, embed)
   const isValidYoutubeUrl = (url: string) => {
     const clean = url.trim();
     if (!clean) return false;
-    const youtubePattern = /^(https?:\/\/)?(www\.|m\.)?(youtube\.com\/(watch\?v=|embed\/|v\/|shorts\/)|youtu\.be\/)[\w-]{11}(\S*)?$/i;
+    const youtubePattern = /^(https?:\/\/)?(www\.|m\.)?(youtube\.com\/(watch\?v=|embed\/|v\/|shorts\/|live\/)|youtu\.be\/)[\w-]{11}(\S*)?$/i;
     return (
       youtubePattern.test(clean) ||
       clean.includes("youtube.com/watch") ||
       clean.includes("youtu.be/") ||
-      clean.includes("youtube.com/shorts/")
+      clean.includes("youtube.com/shorts/") ||
+      clean.includes("youtube.com/live/") ||
+      clean.includes("youtube.com/embed/")
     );
+  };
+
+  // LinkedIn URL validation helper (supports linkedin.com and lnkd.in short URLs)
+  const isValidLinkedinUrl = (url: string) => {
+    const clean = url.trim();
+    if (!clean) return false;
+    return /^(https?:\/\/)?(www\.)?(linkedin\.com|lnkd\.in)\/.+$/i.test(clean);
   };
 
   // Extract video ID for embed preview if valid
   const extractYoutubeId = (url: string): string | null => {
-    const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|shorts\/))([\w-]{11})/);
+    const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|shorts\/|live\/))([\w-]{11})/);
     return match ? match[1] : null;
   };
 
-  // Handle Step 3: Final Submission (YouTube Demo Video Link)
+  // Handle Step 3: Final Submission (YouTube Demo Video Link + 4 Required + 1 Optional LinkedIn Links)
   const handleSubmitDemoVideo = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMessage("");
@@ -217,7 +237,56 @@ export function DemoVideoPortal() {
     }
 
     if (!isValidYoutubeUrl(cleanYoutubeUrl)) {
-      setErrorMessage("Invalid YouTube link format. Please provide a valid YouTube URL (e.g. https://www.youtube.com/watch?v=..., https://youtu.be/..., or https://www.youtube.com/shorts/...).");
+      setErrorMessage("Invalid YouTube link format. Please provide a valid YouTube URL (e.g. https://www.youtube.com/watch?v=..., https://youtu.be/..., https://www.youtube.com/live/..., or https://www.youtube.com/shorts/...).");
+      return;
+    }
+
+    // Validate Required LinkedIn Links (Members 1 - 4)
+    const l1 = linkedin1.trim();
+    const l2 = linkedin2.trim();
+    const l3 = linkedin3.trim();
+    const l4 = linkedin4.trim();
+    const l5 = linkedin5.trim();
+
+    if (!l1) {
+      setErrorMessage("Member 1 (Team Leader) LinkedIn post link is required.");
+      return;
+    }
+    if (!isValidLinkedinUrl(l1)) {
+      setErrorMessage("Member 1 LinkedIn post URL is invalid. Please provide a valid LinkedIn URL (e.g. https://www.linkedin.com/posts/...).");
+      return;
+    }
+
+    if (!l2) {
+      setErrorMessage("Member 2 LinkedIn post link is required.");
+      return;
+    }
+    if (!isValidLinkedinUrl(l2)) {
+      setErrorMessage("Member 2 LinkedIn post URL is invalid. Please provide a valid LinkedIn URL (e.g. https://www.linkedin.com/posts/...).");
+      return;
+    }
+
+    if (!l3) {
+      setErrorMessage("Member 3 LinkedIn post link is required.");
+      return;
+    }
+    if (!isValidLinkedinUrl(l3)) {
+      setErrorMessage("Member 3 LinkedIn post URL is invalid. Please provide a valid LinkedIn URL (e.g. https://www.linkedin.com/posts/...).");
+      return;
+    }
+
+    if (!l4) {
+      setErrorMessage("Member 4 LinkedIn post link is required.");
+      return;
+    }
+    if (!isValidLinkedinUrl(l4)) {
+      setErrorMessage("Member 4 LinkedIn post URL is invalid. Please provide a valid LinkedIn URL (e.g. https://www.linkedin.com/posts/...).");
+      return;
+    }
+
+    // Member 5 is optional, but if provided, must be a valid LinkedIn link
+    if (l5 && !isValidLinkedinUrl(l5)) {
+      setErrorMessage("Member 5 LinkedIn post URL is invalid. Please provide a valid LinkedIn URL or leave blank.");
       return;
     }
 
@@ -233,15 +302,22 @@ export function DemoVideoPortal() {
           youtubeUrl: cleanYoutubeUrl,
           videoUrl: cleanYoutubeUrl,
           demoUrl: cleanYoutubeUrl,
+          linkedin1: l1,
+          linkedin2: l2,
+          linkedin3: l3,
+          linkedin4: l4,
+          linkedin5: l5,
+          linkedinLinks: [l1, l2, l3, l4, ...(l5 ? [l5] : [])],
         }),
       });
 
       const resData = await response.json();
 
       if (resData.success) {
-        setSubmissionId(resData.submissionId || `NOVA-DEMO-${Math.floor(100000 + Math.random() * 900000)}`);
+        setSubmissionId(resData.submissionId || `NOVA-YT-${Math.floor(100000 + Math.random() * 900000)}`);
         setSubmissionTimestamp(resData.timestamp || new Date().toLocaleString());
         setSubmittedYoutubeUrl(cleanYoutubeUrl);
+        setSubmittedLinkedinLinks([l1, l2, l3, l4, ...(l5 ? [l5] : [])]);
         setCurrentStep(4);
       } else {
         setErrorMessage(resData.error || "Submission failed. Please try again.");
@@ -288,10 +364,10 @@ export function DemoVideoPortal() {
               {/* Title & Category Subtitle */}
               <div className="text-center mb-8">
                 <h1 className="text-2xl sm:text-4xl font-black text-black uppercase tracking-wider font-space">
-                  {tierName} Demo Video
+                  {tierName} Demo Video &amp; LinkedIn
                 </h1>
                 <p className="text-xs sm:text-sm uppercase tracking-[0.25em] text-[#003599] font-bold font-space mt-1">
-                  YOUTUBE DEMO SUBMISSION PORTAL
+                  OFFICIAL SUBMISSION PORTAL
                 </p>
               </div>
 
@@ -383,7 +459,7 @@ export function DemoVideoPortal() {
                 <form onSubmit={handleSendCode} className="space-y-6">
                   <div className="flex items-center justify-center gap-2 text-sm font-bold uppercase tracking-wider text-black mb-4">
                     <ShieldCheck className="h-4 w-4 text-[#003599]" />
-                    <span>Team Leader Verification</span>
+                    <span>Team Leader Authorization</span>
                   </div>
 
                   <div className="space-y-2">
@@ -399,7 +475,7 @@ export function DemoVideoPortal() {
                       className="w-full bg-gray-50 border border-gray-300 focus:border-[#003599] rounded-2xl px-5 py-4 text-sm text-black placeholder-gray-400 outline-none transition-all focus:ring-2 focus:ring-[#003599]/10 font-sans"
                     />
                     <p className="text-[10px] text-gray-500 mt-1.5 font-sans">
-                      Only registered team leaders are authorized to submit the demo video on behalf of their team.
+                      Only registered team leaders are authorized to submit the demo video and LinkedIn links on behalf of their team.
                     </p>
                   </div>
 
@@ -499,29 +575,30 @@ export function DemoVideoPortal() {
                 </form>
               )}
 
-              {/* STEP 3: DEMO VIDEO SUBMISSION (YouTube URL Only) */}
+              {/* STEP 3: DEMO VIDEO & LINKEDIN LINKS SUBMISSION */}
               {currentStep === 3 && (
                 <form onSubmit={handleSubmitDemoVideo} className="space-y-6">
                   {/* Submitter Team Banner */}
                   <div className="text-center space-y-1 py-2 border-b border-gray-200 pb-4">
                     <h2 className="text-xs uppercase tracking-widest text-[#003599] font-bold font-space">
-                      Demo Video Submission
+                      Video Proposal &amp; Member LinkedIn Posts
                     </h2>
                     <h3 className="text-3xl font-black text-black font-space">
                       {teamName}
                     </h3>
                     {email && (
                       <p className="text-xs text-gray-600">
-                        Submitter Email: <span className="text-black font-semibold">{email}</span>
+                        Submitter Email: <span className="text-black font-semibold">{email}</span> (Team Leader)
                       </p>
                     )}
                   </div>
 
-                  {/* YouTube Link Input */}
+                  {/* Section A: YouTube Demo Video Link */}
                   <div className="space-y-2">
                     <label className="text-[11px] font-bold uppercase tracking-widest text-black block font-space flex items-center gap-2">
                       <Video className="h-4 w-4 text-[#ff0000]" />
-                      <span>YOUTUBE DEMO VIDEO LINK</span>
+                      <span>1. YOUTUBE DEMO VIDEO LINK</span>
+                      <span className="ml-auto text-[9px] bg-red-100 text-red-700 px-2 py-0.5 rounded font-bold">REQUIRED</span>
                     </label>
                     <input
                       type="url"
@@ -532,14 +609,14 @@ export function DemoVideoPortal() {
                         if (errorMessage) setErrorMessage("");
                       }}
                       placeholder="https://www.youtube.com/watch?v=... or https://youtu.be/..."
-                      className="w-full bg-gray-50 border border-gray-300 focus:border-[#003599] rounded-2xl px-5 py-4 text-sm text-black placeholder-gray-400 outline-none transition-all focus:ring-2 focus:ring-[#003599]/10 font-sans"
+                      className="w-full bg-gray-50 border border-gray-300 focus:border-[#003599] rounded-2xl px-5 py-3.5 text-sm text-black placeholder-gray-400 outline-none transition-all focus:ring-2 focus:ring-[#003599]/10 font-sans"
                     />
                     <p className="text-[10px] text-gray-500 font-sans">
-                      Paste the full YouTube link for your product demo video (Max 5 minutes). Make sure the video privacy is set to <strong className="text-black">Public</strong> or <strong className="text-black">Unlisted</strong>.
+                      Paste the YouTube link for your product demo video (Max 5 minutes). Privacy must be <strong className="text-black">Public</strong> or <strong className="text-black">Unlisted</strong>.
                     </p>
                   </div>
 
-                  {/* Live Video Preview (if valid YouTube ID extracted) */}
+                  {/* Live Video Preview */}
                   {previewVideoId && (
                     <div className="p-3 bg-gray-50 rounded-2xl border border-gray-200 space-y-2">
                       <div className="flex items-center gap-2 text-xs font-bold text-gray-700 uppercase tracking-wider font-space">
@@ -557,6 +634,130 @@ export function DemoVideoPortal() {
                       </div>
                     </div>
                   )}
+
+                  {/* Section B: LinkedIn Member Post Links */}
+                  <div className="pt-2 border-t border-gray-200 space-y-4">
+                    <div className="space-y-1">
+                      <div className="flex items-center gap-2 text-black font-space font-bold text-xs uppercase tracking-wider">
+                        <Share2 className="h-4 w-4 text-[#0077B5]" />
+                        <span>2. TEAM MEMBERS&apos; LINKEDIN DEMO POST LINKS</span>
+                      </div>
+                      <p className="text-[11px] text-gray-500 font-sans leading-relaxed">
+                        Every team member must share the demo video on LinkedIn. Links for <strong>Members 1 to 4 are mandatory for all teams</strong>; <strong>Member 5 is only required for a 5-member team</strong> (leave blank if your team has 4 members).
+                      </p>
+                    </div>
+
+                    <div className="space-y-3">
+                      {/* Member 1 / Leader */}
+                      <div className="space-y-1.5 p-3.5 rounded-2xl bg-gray-50 border border-gray-200">
+                        <div className="flex items-center justify-between text-[10px] font-bold uppercase tracking-wider font-space text-gray-800">
+                          <span className="flex items-center gap-1.5">
+                            <FaLinkedinIn className="h-3.5 w-3.5 text-[#0077B5]" />
+                            <span>MEMBER 1 (TEAM LEADER) LINKEDIN POST</span>
+                          </span>
+                          <span className="text-[9px] bg-[#003599]/10 text-[#003599] px-2 py-0.5 rounded font-bold">REQUIRED</span>
+                        </div>
+                        <input
+                          type="url"
+                          required
+                          value={linkedin1}
+                          onChange={(e) => {
+                            setLinkedin1(e.target.value);
+                            if (errorMessage) setErrorMessage("");
+                          }}
+                          placeholder="https://www.linkedin.com/posts/..."
+                          className="w-full bg-white border border-gray-300 focus:border-[#003599] rounded-xl px-4 py-2.5 text-xs text-black placeholder-gray-400 outline-none transition-all focus:ring-2 focus:ring-[#003599]/10 font-sans"
+                        />
+                      </div>
+
+                      {/* Member 2 */}
+                      <div className="space-y-1.5 p-3.5 rounded-2xl bg-gray-50 border border-gray-200">
+                        <div className="flex items-center justify-between text-[10px] font-bold uppercase tracking-wider font-space text-gray-800">
+                          <span className="flex items-center gap-1.5">
+                            <FaLinkedinIn className="h-3.5 w-3.5 text-[#0077B5]" />
+                            <span>MEMBER 2 LINKEDIN POST</span>
+                          </span>
+                          <span className="text-[9px] bg-[#003599]/10 text-[#003599] px-2 py-0.5 rounded font-bold">REQUIRED</span>
+                        </div>
+                        <input
+                          type="url"
+                          required
+                          value={linkedin2}
+                          onChange={(e) => {
+                            setLinkedin2(e.target.value);
+                            if (errorMessage) setErrorMessage("");
+                          }}
+                          placeholder="https://www.linkedin.com/posts/..."
+                          className="w-full bg-white border border-gray-300 focus:border-[#003599] rounded-xl px-4 py-2.5 text-xs text-black placeholder-gray-400 outline-none transition-all focus:ring-2 focus:ring-[#003599]/10 font-sans"
+                        />
+                      </div>
+
+                      {/* Member 3 */}
+                      <div className="space-y-1.5 p-3.5 rounded-2xl bg-gray-50 border border-gray-200">
+                        <div className="flex items-center justify-between text-[10px] font-bold uppercase tracking-wider font-space text-gray-800">
+                          <span className="flex items-center gap-1.5">
+                            <FaLinkedinIn className="h-3.5 w-3.5 text-[#0077B5]" />
+                            <span>MEMBER 3 LINKEDIN POST</span>
+                          </span>
+                          <span className="text-[9px] bg-[#003599]/10 text-[#003599] px-2 py-0.5 rounded font-bold">REQUIRED</span>
+                        </div>
+                        <input
+                          type="url"
+                          required
+                          value={linkedin3}
+                          onChange={(e) => {
+                            setLinkedin3(e.target.value);
+                            if (errorMessage) setErrorMessage("");
+                          }}
+                          placeholder="https://www.linkedin.com/posts/..."
+                          className="w-full bg-white border border-gray-300 focus:border-[#003599] rounded-xl px-4 py-2.5 text-xs text-black placeholder-gray-400 outline-none transition-all focus:ring-2 focus:ring-[#003599]/10 font-sans"
+                        />
+                      </div>
+
+                      {/* Member 4 */}
+                      <div className="space-y-1.5 p-3.5 rounded-2xl bg-gray-50 border border-gray-200">
+                        <div className="flex items-center justify-between text-[10px] font-bold uppercase tracking-wider font-space text-gray-800">
+                          <span className="flex items-center gap-1.5">
+                            <FaLinkedinIn className="h-3.5 w-3.5 text-[#0077B5]" />
+                            <span>MEMBER 4 LINKEDIN POST</span>
+                          </span>
+                          <span className="text-[9px] bg-[#003599]/10 text-[#003599] px-2 py-0.5 rounded font-bold">REQUIRED</span>
+                        </div>
+                        <input
+                          type="url"
+                          required
+                          value={linkedin4}
+                          onChange={(e) => {
+                            setLinkedin4(e.target.value);
+                            if (errorMessage) setErrorMessage("");
+                          }}
+                          placeholder="https://www.linkedin.com/posts/..."
+                          className="w-full bg-white border border-gray-300 focus:border-[#003599] rounded-xl px-4 py-2.5 text-xs text-black placeholder-gray-400 outline-none transition-all focus:ring-2 focus:ring-[#003599]/10 font-sans"
+                        />
+                      </div>
+
+                      {/* Member 5 */}
+                      <div className="space-y-1.5 p-3.5 rounded-2xl bg-gray-50 border border-dashed border-gray-300">
+                        <div className="flex items-center justify-between text-[10px] font-bold uppercase tracking-wider font-space text-gray-800">
+                          <span className="flex items-center gap-1.5">
+                            <FaLinkedinIn className="h-3.5 w-3.5 text-[#0077B5]" />
+                            <span>MEMBER 5 LINKEDIN POST</span>
+                          </span>
+                          <span className="text-[9px] bg-amber-100 text-amber-800 px-2 py-0.5 rounded font-bold">5-MEMBER TEAMS ONLY</span>
+                        </div>
+                        <input
+                          type="url"
+                          value={linkedin5}
+                          onChange={(e) => {
+                            setLinkedin5(e.target.value);
+                            if (errorMessage) setErrorMessage("");
+                          }}
+                          placeholder="https://www.linkedin.com/posts/... (Only required if your team has 5 members)"
+                          className="w-full bg-white border border-gray-300 focus:border-[#003599] rounded-xl px-4 py-2.5 text-xs text-black placeholder-gray-400 outline-none transition-all focus:ring-2 focus:ring-[#003599]/10 font-sans"
+                        />
+                      </div>
+                    </div>
+                  </div>
 
                   {/* Buttons Row */}
                   <div className="flex items-center justify-between pt-4">
@@ -577,7 +778,7 @@ export function DemoVideoPortal() {
                         <Loader2 className="h-5 w-5 animate-spin text-white" />
                       ) : (
                         <>
-                          <span>SUBMIT DEMO VIDEO</span>
+                          <span>SUBMIT PROPOSAL LINKS</span>
                           <ArrowRight className="h-4 w-4" />
                         </>
                       )}
@@ -597,10 +798,10 @@ export function DemoVideoPortal() {
 
                   <div className="space-y-2">
                     <h2 className="text-3xl sm:text-4xl font-black text-black uppercase tracking-wider">
-                      DEMO SUBMITTED!
+                      SUBMISSION RECEIVED!
                     </h2>
                     <p className="text-xs text-[#003599] uppercase tracking-widest font-bold">
-                      Your product demo video has been officially registered
+                      Your YouTube demo and team LinkedIn post links have been officially registered
                     </p>
                   </div>
 
@@ -629,6 +830,27 @@ export function DemoVideoPortal() {
                         >
                           {submittedYoutubeUrl}
                         </a>
+                      </div>
+                    )}
+                    {submittedLinkedinLinks.length > 0 && (
+                      <div className="border-b border-gray-200 pb-3 space-y-2">
+                        <span className="text-gray-500 block">SUBMITTED LINKEDIN POSTS ({submittedLinkedinLinks.length}):</span>
+                        <div className="space-y-1.5 pl-2">
+                          {submittedLinkedinLinks.map((link, idx) => (
+                            <div key={idx} className="flex items-center justify-between gap-2 text-[11px]">
+                              <span className="font-semibold text-gray-700">Member {idx + 1}{idx === 0 ? " (Leader)" : ""}:</span>
+                              <a
+                                href={link}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="text-[#0077B5] hover:underline truncate max-w-[220px] sm:max-w-[300px] flex items-center gap-1 font-mono"
+                              >
+                                <span>{link}</span>
+                                <ExternalLink className="h-3 w-3 shrink-0" />
+                              </a>
+                            </div>
+                          ))}
+                        </div>
                       </div>
                     )}
                     <div className="flex items-center justify-between">
@@ -660,7 +882,7 @@ export function DemoVideoPortal() {
             </div>
           </div>
 
-          {/* RIGHT PANEL: Demo Video Guidelines & Criteria (5 Cols on desktop) */}
+          {/* RIGHT PANEL: Guidelines & Criteria (5 Cols on desktop) */}
           <div className="lg:col-span-5 bg-[#001433]/80 border border-[#003599]/50 rounded-3xl p-6 sm:p-8 backdrop-blur-xl shadow-[0_10px_40px_rgba(0,0,0,0.6)] space-y-6">
             {/* Logo */}
             <div className="flex items-center justify-center py-2">
@@ -680,17 +902,52 @@ export function DemoVideoPortal() {
                 <span>DEADLINE: 3RD SEPTEMBER · 11:59 PM</span>
               </div>
               <h2 className="text-xl font-black text-white uppercase tracking-wider font-space">
-                Demo Video Guidelines
+                Submission Guidelines
               </h2>
               <p className="text-xs text-[#a0aec0] leading-relaxed font-sans">
-                Welcome to the {tierName} Demo Video Submission portal. Please ensure your video submission covers all required demonstration components.
+                Welcome to the {tierName} Submission portal. Please review the YouTube demo video guidelines and LinkedIn post requirements below before submitting.
               </p>
+            </div>
+
+            {/* Leader Authorization Notice */}
+            <div className="p-3.5 rounded-2xl bg-[#003599]/20 border border-[#003599]/60 flex items-start gap-3">
+              <ShieldCheck className="h-5 w-5 text-[#00e5ff] shrink-0 mt-0.5" />
+              <div className="text-xs font-sans">
+                <p className="font-bold text-white uppercase tracking-wider font-space">
+                  Team Leader Authorization Only
+                </p>
+                <p className="text-[#cbd5e0] text-[11px] mt-0.5 leading-relaxed">
+                  Only the registered <strong className="text-white">Team Leader</strong> is authorized to authenticate and upload the proposal links on behalf of the entire team.
+                </p>
+              </div>
+            </div>
+
+            {/* LinkedIn Post Requirements Box */}
+            <div className="p-4 rounded-2xl bg-[#0077B5]/15 border border-[#0077B5]/40 space-y-2.5">
+              <div className="flex items-center gap-2 text-xs font-bold text-[#00e5ff] uppercase tracking-wider font-space">
+                <Users className="h-4 w-4 text-[#00e5ff]" />
+                <span>LinkedIn Demo Post Requirements</span>
+              </div>
+              <ul className="space-y-2 text-xs text-[#cbd5e0] font-sans">
+                <li className="flex items-start gap-2">
+                  <span className="text-[#00e5ff] font-bold">•</span>
+                  <span><strong>Team Size:</strong> Minimum 4 members, maximum 5 members per team.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-[#00e5ff] font-bold">•</span>
+                  <span><strong>Mandatory Posts:</strong> Every team member must share the demo video on their LinkedIn feed.</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-[#00e5ff] font-bold">•</span>
+                  <span><strong>Link Submission:</strong> Members 1 to 4 links are <strong>mandatory for all teams</strong>. Member 5 link is <strong>only required for a 5-member team</strong> (leave blank if your team has 4 members).</span>
+                </li>
+              </ul>
             </div>
 
             {/* Video Requirements Checklist */}
             <div className="space-y-4 pt-4 border-t border-[#002866]/60">
               <h3 className="text-[11px] font-bold uppercase tracking-widest text-white font-space flex items-center gap-2">
-                <ShieldCheck className="h-4 w-4 text-[#ffb81c]" />
+                <Video className="h-4 w-4 text-[#ffb81c]" />
                 <span>VIDEO DEMO STRUCTURE:</span>
               </h3>
 
@@ -732,7 +989,7 @@ export function DemoVideoPortal() {
                   </div>
                   <div>
                     <h4 className="text-xs font-bold text-white uppercase tracking-wider font-space">
-                      3. App & Team Introduction
+                      3. App &amp; Team Introduction
                     </h4>
                     <p className="text-[11px] text-[#cbd5e0] leading-relaxed mt-0.5 font-sans">
                       Briefly introduce your team, project name, and the core purpose of your application.
@@ -781,7 +1038,7 @@ export function DemoVideoPortal() {
               <ul className="space-y-1.5 text-xs text-[#cbd5e0] font-sans">
                 <li className="flex items-start gap-2">
                   <span className="text-[#ff4d4d] font-bold">•</span>
-                  <span>Upload the video to <strong className="text-white">YouTube</strong> and submit the URL.</span>
+                  <span>Upload the demo video to <strong className="text-white">YouTube</strong> and submit the URL.</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-[#ff4d4d] font-bold">•</span>
@@ -789,7 +1046,7 @@ export function DemoVideoPortal() {
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-[#ff4d4d] font-bold">•</span>
-                  <span>Submissions can be updated/overwritten by resubmitting before the deadline.</span>
+                  <span>Submissions can be updated by the Team Leader by resubmitting before the deadline.</span>
                 </li>
               </ul>
             </div>

@@ -54,17 +54,13 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    const FALLBACK_URL = "https://script.google.com/macros/s/AKfycbx3q6FNr1CcYuCOnn2xM_2foXol9GwfzS4rnKQlPHnBl6HajvoG74Ot1yfeMkY1vg1M/exec";
+
     const rawUrl =
       process.env.NEXT_PUBLIC_APPS_SCRIPT_URL ||
       process.env.PROPOSAL_WEBHOOK_URL ||
-      process.env.APPS_SCRIPT_WEBHOOK_URL;
-
-    if (!rawUrl) {
-      return NextResponse.json(
-        { success: false, error: "Backend API endpoint is not configured in environment variables." },
-        { status: 500 }
-      );
-    }
+      process.env.APPS_SCRIPT_WEBHOOK_URL ||
+      FALLBACK_URL;
 
     // Convert workspace URL (with /a/macros/domain/) to public Web App URL format (/macros/) if present
     const publicUrl = rawUrl.replace(/\/a\/macros\/[^\/]+\//, "/macros/");
@@ -109,6 +105,14 @@ export async function POST(req: NextRequest) {
       payload.demoUrl = videoLink;
       payload.fileUrl = videoLink;
     }
+
+    // LinkedIn link parameter mappings
+    if (body.linkedin1 || body.linkedIn1) payload.linkedin1 = body.linkedin1 || body.linkedIn1;
+    if (body.linkedin2 || body.linkedIn2) payload.linkedin2 = body.linkedin2 || body.linkedIn2;
+    if (body.linkedin3 || body.linkedIn3) payload.linkedin3 = body.linkedin3 || body.linkedIn3;
+    if (body.linkedin4 || body.linkedIn4) payload.linkedin4 = body.linkedin4 || body.linkedIn4;
+    if (body.linkedin5 || body.linkedIn5) payload.linkedin5 = body.linkedin5 || body.linkedIn5;
+    if (Array.isArray(body.linkedinLinks)) payload.linkedinLinks = body.linkedinLinks;
 
     // Map OTP parameter aliases if applicable
     if (body.otp || body.code) {

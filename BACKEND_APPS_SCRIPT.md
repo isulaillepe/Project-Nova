@@ -8,29 +8,29 @@ This guide provides the complete Google Apps Script backend implementation for t
 
 Configure your active tab (named `Submissions`) with the following column structure:
 
-| Column | Col # | Header Name | Description | Mandatory / Optional |
-| :--- | :--- | :--- | :--- | :--- |
-| **B** | 2 (Col Index 1) | `Doc ID` | System Registration Document ID | Pre-filled |
-| **C** | 3 (Col Index 2) | `Team Name` | Registered Team Name | Pre-filled |
-| **D** | 4 (Col Index 3) | `Track` | Competition Track | Pre-filled |
-| **E** | 5 (Col Index 4) | `Name` | Member / Leader Name | Pre-filled |
-| **F** | 6 (Col Index 5) | `Email Address` | Registered Email (Primary Key) | Pre-filled |
-| **G** | 7 (Col Index 6) | `Role` | Must contain "Leader" to submit | Pre-filled |
-| **H** | 8 (Col Index 7) | `University` | University Name | Pre-filled |
-| **K** | 11 (Col Index 10) | `WhatsApp Contact` | Leader Contact Number | Pre-filled |
-| **T** | 20 (Col Index 19) | `OTP Code` | 6-digit OTP verification code | System Generated |
-| **U** | 21 (Col Index 20) | `OTP Expiry` | ISO timestamp (5-minute expiry) | System Generated |
-| **AC** | 29 | `YouTube Demo Link` | YouTube video submission URL | Submitted by Leader |
-| **AD** | 30 | `YouTube Status` | `PENDING_VERIFICATION`, `VERIFIED`, `SUBMITTED` | System Generated |
-| **AE** | 31 | `Submission Time` | ISO Timestamp of final submission | System Generated |
-| **AF** | 32 | `Submission Reference` | Unique Reference (`NOVA-YT-XXXXXX`) | System Generated |
-| **AG** | 33 | `Team Email Status` | `OTP_EMAIL_SENT`, `CONFIRMATION_EMAIL_SENT` | System Generated |
-| **AH** | 34 | `Admin Notified Status`| `SENT` / `FAILED` | System Generated |
-| **AI** | 35 | `Member 1 (Leader) LinkedIn` | Demo video LinkedIn post URL for Member 1 | **Required** |
-| **AJ** | 36 | `Member 2 LinkedIn` | Demo video LinkedIn post URL for Member 2 | **Required** |
-| **AK** | 37 | `Member 3 LinkedIn` | Demo video LinkedIn post URL for Member 3 | **Required** |
-| **AL** | 38 | `Member 4 LinkedIn` | Demo video LinkedIn post URL for Member 4 | **Required** |
-| **AM** | 39 | `Member 5 LinkedIn` | Demo video LinkedIn post URL for Member 5 | *Required only for 5-member teams* |
+| Column | Col #             | Header Name                  | Description                                     | Mandatory / Optional               |
+| :----- | :---------------- | :--------------------------- | :---------------------------------------------- | :--------------------------------- |
+| **B**  | 2 (Col Index 1)   | `Doc ID`                     | System Registration Document ID                 | Pre-filled                         |
+| **C**  | 3 (Col Index 2)   | `Team Name`                  | Registered Team Name                            | Pre-filled                         |
+| **D**  | 4 (Col Index 3)   | `Track`                      | Competition Track                               | Pre-filled                         |
+| **E**  | 5 (Col Index 4)   | `Name`                       | Member / Leader Name                            | Pre-filled                         |
+| **F**  | 6 (Col Index 5)   | `Email Address`              | Registered Email (Primary Key)                  | Pre-filled                         |
+| **G**  | 7 (Col Index 6)   | `Role`                       | Must contain "Leader" to submit                 | Pre-filled                         |
+| **H**  | 8 (Col Index 7)   | `University`                 | University Name                                 | Pre-filled                         |
+| **K**  | 11 (Col Index 10) | `WhatsApp Contact`           | Leader Contact Number                           | Pre-filled                         |
+| **T**  | 20 (Col Index 19) | `OTP Code`                   | 6-digit OTP verification code                   | System Generated                   |
+| **U**  | 21 (Col Index 20) | `OTP Expiry`                 | ISO timestamp (5-minute expiry)                 | System Generated                   |
+| **AC** | 29                | `YouTube Demo Link`          | YouTube video submission URL                    | Submitted by Leader                |
+| **AD** | 30                | `YouTube Status`             | `PENDING_VERIFICATION`, `VERIFIED`, `SUBMITTED` | System Generated                   |
+| **AE** | 31                | `Submission Time`            | ISO Timestamp of final submission               | System Generated                   |
+| **AF** | 32                | `Submission Reference`       | Unique Reference (`NOVA-YT-XXXXXX`)             | System Generated                   |
+| **AG** | 33                | `Team Email Status`          | `OTP_EMAIL_SENT`, `CONFIRMATION_EMAIL_SENT`     | System Generated                   |
+| **AH** | 34                | `Admin Notified Status`      | `SENT` / `FAILED`                               | System Generated                   |
+| **AI** | 35                | `Member 1 (Leader) LinkedIn` | Demo video LinkedIn post URL for Member 1       | **Required**                       |
+| **AJ** | 36                | `Member 2 LinkedIn`          | Demo video LinkedIn post URL for Member 2       | **Required**                       |
+| **AK** | 37                | `Member 3 LinkedIn`          | Demo video LinkedIn post URL for Member 3       | **Required**                       |
+| **AL** | 38                | `Member 4 LinkedIn`          | Demo video LinkedIn post URL for Member 4       | **Required**                       |
+| **AM** | 39                | `Member 5 LinkedIn`          | Demo video LinkedIn post URL for Member 5       | _Required only for 5-member teams_ |
 
 ---
 
@@ -52,62 +52,59 @@ Configure your active tab (named `Submissions`) with the following column struct
 // ---------------------------------------------------------------------------
 var ADMIN_EMAILS = [
   "isulaillepe2024@gmail.com",
-  "isulailleperuma2022@gmail.com"
+  "isulailleperuma2022@gmail.com",
 ];
 
 var SHEET_NAME = "Submissions"; // Active sheet name
-var START_ROW_INDEX = 1;        // Scans Row 2 onwards (skips Row 1 header)
-var SENDER_NAME = "Project Nova Organized by AIESEC in University of Sri Jayewardenepura";
+var START_ROW_INDEX = 1; // Scans Row 2 onwards (skips Row 1 header)
+var SENDER_NAME =
+  "Project Nova Organized by AIESEC in University of Sri Jayewardenepura";
 
 // ---------------------------------------------------------------------------
 // COLUMN INDEX CONFIGURATIONS
 // ---------------------------------------------------------------------------
 // Array Scanning (0-Indexed: Col A=0, B=1, C=2...)
-var DOC_ID_COL_INDEX   = 1;  // Col B: Doc ID
-var TEAM_COL_INDEX     = 2;  // Col C: Team Name
-var TRACK_COL_INDEX    = 3;  // Col D: Track
-var NAME_COL_INDEX     = 4;  // Col E: Member / Leader Name
-var EMAIL_COL_INDEX    = 5;  // Col F: Email Address
-var ROLE_COL_INDEX     = 6;  // Col G: Role ("Leader", "Team Leader", "Member")
-var UNIV_COL_INDEX     = 7;  // Col H: University
+var DOC_ID_COL_INDEX = 1; // Col B: Doc ID
+var TEAM_COL_INDEX = 2; // Col C: Team Name
+var TRACK_COL_INDEX = 3; // Col D: Track
+var NAME_COL_INDEX = 4; // Col E: Member / Leader Name
+var EMAIL_COL_INDEX = 5; // Col F: Email Address
+var ROLE_COL_INDEX = 6; // Col G: Role ("Leader", "Team Leader", "Member")
+var UNIV_COL_INDEX = 7; // Col H: University
 var WHATSAPP_COL_INDEX = 10; // Col K: WhatsApp Contact
 
 // OTP Columns
-var OTP_CODE_INDEX     = 19; // Col T (0-indexed: 19)
-var OTP_EXPIRY_INDEX   = 20; // Col U (0-indexed: 20)
-var COL_OTP_CODE       = 20; // Col T (1-indexed for getRange)
-var COL_OTP_EXPIRY     = 21; // Col U (1-indexed for getRange)
+var OTP_CODE_INDEX = 19; // Col T (0-indexed: 19)
+var OTP_EXPIRY_INDEX = 20; // Col U (0-indexed: 20)
+var COL_OTP_CODE = 20; // Col T (1-indexed for getRange)
+var COL_OTP_EXPIRY = 21; // Col U (1-indexed for getRange)
 
 // YouTube Submission Columns (1-Indexed for sheet.getRange)
-var COL_YT_LINK             = 29; // Col AC (29): YouTube Link
-var COL_YT_STATUS           = 30; // Col AD (30): Status (SUBMITTED / VERIFIED)
-var COL_YT_SUBMISSION_TIME  = 31; // Col AE (31): Submission Time
-var COL_YT_SUBMISSION_REF   = 32; // Col AF (32): Submission Reference (NOVA-YT-XXXXXX)
-var COL_YT_EMAIL_STATUS     = 33; // Col AG (33): Team Confirmation Email Status
-var COL_YT_ADMIN_NOTIFIED   = 34; // Col AH (34): Admin Notified Status
+var COL_YT_LINK = 29; // Col AC (29): YouTube Link
+var COL_YT_STATUS = 30; // Col AD (30): Status (SUBMITTED / VERIFIED)
+var COL_YT_SUBMISSION_TIME = 31; // Col AE (31): Submission Time
+var COL_YT_SUBMISSION_REF = 32; // Col AF (32): Submission Reference (NOVA-YT-XXXXXX)
+var COL_YT_EMAIL_STATUS = 33; // Col AG (33): Team Confirmation Email Status
+var COL_YT_ADMIN_NOTIFIED = 34; // Col AH (34): Admin Notified Status
 
 // LinkedIn Post Submission Columns (1-Indexed for sheet.getRange - Columns after AH)
-var COL_LINKEDIN_MEMBER_1   = 35; // Col AI (35): Member 1 (Leader) LinkedIn Post (Required)
-var COL_LINKEDIN_MEMBER_2   = 36; // Col AJ (36): Member 2 LinkedIn Post (Required)
-var COL_LINKEDIN_MEMBER_3   = 37; // Col AK (37): Member 3 LinkedIn Post (Required)
-var COL_LINKEDIN_MEMBER_4   = 38; // Col AL (38): Member 4 LinkedIn Post (Required)
-var COL_LINKEDIN_MEMBER_5   = 39; // Col AM (39): Member 5 LinkedIn Post (Required only for 5-member teams)
+var COL_LINKEDIN_MEMBER_1 = 35; // Col AI (35): Member 1 (Leader) LinkedIn Post (Required)
+var COL_LINKEDIN_MEMBER_2 = 36; // Col AJ (36): Member 2 LinkedIn Post (Required)
+var COL_LINKEDIN_MEMBER_3 = 37; // Col AK (37): Member 3 LinkedIn Post (Required)
+var COL_LINKEDIN_MEMBER_4 = 38; // Col AL (38): Member 4 LinkedIn Post (Required)
+var COL_LINKEDIN_MEMBER_5 = 39; // Col AM (39): Member 5 LinkedIn Post (Required only for 5-member teams)
 
 /**
  * Validates whether a provided URL is a valid YouTube link
  */
 function isValidYouTubeUrl(url) {
   if (!url) return false;
-  return /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/.+$/i.test(url.trim());
+  return /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/.+$/i.test(
+    url.trim(),
+  );
 }
 
-/**
- * Validates whether a provided URL is a valid LinkedIn link (supports linkedin.com and lnkd.in)
- */
-function isValidLinkedInUrl(url) {
-  if (!url) return false;
-  return /^(https?:\/\/)?(www\.)?(linkedin\.com|lnkd\.in)\/.+$/i.test(url.trim());
-}
+
 
 /**
  * HTTP POST Router for Next.js Frontend Requests
@@ -120,28 +117,40 @@ function doPost(e) {
     let result;
     if (action === "VERIFY_EMAIL" || action === "CHECK_EMAIL") {
       result = handleVerifyEmail(contents.email);
-    } else if (action === "VERIFY_OTP" || action === "VERIFY_CODE" || action === "CHECK_OTP") {
-      const otpValue = contents.otp || contents.code || contents.otpCode || contents.verificationCode;
+    } else if (
+      action === "VERIFY_OTP" ||
+      action === "VERIFY_CODE" ||
+      action === "CHECK_OTP"
+    ) {
+      const otpValue =
+        contents.otp ||
+        contents.code ||
+        contents.otpCode ||
+        contents.verificationCode;
       result = handleVerifyOtp(contents.email, otpValue);
     } else if (
       action === "SUBMIT_DEMO_VIDEO" ||
-      action === "SUBMIT_YOUTUBE" || 
-      action === "SUBMIT_VIDEO" || 
+      action === "SUBMIT_YOUTUBE" ||
+      action === "SUBMIT_VIDEO" ||
       action === "SUBMIT_FIGMA" ||
-      action === "SUBMIT_PROPOSAL" || 
-      action === "SUBMIT" || 
+      action === "SUBMIT_PROPOSAL" ||
+      action === "SUBMIT" ||
       action === "UPLOAD_PROPOSAL"
     ) {
       result = handleSubmitProposal(contents);
     } else {
-      result = { success: false, error: "Invalid action requested: " + contents.action };
+      result = {
+        success: false,
+        error: "Invalid action requested: " + contents.action,
+      };
     }
 
-    return ContentService.createTextOutput(JSON.stringify(result))
-      .setMimeType(ContentService.MimeType.JSON);
+    return ContentService.createTextOutput(JSON.stringify(result)).setMimeType(
+      ContentService.MimeType.JSON,
+    );
   } catch (error) {
     return ContentService.createTextOutput(
-      JSON.stringify({ success: false, error: error.toString() })
+      JSON.stringify({ success: false, error: error.toString() }),
     ).setMimeType(ContentService.MimeType.JSON);
   }
 }
@@ -153,28 +162,34 @@ function handleVerifyEmail(email) {
   if (!email) return { success: false, error: "Email address is required." };
 
   clearExpiredOtps();
-  
+
   const cleanEmail = email.trim().toLowerCase();
-  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME) 
-              || SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
+  const sheet =
+    SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME) ||
+    SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
   const data = sheet.getDataRange().getValues();
-  
+
   let rowIndex = -1;
   let teamName = "";
   let leaderName = "";
   let emailFound = false;
 
   for (let i = START_ROW_INDEX; i < data.length; i++) {
-    const rowEmail = data[i][EMAIL_COL_INDEX] ? data[i][EMAIL_COL_INDEX].toString().trim().toLowerCase() : "";
-    
+    const rowEmail = data[i][EMAIL_COL_INDEX]
+      ? data[i][EMAIL_COL_INDEX].toString().trim().toLowerCase()
+      : "";
+
     if (rowEmail === cleanEmail) {
       emailFound = true;
-      const role = data[i][ROLE_COL_INDEX] ? data[i][ROLE_COL_INDEX].toString().trim().toLowerCase() : "";
+      const role = data[i][ROLE_COL_INDEX]
+        ? data[i][ROLE_COL_INDEX].toString().trim().toLowerCase()
+        : "";
 
       if (!role.includes("leader")) {
-        return { 
-          success: false, 
-          error: "Access Restricted: You are registered as a Team Member. Only designated Team Leaders are authorized to submit proposals." 
+        return {
+          success: false,
+          error:
+            "Access Restricted: You are registered as a Team Member. Only designated Team Leaders are authorized to submit proposals.",
         };
       }
 
@@ -186,15 +201,19 @@ function handleVerifyEmail(email) {
   }
 
   if (!emailFound) {
-    return { success: false, error: "Email address not found in the registered teams list. Please verify your email address." };
+    return {
+      success: false,
+      error:
+        "Email address not found in the registered teams list. Please verify your email address.",
+    };
   }
 
   const otpCode = Math.floor(100000 + Math.random() * 900000).toString();
   const expiryTime = new Date(Date.now() + 5 * 60 * 1000).toISOString(); // 5 Minute Lifespan
 
   sheet.getRange(rowIndex, COL_YT_STATUS).setValue("PENDING_VERIFICATION"); // Col AD (30)
-  sheet.getRange(rowIndex, COL_OTP_CODE).setValue(otpCode);                 // Col T (20)
-  sheet.getRange(rowIndex, COL_OTP_EXPIRY).setValue(expiryTime);             // Col U (21)
+  sheet.getRange(rowIndex, COL_OTP_CODE).setValue(otpCode); // Col T (20)
+  sheet.getRange(rowIndex, COL_OTP_EXPIRY).setValue(expiryTime); // Col U (21)
 
   try {
     MailApp.sendEmail({
@@ -220,12 +239,17 @@ function handleVerifyEmail(email) {
             </div>
           </div>
         </div>
-      `
+      `,
     });
     sheet.getRange(rowIndex, COL_YT_EMAIL_STATUS).setValue("OTP_EMAIL_SENT"); // Col AG (33)
   } catch (err) {
-    sheet.getRange(rowIndex, COL_YT_EMAIL_STATUS).setValue("OTP_EMAIL_FAILED: " + err.toString());
-    return { success: false, error: "Failed to send verification email. Please try again." };
+    sheet
+      .getRange(rowIndex, COL_YT_EMAIL_STATUS)
+      .setValue("OTP_EMAIL_FAILED: " + err.toString());
+    return {
+      success: false,
+      error: "Failed to send verification email. Please try again.",
+    };
   }
 
   return { success: true, teamName: teamName, leaderName: leaderName };
@@ -235,44 +259,63 @@ function handleVerifyEmail(email) {
  * Action 2: Verify OTP Code
  */
 function handleVerifyOtp(email, inputOtp) {
-  if (!email || !inputOtp) return { success: false, error: "Email and OTP code are required." };
-  
+  if (!email || !inputOtp)
+    return { success: false, error: "Email and OTP code are required." };
+
   const cleanEmail = email.trim().toLowerCase();
-  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME)
-              || SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
+  const sheet =
+    SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME) ||
+    SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
   const data = sheet.getDataRange().getValues();
 
   for (let i = START_ROW_INDEX; i < data.length; i++) {
-    if (data[i][EMAIL_COL_INDEX] && data[i][EMAIL_COL_INDEX].toString().trim().toLowerCase() === cleanEmail) {
+    if (
+      data[i][EMAIL_COL_INDEX] &&
+      data[i][EMAIL_COL_INDEX].toString().trim().toLowerCase() === cleanEmail
+    ) {
       const rowIndex = i + 1;
-      const storedOtp = data[i][OTP_CODE_INDEX] ? data[i][OTP_CODE_INDEX].toString().trim() : "";
-      const expiryStr = data[i][OTP_EXPIRY_INDEX] ? data[i][OTP_EXPIRY_INDEX].toString().trim() : "";
+      const storedOtp = data[i][OTP_CODE_INDEX]
+        ? data[i][OTP_CODE_INDEX].toString().trim()
+        : "";
+      const expiryStr = data[i][OTP_EXPIRY_INDEX]
+        ? data[i][OTP_EXPIRY_INDEX].toString().trim()
+        : "";
       const expiry = expiryStr ? new Date(expiryStr) : null;
 
       if (!expiry || new Date() > expiry) {
         sheet.getRange(rowIndex, COL_OTP_CODE).setValue("");
         sheet.getRange(rowIndex, COL_OTP_EXPIRY).setValue("");
-        return { success: false, error: "OTP code has expired (5-minute limit reached). Please request a new code." };
+        return {
+          success: false,
+          error:
+            "OTP code has expired (5-minute limit reached). Please request a new code.",
+        };
       }
 
       if (storedOtp !== inputOtp.toString().trim()) {
-        return { success: false, error: "Invalid OTP verification code. Please try again." };
+        return {
+          success: false,
+          error: "Invalid OTP verification code. Please try again.",
+        };
       }
 
       sheet.getRange(rowIndex, COL_YT_STATUS).setValue("VERIFIED"); // Col AD (30)
-      sheet.getRange(rowIndex, COL_OTP_CODE).setValue("");          // Col T (20)
-      sheet.getRange(rowIndex, COL_OTP_EXPIRY).setValue("");        // Col U (21)
+      sheet.getRange(rowIndex, COL_OTP_CODE).setValue(""); // Col T (20)
+      sheet.getRange(rowIndex, COL_OTP_EXPIRY).setValue(""); // Col U (21)
 
       return {
         success: true,
         teamName: data[i][TEAM_COL_INDEX] || "Team",
         leaderName: data[i][NAME_COL_INDEX] || "Leader",
-        email: cleanEmail
+        email: cleanEmail,
       };
     }
   }
 
-  return { success: false, error: "Email address not found in the registered teams list." };
+  return {
+    success: false,
+    error: "Email address not found in the registered teams list.",
+  };
 }
 
 /**
@@ -281,7 +324,10 @@ function handleVerifyOtp(email, inputOtp) {
 function handleSubmitProposal(data) {
   if (!data) return { success: false, error: "No payload provided." };
 
-  const inputEmail = (data.email || data.leaderEmail || data.userEmail || "").toString().trim().toLowerCase();
+  const inputEmail = (data.email || data.leaderEmail || data.userEmail || "")
+    .toString()
+    .trim()
+    .toLowerCase();
   const youtubeLink = (
     data.youtubeUrl ||
     data.youtubeLink ||
@@ -292,47 +338,76 @@ function handleSubmitProposal(data) {
     data.link ||
     data.proposalLink ||
     ""
-  ).toString().trim();
+  )
+    .toString()
+    .trim();
 
   // Extract LinkedIn links (supports individual keys or arrays)
-  const linkedinLinks = Array.isArray(data.linkedinLinks) ? data.linkedinLinks : [];
-  const linkedin1 = (data.linkedin1 || data.linkedIn1 || linkedinLinks[0] || "").toString().trim();
-  const linkedin2 = (data.linkedin2 || data.linkedIn2 || linkedinLinks[1] || "").toString().trim();
-  const linkedin3 = (data.linkedin3 || data.linkedIn3 || linkedinLinks[2] || "").toString().trim();
-  const linkedin4 = (data.linkedin4 || data.linkedIn4 || linkedinLinks[3] || "").toString().trim();
-  const linkedin5 = (data.linkedin5 || data.linkedIn5 || linkedinLinks[4] || "").toString().trim();
+  const linkedinLinks = Array.isArray(data.linkedinLinks)
+    ? data.linkedinLinks
+    : [];
+  const linkedin1 = (data.linkedin1 || data.linkedIn1 || linkedinLinks[0] || "")
+    .toString()
+    .trim();
+  const linkedin2 = (data.linkedin2 || data.linkedIn2 || linkedinLinks[1] || "")
+    .toString()
+    .trim();
+  const linkedin3 = (data.linkedin3 || data.linkedIn3 || linkedinLinks[2] || "")
+    .toString()
+    .trim();
+  const linkedin4 = (data.linkedin4 || data.linkedIn4 || linkedinLinks[3] || "")
+    .toString()
+    .trim();
+  const linkedin5 = (data.linkedin5 || data.linkedIn5 || linkedinLinks[4] || "")
+    .toString()
+    .trim();
 
-  if (!inputEmail) return { success: false, error: "Email address is required." };
-  if (!youtubeLink) return { success: false, error: "YouTube video submission link is required." };
+  if (!inputEmail)
+    return { success: false, error: "Email address is required." };
+  if (!youtubeLink)
+    return {
+      success: false,
+      error: "YouTube video submission link is required.",
+    };
 
   // 1. Validate YouTube Link Format
   if (!isValidYouTubeUrl(youtubeLink)) {
-    return { 
-      success: false, 
-      error: "Invalid YouTube URL. Please provide a valid YouTube link (e.g., https://youtu.be/... or https://www.youtube.com/watch?v=...)." 
+    return {
+      success: false,
+      error:
+        "Invalid YouTube URL. Please provide a valid YouTube link (e.g., https://youtu.be/... or https://www.youtube.com/watch?v=...).",
     };
   }
 
-  // 2. Validate Required Member LinkedIn Links (Members 1 - 4 are mandatory)
-  if (!linkedin1 || !isValidLinkedInUrl(linkedin1)) {
-    return { success: false, error: "Member 1 (Team Leader) valid LinkedIn post link is required." };
+  // 2. Validate Required Member LinkedIn Links (Members 1 - 4 are mandatory, Member 5 is optional for 5-member teams)
+  if (!linkedin1) {
+    return {
+      success: false,
+      error: "Member 1 (Team Leader) LinkedIn post link is required.",
+    };
   }
-  if (!linkedin2 || !isValidLinkedInUrl(linkedin2)) {
-    return { success: false, error: "Member 2 valid LinkedIn post link is required." };
+  if (!linkedin2) {
+    return {
+      success: false,
+      error: "Member 2 LinkedIn post link is required.",
+    };
   }
-  if (!linkedin3 || !isValidLinkedInUrl(linkedin3)) {
-    return { success: false, error: "Member 3 valid LinkedIn post link is required." };
+  if (!linkedin3) {
+    return {
+      success: false,
+      error: "Member 3 LinkedIn post link is required.",
+    };
   }
-  if (!linkedin4 || !isValidLinkedInUrl(linkedin4)) {
-    return { success: false, error: "Member 4 valid LinkedIn post link is required." };
-  }
-  // Member 5 is optional, but if provided, must be a valid LinkedIn URL
-  if (linkedin5 && !isValidLinkedInUrl(linkedin5)) {
-    return { success: false, error: "Member 5 LinkedIn link is invalid. Please provide a valid LinkedIn URL or leave blank." };
+  if (!linkedin4) {
+    return {
+      success: false,
+      error: "Member 4 LinkedIn post link is required.",
+    };
   }
 
-  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME)
-              || SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
+  const sheet =
+    SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME) ||
+    SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
   const sheetData = sheet.getDataRange().getValues();
 
   let rowIndex = -1;
@@ -345,27 +420,50 @@ function handleSubmitProposal(data) {
 
   // 3. Locate Leader Row & Validate Authorization
   for (let i = START_ROW_INDEX; i < sheetData.length; i++) {
-    const rowEmail = sheetData[i][EMAIL_COL_INDEX] ? sheetData[i][EMAIL_COL_INDEX].toString().trim().toLowerCase() : "";
+    const rowEmail = sheetData[i][EMAIL_COL_INDEX]
+      ? sheetData[i][EMAIL_COL_INDEX].toString().trim().toLowerCase()
+      : "";
     if (rowEmail === inputEmail) {
-      const role = sheetData[i][ROLE_COL_INDEX] ? sheetData[i][ROLE_COL_INDEX].toString().trim().toLowerCase() : "";
-      
+      const role = sheetData[i][ROLE_COL_INDEX]
+        ? sheetData[i][ROLE_COL_INDEX].toString().trim().toLowerCase()
+        : "";
+
       if (!role.includes("leader")) {
-        return { success: false, error: "Access Restricted: You are registered as a Team Member. Only designated Team Leaders are authorized to submit proposals." };
+        return {
+          success: false,
+          error:
+            "Access Restricted: You are registered as a Team Member. Only designated Team Leaders are authorized to submit proposals.",
+        };
       }
 
       rowIndex = i + 1;
-      docId = sheetData[i][DOC_ID_COL_INDEX] ? sheetData[i][DOC_ID_COL_INDEX].toString().trim() : "N/A";
-      teamName = sheetData[i][TEAM_COL_INDEX] ? sheetData[i][TEAM_COL_INDEX].toString().trim() : "Registered Team";
-      trackName = sheetData[i][TRACK_COL_INDEX] ? sheetData[i][TRACK_COL_INDEX].toString().trim() : "N/A";
-      leaderName = sheetData[i][NAME_COL_INDEX] ? sheetData[i][NAME_COL_INDEX].toString().trim() : "Team Leader";
-      university = sheetData[i][UNIV_COL_INDEX] ? sheetData[i][UNIV_COL_INDEX].toString().trim() : "N/A";
-      whatsapp = sheetData[i][WHATSAPP_COL_INDEX] ? sheetData[i][WHATSAPP_COL_INDEX].toString().trim() : "N/A";
+      docId = sheetData[i][DOC_ID_COL_INDEX]
+        ? sheetData[i][DOC_ID_COL_INDEX].toString().trim()
+        : "N/A";
+      teamName = sheetData[i][TEAM_COL_INDEX]
+        ? sheetData[i][TEAM_COL_INDEX].toString().trim()
+        : "Registered Team";
+      trackName = sheetData[i][TRACK_COL_INDEX]
+        ? sheetData[i][TRACK_COL_INDEX].toString().trim()
+        : "N/A";
+      leaderName = sheetData[i][NAME_COL_INDEX]
+        ? sheetData[i][NAME_COL_INDEX].toString().trim()
+        : "Team Leader";
+      university = sheetData[i][UNIV_COL_INDEX]
+        ? sheetData[i][UNIV_COL_INDEX].toString().trim()
+        : "N/A";
+      whatsapp = sheetData[i][WHATSAPP_COL_INDEX]
+        ? sheetData[i][WHATSAPP_COL_INDEX].toString().trim()
+        : "N/A";
       break;
     }
   }
 
   if (rowIndex === -1) {
-    return { success: false, error: "Email address not found in the registered teams list." };
+    return {
+      success: false,
+      error: "Email address not found in the registered teams list.",
+    };
   }
 
   // 4. Find All Unique Member Emails Associated with this Team Name
@@ -373,10 +471,18 @@ function handleSubmitProposal(data) {
   const targetTeamClean = teamName.toLowerCase();
 
   for (let i = START_ROW_INDEX; i < sheetData.length; i++) {
-    const rowTeam = sheetData[i][TEAM_COL_INDEX] ? sheetData[i][TEAM_COL_INDEX].toString().trim().toLowerCase() : "";
-    const rowEmail = sheetData[i][EMAIL_COL_INDEX] ? sheetData[i][EMAIL_COL_INDEX].toString().trim().toLowerCase() : "";
-    
-    if (rowTeam === targetTeamClean && rowEmail && teamEmails.indexOf(rowEmail) === -1) {
+    const rowTeam = sheetData[i][TEAM_COL_INDEX]
+      ? sheetData[i][TEAM_COL_INDEX].toString().trim().toLowerCase()
+      : "";
+    const rowEmail = sheetData[i][EMAIL_COL_INDEX]
+      ? sheetData[i][EMAIL_COL_INDEX].toString().trim().toLowerCase()
+      : "";
+
+    if (
+      rowTeam === targetTeamClean &&
+      rowEmail &&
+      teamEmails.indexOf(rowEmail) === -1
+    ) {
       teamEmails.push(rowEmail);
     }
   }
@@ -389,19 +495,19 @@ function handleSubmitProposal(data) {
   const now = new Date().toISOString();
 
   // 5. Save YouTube Link & Submission Details to Spreadsheet Columns AC onwards
-  sheet.getRange(rowIndex, COL_YT_LINK).setValue(youtubeLink);          // Col AC (29)
-  sheet.getRange(rowIndex, COL_YT_STATUS).setValue("SUBMITTED");         // Col AD (30)
-  sheet.getRange(rowIndex, COL_YT_SUBMISSION_TIME).setValue(now);        // Col AE (31)
-  sheet.getRange(rowIndex, COL_YT_SUBMISSION_REF).setValue(submissionId);// Col AF (32)
-  sheet.getRange(rowIndex, COL_OTP_CODE).setValue("");                   // Clear Col T
-  sheet.getRange(rowIndex, COL_OTP_EXPIRY).setValue("");                 // Clear Col U
+  sheet.getRange(rowIndex, COL_YT_LINK).setValue(youtubeLink); // Col AC (29)
+  sheet.getRange(rowIndex, COL_YT_STATUS).setValue("SUBMITTED"); // Col AD (30)
+  sheet.getRange(rowIndex, COL_YT_SUBMISSION_TIME).setValue(now); // Col AE (31)
+  sheet.getRange(rowIndex, COL_YT_SUBMISSION_REF).setValue(submissionId); // Col AF (32)
+  sheet.getRange(rowIndex, COL_OTP_CODE).setValue(""); // Clear Col T
+  sheet.getRange(rowIndex, COL_OTP_EXPIRY).setValue(""); // Clear Col U
 
   // 6. Save LinkedIn Member Links (Columns AI onwards)
-  sheet.getRange(rowIndex, COL_LINKEDIN_MEMBER_1).setValue(linkedin1);   // Col AI (35)
-  sheet.getRange(rowIndex, COL_LINKEDIN_MEMBER_2).setValue(linkedin2);   // Col AJ (36)
-  sheet.getRange(rowIndex, COL_LINKEDIN_MEMBER_3).setValue(linkedin3);   // Col AK (37)
-  sheet.getRange(rowIndex, COL_LINKEDIN_MEMBER_4).setValue(linkedin4);   // Col AL (38)
-  sheet.getRange(rowIndex, COL_LINKEDIN_MEMBER_5).setValue(linkedin5);   // Col AM (39)
+  sheet.getRange(rowIndex, COL_LINKEDIN_MEMBER_1).setValue(linkedin1); // Col AI (35)
+  sheet.getRange(rowIndex, COL_LINKEDIN_MEMBER_2).setValue(linkedin2); // Col AJ (36)
+  sheet.getRange(rowIndex, COL_LINKEDIN_MEMBER_3).setValue(linkedin3); // Col AK (37)
+  sheet.getRange(rowIndex, COL_LINKEDIN_MEMBER_4).setValue(linkedin4); // Col AL (38)
+  sheet.getRange(rowIndex, COL_LINKEDIN_MEMBER_5).setValue(linkedin5); // Col AM (39)
 
   // Build HTML list for LinkedIn links in emails
   let linkedInHtmlList = `
@@ -462,11 +568,15 @@ function handleSubmitProposal(data) {
             </div>
           </div>
         </div>
-      `
+      `,
     });
-    sheet.getRange(rowIndex, COL_YT_EMAIL_STATUS).setValue("CONFIRMATION_EMAIL_SENT"); // Col AG (33)
+    sheet
+      .getRange(rowIndex, COL_YT_EMAIL_STATUS)
+      .setValue("CONFIRMATION_EMAIL_SENT"); // Col AG (33)
   } catch (err) {
-    sheet.getRange(rowIndex, COL_YT_EMAIL_STATUS).setValue("CONFIRMATION_EMAIL_FAILED: " + err.toString());
+    sheet
+      .getRange(rowIndex, COL_YT_EMAIL_STATUS)
+      .setValue("CONFIRMATION_EMAIL_FAILED: " + err.toString());
   }
 
   // 8. Alert Admins
@@ -527,12 +637,14 @@ function handleSubmitProposal(data) {
               <p style="font-size: 12px; color: #718096; text-align: center; margin: 0;">Project Nova Automated Portal Backend</p>
             </div>
           </div>
-        `
+        `,
       });
       sheet.getRange(rowIndex, COL_YT_ADMIN_NOTIFIED).setValue("SENT"); // Col AH (34)
     }
   } catch (adminErr) {
-    sheet.getRange(rowIndex, COL_YT_ADMIN_NOTIFIED).setValue("FAILED: " + adminErr.toString());
+    sheet
+      .getRange(rowIndex, COL_YT_ADMIN_NOTIFIED)
+      .setValue("FAILED: " + adminErr.toString());
   }
 
   return {
@@ -547,7 +659,7 @@ function handleSubmitProposal(data) {
     linkedin3: linkedin3,
     linkedin4: linkedin4,
     linkedin5: linkedin5,
-    timestamp: now
+    timestamp: now,
   };
 }
 
@@ -555,8 +667,9 @@ function handleSubmitProposal(data) {
  * Background Task: Automatically scans and erases OTPs older than 5 minutes.
  */
 function clearExpiredOtps() {
-  const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME) 
-              || SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
+  const sheet =
+    SpreadsheetApp.getActiveSpreadsheet().getSheetByName(SHEET_NAME) ||
+    SpreadsheetApp.getActiveSpreadsheet().getSheets()[0];
   const data = sheet.getDataRange().getValues();
   const now = new Date();
 
@@ -585,7 +698,7 @@ function clearExpiredOtps() {
 3. Configure the deployment settings:
    - **Description**: `Project Nova Video & LinkedIn Submission API`
    - **Execute as**: `Me (your-email@gmail.com)`
-   - **Who has access**: `Anyone` *(Crucial for allowing frontend submissions without requiring user Google login)*
+   - **Who has access**: `Anyone` _(Crucial for allowing frontend submissions without requiring user Google login)_
 4. Click **Deploy**.
 5. Grant permissions when prompted.
 6. Copy the generated **Web App URL** (e.g. `https://script.google.com/macros/s/AKfycb.../exec`).

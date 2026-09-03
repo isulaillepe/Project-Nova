@@ -212,13 +212,6 @@ export function DemoVideoPortal() {
     );
   };
 
-  // LinkedIn URL validation helper (supports linkedin.com and lnkd.in short URLs)
-  const isValidLinkedinUrl = (url: string) => {
-    const clean = url.trim();
-    if (!clean) return false;
-    return /^(https?:\/\/)?(www\.)?(linkedin\.com|lnkd\.in)\/.+$/i.test(clean);
-  };
-
   // Extract video ID for embed preview if valid
   const extractYoutubeId = (url: string): string | null => {
     const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|shorts\/|live\/))([\w-]{11})/);
@@ -252,17 +245,9 @@ export function DemoVideoPortal() {
       setErrorMessage("Member 1 (Team Leader) LinkedIn post link is required.");
       return;
     }
-    if (!isValidLinkedinUrl(l1)) {
-      setErrorMessage("Member 1 LinkedIn post URL is invalid. Please provide a valid LinkedIn URL (e.g. https://www.linkedin.com/posts/...).");
-      return;
-    }
 
     if (!l2) {
       setErrorMessage("Member 2 LinkedIn post link is required.");
-      return;
-    }
-    if (!isValidLinkedinUrl(l2)) {
-      setErrorMessage("Member 2 LinkedIn post URL is invalid. Please provide a valid LinkedIn URL (e.g. https://www.linkedin.com/posts/...).");
       return;
     }
 
@@ -270,23 +255,9 @@ export function DemoVideoPortal() {
       setErrorMessage("Member 3 LinkedIn post link is required.");
       return;
     }
-    if (!isValidLinkedinUrl(l3)) {
-      setErrorMessage("Member 3 LinkedIn post URL is invalid. Please provide a valid LinkedIn URL (e.g. https://www.linkedin.com/posts/...).");
-      return;
-    }
 
     if (!l4) {
       setErrorMessage("Member 4 LinkedIn post link is required.");
-      return;
-    }
-    if (!isValidLinkedinUrl(l4)) {
-      setErrorMessage("Member 4 LinkedIn post URL is invalid. Please provide a valid LinkedIn URL (e.g. https://www.linkedin.com/posts/...).");
-      return;
-    }
-
-    // Member 5 is optional, but if provided, must be a valid LinkedIn link
-    if (l5 && !isValidLinkedinUrl(l5)) {
-      setErrorMessage("Member 5 LinkedIn post URL is invalid. Please provide a valid LinkedIn URL or leave blank.");
       return;
     }
 
